@@ -1,4 +1,5 @@
 # CSCI 466 Project
+by David Petrovski, Isabelle Coletti, Amanda Zedwick
 
 ## Bobs Pets and Supplies
 
