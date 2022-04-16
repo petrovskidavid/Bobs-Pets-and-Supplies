@@ -16,5 +16,6 @@ This is the repo for our project, and this README.md will be updated as we build
 2. ~~Write explanations for ER diagram.~~
 3. ~~Create Relational Schema.~~
 4. ~~Create database and sample data sql.~~
-5. Create php file that connects to database.
-6. ...
+5. Create 'secrets.php' file
+6. Create php file that connects to database.
+7. ...
