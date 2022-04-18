@@ -12,7 +12,7 @@
 
     try{ // Tries to log into database.
 
-        $dsn = "mysql:host=courses;dbname=$dbname";
+        $dsn = "mysql:host=courses;dbname=$username";
         $pdo = new PDO($dsn, $username, $password);
 
 
