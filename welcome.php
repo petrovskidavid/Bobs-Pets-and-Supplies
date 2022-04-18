@@ -10,13 +10,16 @@
 
     include("secrets.php"); // Gives the file with the DB login credentials
 
-    try{ // Tries to log into database.
+    try
+    { // Tries to log into database.
 
         $dsn = "mysql:host=courses;dbname=".$username;
         $pdo = new PDO($dsn, $username, $password);
 
 
-    } catch(PDOexception $e){
+    }
+    catch(PDOexception $e)
+    {
 
         // Prints error message.
         echo "Connection to database failed: ".$e->getMessage();
