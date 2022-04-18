@@ -8,11 +8,11 @@
      * CSCI 466 - 1
      */
 
-    include("secrets.php") // Gives the file with the DB login credentials
+    include("secrets.php"); // Gives the file with the DB login credentials
 
     try{ // Tries to log into database.
 
-        $dsn = "mysql:host=courses;dbname=$username";
+        $dsn = "mysql:host=courses;dbname=".$username;
         $pdo = new PDO($dsn, $username, $password);
 
 
