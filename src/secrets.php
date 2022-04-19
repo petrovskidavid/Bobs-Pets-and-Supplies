@@ -1,6 +1,6 @@
 <?php
     /**
-     * secrets.sql
+     * secrets.php
      * 
      * David Petrovski, Isabelle Coletti, Amanda Zedwick
      * CSCI 466 - 1
