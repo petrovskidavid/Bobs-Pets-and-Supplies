@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Welcome!</title>  
-    <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/body.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/header.css" />
 </head>
 
 <body>
@@ -16,8 +16,8 @@
          * CSCI 466 - 1
          */
 
-        include("header.php"); // Gives the file with the header for the top of the page
-        include("secrets.php"); // Gives the file with the DB login credentials
+        include("./src/header.php"); // Gives the file with the header for the top of the page
+        include("./src/secrets.php"); // Gives the file with the DB login credentials
 
         try
         { // Tries to log into database
