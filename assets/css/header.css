@@ -8,13 +8,9 @@
 header 
 {
     text-align: left;           /* Alligns text in the header to the left */
-    background: #3bbfa0;      /* Background color of the header element */
+    background: #DB5461;      /* Background color of the header element */
     font-family: Comic Sans MS; /* Font for the text in the header */
-
-    /* Creates a solid border with a width of 3 pixels and beige color */
-    border: 3px;                
-    border-style: solid;        
-    border-color: beige; 
+    padding: 2px;               /* Padding for the header div to cover top of page */        
 }
 
 header h2
@@ -32,16 +28,16 @@ header h2
 
 .e_login
 {
-    float: right;              /* Makes the text float to the right of the page */
-    background-color: beige; /* Changes the background of the element */
-    margin-top: 70px;          /* Moves it lower on the page */
-    margin-right: 5px;
-    padding: 3px;              /* Creates a space around the text */
-    font-size: 12px;           /* Changes font size */
-    color: black;            /* Changes color of the font since its a hyper link */
+    float: right;                /* Makes the text float to the right of the page */
+    background-color: #FAFAFA; /* Changes the background of the element */
+    margin-top: 70px;            /* Moves it lower on the page */
+    margin-right: 5px;           /* Moves it more left on the page */
+    padding: 3px;                /* Creates a space around the text */
+    font-size: 12px;             /* Changes font size */
+    color: black;              /* Changes color of the font since its a hyper link */
 
-    /* Creates a solid border with a width of 3 pixels and beige color */
+    /* Creates a solid border with a width of 3 pixels and selected color */
     border: 3px;    
     border-style: solid;        
-    border-color: beige; 
+    border-color: #FAFAFA; 
 }
