@@ -1,7 +1,7 @@
 <?php
 
     // Loads logo
-    echo "<img src=\"assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";
+    echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";
 
     // Creates the header 
     echo "<header>";

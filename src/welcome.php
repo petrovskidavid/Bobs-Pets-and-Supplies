@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Welcome!</title>  
-    <link rel="stylesheet" type="text/css" href="assets/css/body.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/header.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
 </head>
 
 <body>
