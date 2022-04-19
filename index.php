@@ -9,7 +9,7 @@
 <body>
     <?php
         /**
-         * welcome.php
+         * index.php
          * 
          * David Petrovski, Isabelle Coletti, Amanda Zedwick
          * 
