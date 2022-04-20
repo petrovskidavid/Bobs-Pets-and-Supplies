@@ -1,6 +1,6 @@
 <?php
     /**
-     * login_window.php
+     * login_windows.php
      * 
      * David Petrovski, Isabelle Coletti, Amanda Zedwick
      * 

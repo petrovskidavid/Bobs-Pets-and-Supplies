@@ -22,10 +22,8 @@
         //include("../src/secrets.php"); // Gives the file with the DB login credentials
         include("../src/login_windows.php"); // Gives the file with the login window creation function
 
-
+        // Creates employee login form
         create_login_window(2);
-
-
     ?>
 </body>
 </html>

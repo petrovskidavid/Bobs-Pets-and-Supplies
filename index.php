@@ -25,9 +25,10 @@
         try
         { // Tries to log into database
 
-            $dsn = "mysql:host=courses;dbname=".$username;
-            $pdo = new PDO($dsn, $username, $password);
+            $dsn = "mysql:host=courses;dbname=".$username; // Creates DSN to connect to db.
+            $pdo = new PDO($dsn, $username, $password); // Establishes connection to db.
             
+            // Creates customer login form
             create_login_window(1);
             
         }
