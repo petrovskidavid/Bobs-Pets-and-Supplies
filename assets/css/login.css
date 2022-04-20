@@ -25,14 +25,24 @@
 
     /* Positions the window in the middle of the screen and 35% from the top */
     position: absolute;
-    top: 35%;
+    top: 26%;
     left: 50%;
     transform: translate(-50%, 0);
 }
 
 .login_window h2
 {
-    font-size: 18px;
+    font-size: 18px; /* Sets font size */
+}
+
+.login_window p
+{
+    font-size: 14px; /* Sets font size */
+}
+
+.login_window a
+{
+    color: #60706E; /* Sets the font color */
 }
 
 .login_window input[type=text]
@@ -43,5 +53,5 @@
 .login_window input[type=submit]
 {
     width: 300px;    /* Sets width of button */
-    font-size: 14px; /* Sets font size */
+    font-size: 15px; /* Sets font size */
 }

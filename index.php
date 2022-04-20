@@ -42,7 +42,11 @@
             echo "<input type=\"text\" name=\"password\" /><br><br><br>";
 
             // Creates login button
-            echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" />";
+            echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
+
+            // Adds link to make an account
+            echo "<br><p>Don't have an account? <a href=\"\">Sign up here</a></p>";
+            
             echo "</form>";
             
         }
