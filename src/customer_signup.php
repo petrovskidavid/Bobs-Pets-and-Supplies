@@ -54,9 +54,19 @@
                 
                     if($result == false) // If not found redirects to the employee home page
                     {
-                        // Redirects to employee home page, and puts EmpID in GET method to use
-                        // on employee home page
-                        header("Location: store.php?Username=".$_POST["Username"]); 
+
+                        // Prepares the query to add a new customer to the Customers table
+                        $result = $pdo->prepare("INSERT INTO Customers VALUES (?, ?, ?, ?)");
+
+                        // Executes the query and checks if it the query was successful 
+                        if($result->execute(array($_POST["Username"], $_POST["Password"], $_POST["Name"], $_POST["Email"]))){
+
+                            // Redirects to store page, and puts Username in GET method to use on the store page
+                            header("Location: store.php?Username=".$_POST["Username"]); 
+                    
+                        } else {
+                            echo "<p class=\"login_error\"'>Something went wrong! Make sure your data is valid, and try again.</p>";
+                        }
                     }
                     else        // Otherwise prints an error message
                     {
