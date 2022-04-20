@@ -54,20 +54,13 @@
 }
 
 
-.login_window input[type=text]
+.login_window input
 {
-    width: 300px; /* Sets width of the username textboxes */
-}
-
-
-.login_window input[type=password]
-{
-    width: 300px; /* Sets width of the password textboxes */
+    width: 300px; /* Sets width of the textboxes */
 }
 
 
 .login_window input[type=submit]
 {
-    width: 300px;    /* Sets width of button */
     font-size: 15px; /* Sets font size */
 }

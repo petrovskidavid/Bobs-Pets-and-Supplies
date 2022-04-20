@@ -33,11 +33,11 @@
 
             // Creates field for username input
             echo "<label for=\"Username\">Username: </label><br>";
-            echo "<input type=\"text\" name=\"Username\" /><br><br>";
+            echo "<input type=\"text\" name=\"Username\" maxlength=\"15\" /><br><br>";
 
             // Creates a field for password input
             echo "<label for=\"Password\">Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Password\" /><br><br><br>";
+            echo "<input type=\"Password\" name=\"Password\" maxlength=\"8\" /><br><br><br>";
 
             // Creates login button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
@@ -56,7 +56,7 @@
 
             // Creates a field for password input
             echo "<label for=\"Password\">Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Password\" /><br><br><br>";
+            echo "<input type=\"Password\" name=\"Password\" maxlength=\"8\" /><br><br><br>";
 
             // Creates login button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
@@ -68,23 +68,23 @@
 
             // Creates field for name input
             echo "<label for=\"Name\">Name: </label><br>";
-            echo "<input type=\"text\" name=\"Name\" /><br><br>";
+            echo "<input type=\"text\" name=\"Name\" maxlength=\"255\"/><br><br>";
 
             // Creates field for email input
             echo "<label for=\"Email\">Email: </label><br>";
-            echo "<input type=\"text\" name=\"Email\" /><br><br>";
+            echo "<input type=\"email\" name=\"Email\" maxlength=\"255\" '/><br><br>";
 
             // Creates field for username input
             echo "<label for=\"Username\">Username: </label><br>";
-            echo "<input type=\"text\" name=\"Username\" /><br><br>";
+            echo "<input type=\"text\" name=\"Username\" maxlength=\"15\" /><br><br>";
 
             // Creates a field for creating a password
             echo "<label for=\"Password\">Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Password\" /><br><br>";
+            echo "<input type=\"Password\" name=\"Password\" maxlength=\"8\" /><br><br>";
 
             // Creates a field for verifying the password
             echo "<label for=\"Password\">Confirm Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Confirmed_Password\" /><br><br><br>";
+            echo "<input type=\"Password\" name=\"Confirmed_Password\" maxlength=\"8\" /><br><br><br>";
 
             // Creates sign up button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Sign Up\" /><br>";
