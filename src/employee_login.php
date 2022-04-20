@@ -19,7 +19,7 @@
          */
 
         include("../src/header.php"); // Gives the file with the header for the top of the page
-        //include("../src/secrets.php"); // Gives the file with the DB login credentials
+        include("../src/secrets.php"); // Gives the file with the DB login credentials
         include("../src/login_windows.php"); // Gives the file with the login window creation function
 
         // Creates employee login form

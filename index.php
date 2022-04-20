@@ -22,23 +22,7 @@
         include("./src/secrets.php"); // Gives the file with the DB login credentials
         include("./src/login_windows.php"); // Gives the file with the login window creation function
 
-        try
-        { // Tries to log into database
-
-            $dsn = "mysql:host=courses;dbname=".$db_username; // Creates DSN to connect to db.
-            $pdo = new PDO($dsn, $db_username, $db_password); // Establishes connection to db.
-            
-            // Creates customer login form
-            create_login_window(1);
-            
-        }
-        catch(PDOexception $e)
-        { // Otherwise catch error message
-
-            // Prints error message
-            echo "Connection to database failed: ".$e->getMessage();
-        }
-
-        
+        // Creates customer login form
+        create_login_window(1);
     ?>
 </body></html>
