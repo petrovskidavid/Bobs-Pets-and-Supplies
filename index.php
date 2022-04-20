@@ -31,5 +31,18 @@
 
         // Creates customer login form
         create_login_window(1);
+
+        if(isset($_POST["login"]))
+        {
+
+            if($_POST["Username"] != NULL and $_POST["Password"] != NULL)
+            {
+                
+            }
+            else 
+            {
+                echo "<p class=\"login_error\">Enter both your username and password to continue</p>";
+            }
+        } 
     ?>
 </body></html>
