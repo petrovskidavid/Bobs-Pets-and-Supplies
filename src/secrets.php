@@ -14,15 +14,15 @@
 
      
     // Insert your login to MariaDB here
-    $db_username = ""; // Username
-    $db_password = ""; // Password
+    $db_username = "z1894079"; // Username
+    $db_password = "2002Feb21"; // Password
 
     try
     { // Tries to log into database
 
         $dsn = "mysql:host=courses;dbname=".$db_username; // Creates DSN to connect to db.
         $pdo = new PDO($dsn, $db_username, $db_password); // Establishes connection to db.
-            
+        
     }
     catch(PDOexception $e)
     { // Otherwise catch error message

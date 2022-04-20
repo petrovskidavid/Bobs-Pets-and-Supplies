@@ -32,16 +32,28 @@
         // Creates customer login form
         create_login_window(1);
 
+        // Checks if the login button was clicked
         if(isset($_POST["login"]))
         {
-
+            
+            // Checks if any of the login fields were left blank, otherwise prints error message.
             if($_POST["Username"] != NULL and $_POST["Password"] != NULL)
             {
+                // Checks if the login credentials are valid
+                $result = check_login(1, $_POST, $pdo);
                 
+                if($result) // If valid redirects to the store page
+                {
+                    header("Location: ./src/store.php"); 
+                }
+                else        // Otherwise prints an error message
+                {
+                    echo "<p class=\"login_error\">Incorrect username or password.</p>";
+                }
             }
-            else 
+            else
             {
-                echo "<p class=\"login_error\">Enter both your username and password to continue</p>";
+                echo "<p class=\"login_error\">Enter both username and password.</p>";
             }
         } 
     ?>

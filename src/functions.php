@@ -92,4 +92,51 @@
 
         echo "</form>";
     }
+
+
+    /**
+     * @brief Checks if there is a Username/EmpID in the database that matches the one provided
+     *        by the user.
+     * 
+     * @param $type Type of login to be processed.
+     *              1 -> Customer login request.
+     *              2 -> Employee login request.  
+     * @param $POST Data from the POST method receieved once a form is submitted. 
+     * @param $pdo PDO object.  
+     * 
+     * @return True If Username/EmpID and Password are found in the database.
+     * @return False Otherwise.        
+     */
+    function check_login($type, $POST, $pdo){
+
+        
+        if($type == 1)      // Checks if a customer is login in
+        {
+            $table = "Customers"; // Sets to search Customers table in the db
+            $first_field = "Username"; // Looks for the Username in the $_POST
+        }
+        else if($type == 2) // Checks if an employee is login in
+        {
+            $table = "Employees"; // Sets to search Employees table in the db
+            $first_field = "EmpID"; // Looks for the EmpID in the $_POST 
+        }
+
+        // Selects every row from the specified table
+        $result = $pdo->query("SELECT * FROM ".$table);
+
+        // Fetches the found data
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                
+        // Looks through every row in the data retrieved
+        foreach($rows as $row)
+        {
+            // Checks for a username and password that matches
+            if ($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
+            {
+                return true;
+            } 
+        }
+
+        return false;
+    }
 ?>
