@@ -21,7 +21,7 @@ CREATE TABLE Employees(
     Password CHAR(8)  NOT NULL,       -- Password for Employee login (8 char long)
 
     PRIMARY KEY(EmpID)                -- Sets the primary key (EmpID)
-);
+) AUTO_INCREMENT = 1894079;           -- Starts to increment from specified value
 
 
 -- Orders table
@@ -33,7 +33,7 @@ CREATE TABLE Orders(
     Address     CHAR(64),               -- Address where the order should be shipped, null untill order is placed
 
     PRIMARY KEY(OrderID)                -- Sets the primary key (OrderID)
-);
+) AUTO_INCREMENT = 1252;                -- Starts to increment from specified value
 
 
 -- Products table
