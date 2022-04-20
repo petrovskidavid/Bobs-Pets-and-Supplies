@@ -4,8 +4,8 @@
     <title>Employee Login</title>  
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/login.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/button.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
 </head>
 
 <body>
@@ -20,8 +20,10 @@
 
         include("../src/header.php"); // Gives the file with the header for the top of the page
         //include("../src/secrets.php"); // Gives the file with the DB login credentials
+        include("../src/login_windows.php"); // Gives the file with the login window creation function
 
-        echo "This is the customer signup site";
+
+        create_login_window(3);
 
 
     ?>

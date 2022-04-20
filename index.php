@@ -20,6 +20,7 @@
 
         include("./src/header.php"); // Gives the file with the header for the top of the page
         include("./src/secrets.php"); // Gives the file with the DB login credentials
+        include("./src/login_windows.php"); // Gives the file with the login window creation function
 
         try
         { // Tries to log into database
@@ -27,27 +28,7 @@
             $dsn = "mysql:host=courses;dbname=".$username;
             $pdo = new PDO($dsn, $username, $password);
             
-            // Creates form for customer login
-            echo "<form method=\"POST\" class=\"login_window\">";
-
-            // Display a messsage
-            echo "<h2>Hello!<br>Log In to continue shopping<br><br></h2>";
-
-            // Creates field for username input
-            echo "<label for=\"username\">Username: </label><br>";
-            echo "<input type=\"text\" name=\"username\" /><br><br>";
-
-            // Creates a field for password input
-            echo "<label for=\"password\">Password: </label><br>";
-            echo "<input type=\"password\" name=\"password\" /><br><br><br>";
-
-            // Creates login button
-            echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
-
-            // Adds link to make an account
-            echo "<br><p>Don't have an account? <a href=\"./src/customer_signup.php\">Sign up here</a></p>";
-
-            echo "</form>";
+            create_login_window(1);
             
         }
         catch(PDOexception $e)
