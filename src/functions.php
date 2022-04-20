@@ -1,8 +1,12 @@
 <?php
     /**
-     * login_windows.php
+     * @file functions.php
      * 
-     * David Petrovski, Isabelle Coletti, Amanda Zedwick
+     * @brief Holds functions created by authors to be reused on other pages of the store.
+     * 
+     * @author David Petrovski
+     * @author Isabelle Coletti
+     * @author Amanda Zedwick
      * 
      * CSCI 466 - 1
      */

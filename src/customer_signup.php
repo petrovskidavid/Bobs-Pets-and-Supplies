@@ -11,16 +11,23 @@
 <body>
     <?php
         /**
-         * customer_signup.php
+         * @file customer_signup.php
          * 
-         * David Petrovski, Isabelle Coletti, Amanda Zedwick
+         * @brief This is the customer sign up page.
+         *        Customers create their accounts on this page and then will get redirected
+         *        to the normal store page after sucessful account creation.
+         * 
+         * @author David Petrovski
+         * @author Isabelle Coletti
+         * @author Amanda Zedwick
          * 
          * CSCI 466 - 1
          */
 
+         
         include("header.php"); // Creates the header of the page
         include("secrets.php"); // Logs into the db
-        include("login_windows.php"); // Gives the file with the login window creation function
+        include("functions.php"); // Gives the file with the login window creation function
 
         // Creates a signup form for future customers
         create_login_window(3);

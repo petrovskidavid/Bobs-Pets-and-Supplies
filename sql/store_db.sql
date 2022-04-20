@@ -1,9 +1,16 @@
 /**
- * store_db.sql
+ * @file sample_data.sql
  * 
- * David Petrovski, Isabelle Coletti, Amanda Zedwick
+ * @brief Creates the database for the online store.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
+ * 
  * CSCI 466 - 1
  */
+
+
 DROP TABLE IF EXISTS Carts, ProcessOrders, Customers, Products, Orders, Employees;
 
 

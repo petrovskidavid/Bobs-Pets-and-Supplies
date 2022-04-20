@@ -1,12 +1,17 @@
 <?php
     /**
-     * header.php
+     * @file header.php
      * 
-     * David Petrovski, Isabelle Coletti, Amanda Zedwick
+     * @brief Creates the page header for all of the stores pages.
+     * 
+     * @author David Petrovski
+     * @author Isabelle Coletti
+     * @author Amanda Zedwick
      * 
      * CSCI 466 - 1
      */
 
+     
     // Creates the header 
     echo "<header>";
 

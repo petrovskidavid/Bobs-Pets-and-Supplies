@@ -1,10 +1,15 @@
 /**
- * button.css
+ * @file button.css
  * 
- * David Petrovski, Isabelle Coletti, Amanda Zedwick
+ * @brief Control the look of the buttons on the pages of the store.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
  * 
  * CSCI 466 - 1
  */
+
 
 input[type=submit]
 {
@@ -14,6 +19,7 @@ input[type=submit]
     padding: 8px;           /* Adds padding around text */
     font-family: Gill Sans; /* Sets font */
 }
+
 
 input[type=submit]:hover
 {

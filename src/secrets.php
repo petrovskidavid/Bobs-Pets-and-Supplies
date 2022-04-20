@@ -1,11 +1,18 @@
 <?php
     /**
-     * secrets.php
+     * @file secrets.php
      * 
-     * David Petrovski, Isabelle Coletti, Amanda Zedwick
+     * @brief Tries to connect to the specified database.
+     *        Prints an error on failure and it doesn't doesn't anything else of the page.
+     * 
+     * @author David Petrovski
+     * @author Isabelle Coletti
+     * @author Amanda Zedwick
+     * 
      * CSCI 466 - 1
      */
 
+     
     // Insert your login to MariaDB here
     $db_username = ""; // Username
     $db_password = ""; // Password
