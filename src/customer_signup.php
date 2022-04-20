@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Login</title>  
+    <title>Customer Sign Up</title>  
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/login.css" />
