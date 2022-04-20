@@ -95,27 +95,29 @@
 
 
     /**
-     * @brief Checks if there is a Username/EmpID in the database that matches the one provided
-     *        by the user.
-     * 
+     * @brief Checks if there is a Username/EmpID/Email and Password in the database 
+     *        that matches the one provided by the user.
+     *      
      * @param $type Type of login to be processed.
      *              1 -> Customer login request.
      *              2 -> Employee login request.  
+     *              3 -> Customer sign up request.
      * @param $POST Data from the POST method receieved once a form is submitted. 
      * @param $pdo PDO object.  
      * 
-     * @return True If Username/EmpID and Password are found in the database.
+     * @return True If Username/EmpID and Password are found in the database. Or if
+     *              Email is found in the database if user is creating an account.
      * @return False Otherwise.        
      */
     function check_credentials($type, $POST, $pdo){
 
         
-        if($type == 1)      // Checks if a customer is login in
+        if($type == 1 or $type == 3) // Checks if a customer is login in or creating an account
         {
             $table = "Customers"; // Sets to search Customers table in the db
             $first_field = "Username"; // Looks for the Username in the $_POST
         }
-        else if($type == 2) // Checks if an employee is login in
+        else if($type == 2)          // Checks if an employee is login in
         {
             $table = "Employees"; // Sets to search Employees table in the db
             $first_field = "EmpID"; // Looks for the EmpID in the $_POST 
@@ -131,10 +133,19 @@
         foreach($rows as $row)
         {
             // Checks for a Username/EmpID and Password that matches
-            if ($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
+            if($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
             {
                 return true;
             } 
+
+            // Checks if the user is creating an account and if the email already exists in the database
+            if($type == 3)
+            {
+                if($row["Email"] == $POST["Email"])
+                {
+                    return true;
+                }
+            }
         }
 
         return false;
