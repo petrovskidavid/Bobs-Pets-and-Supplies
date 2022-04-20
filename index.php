@@ -27,14 +27,23 @@
             $dsn = "mysql:host=courses;dbname=".$username;
             $pdo = new PDO($dsn, $username, $password);
             
-            echo "<div class=\"login_window\">";
-            echo "<form method=\"POST\">";
+            // Creates form for customer login
+            echo "<form method=\"POST\" class=\"login_window\">";
+
+            // Display a messsage
+            echo "<h2>Hello!<br>Log In to continue shopping<br><br></h2>";
+
+            // Creates field for username input
             echo "<label for=\"username\">Username: </label><br>";
             echo "<input type=\"text\" name=\"username\" /><br><br>";
+
+            // Creates a field for password input
             echo "<label for=\"password\">Password: </label><br>";
             echo "<input type=\"text\" name=\"password\" /><br><br><br>";
+
+            // Creates login button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" />";
-            echo "</form></div>";
+            echo "</form>";
             
         }
         catch(PDOexception $e)

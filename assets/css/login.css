@@ -18,7 +18,7 @@
     border-color: #8AA29E;
 
     /* Sets space around window */
-    padding-top: 40px;
+    padding-top: 10px;
     padding-left: 100px;
     padding-right: 100px;
     padding-bottom: 20px;       
@@ -28,6 +28,11 @@
     top: 35%;
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+.login_window h2
+{
+    font-size: 18px;
 }
 
 .login_window input[type=text]
