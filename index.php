@@ -45,8 +45,8 @@
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
 
             // Adds link to make an account
-            echo "<br><p>Don't have an account? <a href=\"\">Sign up here</a></p>";
-            
+            echo "<br><p>Don't have an account? <a href=\"./src/customer_signup.php\">Sign up here</a></p>";
+
             echo "</form>";
             
         }
