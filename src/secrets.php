@@ -7,6 +7,6 @@
      */
 
     // Insert your login to MariaDB here
-    $username = ""; // Username
-    $password = ""; // Password
+    $db_username = ""; // Username
+    $db_password = ""; // Password
 ?>
