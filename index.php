@@ -39,7 +39,7 @@
 
             // Creates a field for password input
             echo "<label for=\"password\">Password: </label><br>";
-            echo "<input type=\"text\" name=\"password\" /><br><br><br>";
+            echo "<input type=\"password\" name=\"password\" /><br><br><br>";
 
             // Creates login button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";

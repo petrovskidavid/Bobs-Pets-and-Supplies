@@ -47,7 +47,12 @@
 
 .login_window input[type=text]
 {
-    width: 300px; /* Sets width of textboxes */
+    width: 300px; /* Sets width of the username textboxes */
+}
+
+.login_window input[type=password]
+{
+    width: 300px; /* Sets width of the password textboxes */
 }
 
 .login_window input[type=submit]
