@@ -30,16 +30,7 @@ header h2
 .e_login
 {
     float: right;                /* Makes the text float to the right of the page */
-    background-color: #FAFAFA; /* Changes the background of the element */
-    margin-top: 70px;            /* Moves it lower on the page */
+    margin-top: 68px;            /* Moves it lower on the page */
     margin-right: 5px;           /* Moves it more left on the page */
-    padding: 3px;                /* Creates a space around the text */
     font-size: 12px;             /* Changes font size */
-    font-weight: bold;           /* Bolds the text in this element */
-    color: #000000;            /* Sets font color */
-
-    /* Creates a solid border with a width of 3 pixels and selected color */
-    border: 3px;    
-    border-style: solid;        
-    border-color: #FAFAFA; 
 }

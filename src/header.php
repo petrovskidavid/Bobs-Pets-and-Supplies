@@ -14,12 +14,13 @@
         
         // Updates src link to accomodate index.phps location in the repo
         echo "<img src=\"./assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";
-        // Updates href link to accomodate index.phps location in the repo
-        echo "<a href=\"./src/employee_login.php\">"; 
         
-        // Puts the text and creates a div so we can manipualte how it looks
-        echo "<div class=\"e_login\">Employee Login</div>";
-        echo "</a>";
+        // Updates action link to accomodate index.phps location in the repo 
+        echo "<form action=\"./src/employee_login.php\">";
+        
+        // Puts the text and creates a submit button
+        echo "<input type=\"submit\" value=\"Employee Login\" class=\"e_login\" />";
+        echo "</form>";
 
     } else {                                               // Otherwise we are in the src directory
         
