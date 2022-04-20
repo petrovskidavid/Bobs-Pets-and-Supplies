@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS Carts, ProcessOrders, Customers, Products, Orders, Employee
 -- Employees table
 CREATE TABLE Employees(
     EmpID    INTEGER  AUTO_INCREMENT, -- Employees ID for each employee
-    Name     CHAR(64) NOT NULL,       -- Employees Name
+    Name     CHAR(255) NOT NULL,       -- Employees Name
     Password CHAR(8)  NOT NULL,       -- Password for Employee login (8 char long)
 
     PRIMARY KEY(EmpID)                -- Sets the primary key (EmpID)
@@ -29,8 +29,8 @@ CREATE TABLE Orders(
     OrderID     INTEGER AUTO_INCREMENT, -- Order number for each order
     Status      INTEGER DEFAULT 1,      -- Status of order (1 = in cart (default), 2 = received, 3 = processed)
     TrackingNum INTEGER,                -- Tracking number of order, initially null untill shipped
-    Notes       CHAR(64),               -- Notes for order, intially null
-    Address     CHAR(64),               -- Address where the order should be shipped, null untill order is placed
+    Notes       CHAR(255),               -- Notes for order, intially null
+    Address     CHAR(255),               -- Address where the order should be shipped, null untill order is placed
 
     PRIMARY KEY(OrderID)                -- Sets the primary key (OrderID)
 ) AUTO_INCREMENT = 1252;                -- Starts to increment from specified value
@@ -39,7 +39,7 @@ CREATE TABLE Orders(
 -- Products table
 CREATE TABLE Products(
     ProductID INTEGER  AUTO_INCREMENT, -- Product ID for each product
-    Name      CHAR(64) NOT NULL,       -- Name of the product
+    Name      CHAR(255) NOT NULL,       -- Name of the product
     Price     DOUBLE   NOT NULL,       -- Price of the product
     Quantity  INTEGER  NOT NULL,       -- Quantity of the product in stock
 
@@ -49,10 +49,10 @@ CREATE TABLE Products(
 
 -- Customers table
 CREATE TABLE Customers(
-    Username CHAR(64) NOT NULL, -- Customers username
-    Password CHAR(8)  NOT NULL, -- Password for customers login (8 char long)
-    Name     CHAR(64) NOT NULL, -- Customers name
-    Email    CHAR(64) NOT NULL, -- Customers email
+    Username CHAR(15) NOT NULL,  -- Customers username (15 char max)
+    Password CHAR(8)  NOT NULL,  -- Password for customers login (8 char max)
+    Name     CHAR(255) NOT NULL, -- Customers name
+    Email    CHAR(255) NOT NULL, -- Customers email
 
     PRIMARY KEY(Username)       -- Sets the primary key (Username)
 );
@@ -73,7 +73,7 @@ CREATE TABLE ProcessOrders(
 CREATE TABLE Carts(
     OrderID INTEGER NOT NULL,                              -- Order number for each order
     ProductID INTEGER NOT NULL,                            -- Product ID for each product
-    Username CHAR(64) NOT NULL,                            -- Customers username
+    Username CHAR(15) NOT NULL,                            -- Customers username
     Amount INTEGER NOT NULL,                               -- Amount of the product to be placed in the cart for the specific customer
 
     PRIMARY KEY(OrderID, ProductID),                       -- Sets the primary key (OrderID, ProductID)
