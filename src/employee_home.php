@@ -30,5 +30,8 @@
 
 
         echo "This is the employee home page.";
+        $EmpID = $_GET["EmpID"];
+
+        echo $EmpID;
     ?>
 </body></html>
