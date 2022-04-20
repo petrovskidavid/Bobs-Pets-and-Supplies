@@ -107,7 +107,7 @@
      * @return True If Username/EmpID and Password are found in the database.
      * @return False Otherwise.        
      */
-    function check_login($type, $POST, $pdo){
+    function check_credentials($type, $POST, $pdo){
 
         
         if($type == 1)      // Checks if a customer is login in
@@ -130,7 +130,7 @@
         // Looks through every row in the data retrieved
         foreach($rows as $row)
         {
-            // Checks for a username and password that matches
+            // Checks for a Username/EmpID and Password that matches
             if ($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
             {
                 return true;

@@ -47,7 +47,7 @@
             {
 
                 // Checks if the login credentials are valid
-                $result = check_login(2, $_POST, $pdo);
+                $result = check_credentials(2, $_POST, $pdo);
                 
                 if($result) // If valid redirects to the employee home page
                 {

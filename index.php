@@ -47,7 +47,7 @@
             {
 
                 // Checks if the login credentials are valid
-                $result = check_login(1, $_POST, $pdo);
+                $result = check_credentials(1, $_POST, $pdo);
                 
                 if($result) // If valid redirects to the store page
                 {
