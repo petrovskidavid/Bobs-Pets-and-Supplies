@@ -18,9 +18,9 @@
          * CSCI 466 - 1
          */
 
-        include("../src/header.php"); // Gives the file with the header for the top of the page
-        include("../src/secrets.php"); // Gives the file with the DB login credentials
-        include("../src/login_windows.php"); // Gives the file with the login window creation function
+        include("header.php"); // Creates the header of the page
+        include("secrets.php"); // Logs into the db
+        include("login_windows.php"); // Gives the file with the login window creation function
 
         // Creates employee login form
         create_login_window(2);
