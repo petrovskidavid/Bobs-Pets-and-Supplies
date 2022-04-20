@@ -6,6 +6,11 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/login.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
+    <script>
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
 </head>
 
 <body>
@@ -31,6 +36,43 @@
 
         // Creates a signup form for future customers
         create_login_window(3);
+
+        // Checks if the login button was clicked
+        if(isset($_POST["login"]))
+        {
+
+            // Checks if any of fields were left blank, otherwise prints error message
+            if($_POST["Name"] != NULL and $_POST["Email"] != NULL and $_POST["Username"] != NULL and $_POST["Password"] != NULL and $_POST["Confirmed_Password"] != NULL)
+            {
+
+                // Checks if the Password and Confirmed Password fields match, otherwise prints error message
+                if($_POST["Password"] == $_POST["Confirmed_Password"])
+                {
+
+                    // Checks if the credentials are found
+                    $result = check_credentials(3, $_POST, $pdo);
+                
+                    if($result == false) // If not found redirects to the employee home page
+                    {
+                        // Redirects to employee home page, and puts EmpID in GET method to use
+                        // on employee home page
+                        header("Location: store.php?Username=".$_POST["Username"]); 
+                    }
+                    else        // Otherwise prints an error message
+                    {
+                    echo "<p class=\"login_error\">Account already exists.</p>";
+                    } 
+                }
+                else
+                {
+                    echo "<p class=\"login_error\">Passwords don't match.</p>";
+                }
+            }
+            else
+            {
+                echo "<p class=\"login_error\">Enter values for all of the fields to create an account.</p>";
+            }
+        } 
     ?>
 </body>
 </html>

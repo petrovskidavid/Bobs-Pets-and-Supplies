@@ -132,16 +132,26 @@
         // Looks through every row in the data retrieved
         foreach($rows as $row)
         {
-            // Checks for a Username/EmpID and Password that matches
-            if($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
+           
+            if($type == 3) // Checks if the user is creating an account
             {
-                return true;
-            } 
+                // Checks if the username already exists
+                if($row[$first_field] == $POST[$first_field])
+                {
+                    return true;
+                }
 
-            // Checks if the user is creating an account and if the email already exists in the database
-            if($type == 3)
-            {
+                // Checks if the email is already in use
                 if($row["Email"] == $POST["Email"])
+                {
+                    return true;
+                }
+            }
+            else           // Otherwise it searches for a matching Username/EmpID and Password
+            {
+
+                // Checks for a Username/EmpID and Password that matches
+                if($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
                 {
                     return true;
                 }

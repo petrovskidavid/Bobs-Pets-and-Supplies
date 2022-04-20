@@ -42,14 +42,14 @@
         if(isset($_POST["login"]))
         {
 
-            // Checks if any of the login fields were left blank, otherwise prints error message.
+            // Checks if any of the login fields were left blank, otherwise prints error message
             if($_POST["Username"] != NULL and $_POST["Password"] != NULL)
             {
 
-                // Checks if the login credentials are valid
+                // Checks if the login credentials are found
                 $result = check_credentials(1, $_POST, $pdo);
                 
-                if($result) // If valid redirects to the store page
+                if($result) // If found redirects to the store page
                 {
                     // Redirects to store page, and puts Username in GET method to use on the store page
                     header("Location: ./src/store.php?Username=".$_POST["Username"]); 

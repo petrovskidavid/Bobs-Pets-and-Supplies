@@ -42,14 +42,14 @@
         if(isset($_POST["login"]))
         {
 
-            // Checks if any of the login fields were left blank, otherwise prints error message.
+            // Checks if any of the login fields were left blank, otherwise prints error message
             if($_POST["EmpID"] != NULL and $_POST["Password"] != NULL)
             {
 
-                // Checks if the login credentials are valid
+                // Checks if the login credentials are found
                 $result = check_credentials(2, $_POST, $pdo);
                 
-                if($result) // If valid redirects to the employee home page
+                if($result) // If found redirects to the employee home page
                 {
                     // Redirects to employee home page, and puts EmpID in GET method to use
                     // on employee home page
