@@ -6,6 +6,11 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/header.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/login.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/button.css" />
+    <script>
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
 </head>
 
 <body>
@@ -29,31 +34,34 @@
         include("./src/secrets.php"); // Logs into the db
         include("./src/functions.php"); // Gives the file with the login window creation function
 
+
         // Creates customer login form
         create_login_window(1);
 
         // Checks if the login button was clicked
         if(isset($_POST["login"]))
         {
-            
+
             // Checks if any of the login fields were left blank, otherwise prints error message.
             if($_POST["Username"] != NULL and $_POST["Password"] != NULL)
             {
+
                 // Checks if the login credentials are valid
                 $result = check_login(1, $_POST, $pdo);
                 
                 if($result) // If valid redirects to the store page
                 {
-                    header("Location: ./src/store.php"); 
+                    // Redirects to store page, and puts Username in GET method to use on the store page
+                    header("Location: ./src/store.php?Username=".$_POST["Username"]); 
                 }
                 else        // Otherwise prints an error message
                 {
-                    echo "<p class=\"login_error\">Incorrect username or password.</p>";
+                    echo "<p class=\"login_error\">Incorrect Username or Password.</p>";
                 }
             }
             else
             {
-                echo "<p class=\"login_error\">Enter both username and password.</p>";
+                echo "<p class=\"login_error\">Enter both Username and Password.</p>";
             }
         } 
     ?>
