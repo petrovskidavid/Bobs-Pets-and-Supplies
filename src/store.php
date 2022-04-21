@@ -30,6 +30,12 @@
         include("functions.php"); // Gives the file with the login window creation function
 
 
-        echo "This is the store front.";
+        //echo "This is the store front.";
+        $result = $pdo->query("SELECT ImgLink from Products;");
+        $links = $result->fetchAll(PDO::FETCH_ASSOC);
+        foreach($links as $link)
+        {
+            echo "<img src=\"$link\" />";
+        }
     ?>
 </body></html>
