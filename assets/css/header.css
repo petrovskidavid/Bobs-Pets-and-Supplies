@@ -1,0 +1,51 @@
+/**
+ * @file header.css
+ * 
+ * @brief Control the look of the header for the store.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
+ * 
+ * CSCI 466 - 1
+ */
+
+
+header 
+{
+    text-align: left;           /* Alligns text in the header to the left */
+    color: #FAFAFA;             /* Sets font color */
+    background: #DB5461;        /* Background color of the header element */
+    font-family: Comic Sans MS; /* Font for the text in the header */
+    padding: 2px;               /* Padding for the header div to cover top of page */        
+}
+
+
+header h2
+{
+    padding: 15px; /* Creates a padding online for the h2 element */
+}
+
+header a
+{
+    text-decoration: none; /* Removes any effects of the hyperlink tag */
+    color: inherit;        /* Inherits the header tags font color */
+}
+
+
+.logo
+{
+    float: left;        /* Makes the logo go to the left of the page */
+    margin-right: 20px; /* Gives space to the right for the text */
+    width: 100px;       /* Width of the logo */
+    height: 100px;      /* Height of the logo */
+}
+
+
+.e_login
+{
+    float: right;                /* Makes the text float to the right of the page */
+    margin-top: 48px;            /* Moves it lower on the page */
+    margin-right: 5px;           /* Moves it more left on the page */
+    font-size: 12px;             /* Changes font size */
+}

@@ -1,0 +1,28 @@
+/**
+ * @file button.css
+ * 
+ * @brief Control the look of the buttons on the pages of the store.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
+ * 
+ * CSCI 466 - 1
+ */
+
+
+input[type=submit]
+{
+    background: #60706E;                  /* Selects the normal background color */
+    color: #FAFAFA;                       /* Selects the font color */
+    border: none;                         /* Removes border */
+    padding: 8px;                         /* Adds padding around text */
+    font-family: "Gill Sans", sans-serif; /* Sets font */
+}
+
+
+input[type=submit]:hover
+{
+    background: #8AA29E;   /* Selects color when hovering over button */
+    cursor: pointer;       /* Makes cursor turn into a pointer when hover over */
+}

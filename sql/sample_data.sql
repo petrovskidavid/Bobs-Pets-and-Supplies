@@ -1,9 +1,15 @@
 /**
- * sample_data.sql
+ * @file sample_data.sql
  * 
- * David Petrovski, Isabelle Coletti, Amanda Zedwick
+ * @brief Provides sample data for the database.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
+ * 
  * CSCI 466 - 1
  */
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -14,6 +20,7 @@ VALUES
 	'500' 
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -22,6 +29,7 @@ VALUES
 	'7.00',
 	'250'
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -42,6 +50,7 @@ VALUES
 	'300' 
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -61,6 +70,7 @@ VALUES
 	'400' 
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -69,6 +79,7 @@ VALUES
 	'28.99',
 	'429' 
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -79,6 +90,7 @@ VALUES
 	'300'
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -87,6 +99,7 @@ VALUES
 	'150.99',
 	'350' 
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -97,6 +110,7 @@ VALUES
 	'400'
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -105,6 +119,7 @@ VALUES
 	'20.99',
 	'500' 
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -125,6 +140,7 @@ VALUES
 	'100'
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -133,6 +149,7 @@ VALUES
 	'35.50',
 	'150' 
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -143,6 +160,7 @@ VALUES
 	'600'
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -151,6 +169,7 @@ VALUES
 	'150.00',
 	'10' 
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -161,6 +180,7 @@ VALUES
 	'12'
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -169,6 +189,7 @@ VALUES
 	'499.99',
 	'13' 
 );
+
 
 INSERT INTO Products
 (Name, Price, Quantity)
@@ -179,6 +200,7 @@ VALUES
 	'5'
 );
 
+
 INSERT INTO Products
 (Name, Price, Quantity)
 VALUES
@@ -186,4 +208,51 @@ VALUES
 	'Bearded Dragon (Bob-Made)',
 	'999.99',
 	'6' 
+);
+
+
+INSERT INTO Employees
+VALUES
+(
+	'admin',
+	'admin',
+	'admin'
+);
+
+
+INSERT INTO Employees
+VALUES
+(
+	'1900409',
+	'Isabelle Coletti',
+	'pink'
+);
+
+
+INSERT INTO Employees
+VALUES
+(
+	'1894079',
+	'David Petrovski',
+	'SlowR6'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
+	'admin',
+	'admin',
+	'admin',
+	'admin@niu.cs.edu'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
+	'petrovskidavid',
+	'SlowR6',
+	'David Petrovski',
+	'petrovskidavid1@gmail.com'
 );

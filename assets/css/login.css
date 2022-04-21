@@ -1,0 +1,76 @@
+/**
+ * @file login.css
+ * 
+ * @brief Control the look of the login/signup windows for the store.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
+ * 
+ * CSCI 466 - 1
+ */
+
+
+.login_window
+{
+    text-align: center;                   /* Aligns all the text in the window to center */
+    font-family: "Gill Sans", sans-serif; /* Sets font for the whole window */
+    background-color: #FAFAFA;            /* Sets background color for window */
+    
+    /* Creates a 3px border of the selected color */
+    border: 3px;
+    border-style: solid;
+    border-color: #8AA29E;
+
+    /* Sets space around window */
+    padding-top: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 20px;       
+
+    /* Positions the window in the middle of the screen and 35% from the top */
+    position: absolute;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+.login_window h2
+{
+    font-size: 18px; /* Sets font size */
+}
+
+
+.login_window p
+{
+    font-size: 14px; /* Sets font size */
+}
+
+
+.login_window a
+{
+    color: #60706E; /* Sets the font color */
+}
+
+
+.login_window input
+{
+    width: 300px; /* Sets width of the textboxes */
+}
+
+
+.login_window input[type=submit]
+{
+    font-size: 15px; /* Sets font size */
+}
+
+
+.login_error
+{
+    color: red;         /* Sets the color of the error message */
+    text-align: center; /* Centers the error message */
+    font-weight: bold;  /* Bolds the text */
+    position: relative; /* Makes the position relative to the other elements present */
+    bottom: 35px;       /* Moves error message to the top of the login window */
+}

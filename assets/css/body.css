@@ -1,0 +1,19 @@
+/**
+ * @file body.css
+ * 
+ * @brief Control the look elements in between the body tag.
+ * 
+ * @author David Petrovski
+ * @author Isabelle Coletti
+ * @author Amanda Zedwick
+ * 
+ * CSCI 466 - 1
+ */
+
+ 
+body 
+{
+    background: #E3F2FD;                  /* Background color of the whole page */
+    font-family: "Gill Sans", sans-serif; /* Sets font for the whole body tag */
+    margin: 0;                            /* Makes the header go to the top of the screen */
+}
