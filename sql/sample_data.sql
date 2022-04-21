@@ -229,3 +229,13 @@ VALUES
 	'David Petrovski',
 	'SlowR6'
 );
+
+
+INSERT INTO Customers
+VALUES
+(
+	'petrovskidavid',
+	'SlowR6',
+	'David Petrovski',
+	'petrovskidavid1@gmail.com'
+)
