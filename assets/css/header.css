@@ -26,6 +26,12 @@ header h2
     padding: 15px; /* Creates a padding online for the h2 element */
 }
 
+header a
+{
+    text-decoration: none; /* Removes any effects of the hyperlink tag */
+    color: inherit;        /* Inherits the header tags font color */
+}
+
 
 .logo
 {
@@ -39,7 +45,7 @@ header h2
 .e_login
 {
     float: right;                /* Makes the text float to the right of the page */
-    margin-top: 68px;            /* Moves it lower on the page */
+    margin-top: 48px;            /* Moves it lower on the page */
     margin-right: 5px;           /* Moves it more left on the page */
     font-size: 12px;             /* Changes font size */
 }

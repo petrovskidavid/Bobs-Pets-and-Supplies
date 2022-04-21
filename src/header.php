@@ -17,6 +17,9 @@
 
     if (substr($_SERVER['PHP_SELF'], -9)  == "index.php"){ // Checks if we are in the index.php
         
+        // Adds return link to the home of the website relative to the current location
+        echo "<a href=\"./\">"; 
+
         // Updates src link to accomodate index.phps location in the repo
         echo "<img src=\"./assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";
         
@@ -29,13 +32,15 @@
 
     } else {                                               // Otherwise we are in the src directory
         
+        // Adds return link to the home of the website relative to the current location
+        echo "<a href=\"../\">";
+
         // Updates src link to accomodate the files location in the repo
-        echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";
-        
+        echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";  
     }
 
     // Prints the name of the store
-    echo "<h2>Bob's Pets and Supplies</h2>";
+    echo "<h2>Bob's Pets and Supplies</h2></a>";
     
     echo "</header>";
 ?>
