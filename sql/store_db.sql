@@ -42,6 +42,7 @@ CREATE TABLE Products(
     Name      CHAR(255) NOT NULL,      -- Name of the product
     Price     DOUBLE   NOT NULL,       -- Price of the product
     Quantity  INTEGER  NOT NULL,       -- Quantity of the product in stock
+    ImgLink   CHAR(255) NOT NULL,      -- Link for image found on imgur.com
 
     PRIMARY KEY(ProductID)             -- Sets the primary key (ProductID)
 );
