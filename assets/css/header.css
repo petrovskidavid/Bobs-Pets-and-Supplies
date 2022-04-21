@@ -14,8 +14,8 @@
 header 
 {
     text-align: left;           /* Alligns text in the header to the left */
-    color: #FAFAFA;           /* Sets font color */
-    background: #DB5461;      /* Background color of the header element */
+    color: #FAFAFA;             /* Sets font color */
+    background: #DB5461;        /* Background color of the header element */
     font-family: Comic Sans MS; /* Font for the text in the header */
     padding: 2px;               /* Padding for the header div to cover top of page */        
 }

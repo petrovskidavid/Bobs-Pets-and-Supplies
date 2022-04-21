@@ -15,7 +15,7 @@
 {
     text-align: center;                   /* Aligns all the text in the window to center */
     font-family: "Gill Sans", sans-serif; /* Sets font for the whole window */
-    background-color: #FAFAFA;             /* Sets background color for window */
+    background-color: #FAFAFA;            /* Sets background color for window */
     
     /* Creates a 3px border of the selected color */
     border: 3px;
@@ -68,7 +68,7 @@
 
 .login_error
 {
-    color: red;          /* Sets the color of the error message */
+    color: red;         /* Sets the color of the error message */
     text-align: center; /* Centers the error message */
     font-weight: bold;  /* Bolds the text */
     position: relative; /* Makes the position relative to the other elements present */
