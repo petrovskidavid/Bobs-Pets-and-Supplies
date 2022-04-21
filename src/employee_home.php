@@ -29,11 +29,11 @@
         include("functions.php"); // Gives the file with the login window creation function
 ?>
 
-<form action="./src/view_orders.php" class="view_order_btn">
+<form action="./view_orders.php" class="view_order_btn">
 	<input type="submit" name="submit" value="View Orders"/>
 </form>
 
-<form action="./src/view_inventory.php" class="view_inventory_btn">
+<form action="./view_inventory.php" class="view_inventory_btn">
 	<input type="submit" name="submit" value="View Inventory"/>
 </form>
 
