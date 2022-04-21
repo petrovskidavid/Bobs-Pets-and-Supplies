@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS Carts, ProcessOrders, Customers, Products, Orders, Employee
 
 -- Employees table
 CREATE TABLE Employees(
-    EmpID    INTEGER  NOT NULL,  -- Employees ID for each employee
+    EmpID    CHAR(8)  NOT NULL,  -- Employees ID for each employee
     Name     CHAR(255) NOT NULL, -- Employees Name
     Password CHAR(8)  NOT NULL,  -- Password for Employee login (8 char long)
 
@@ -60,7 +60,7 @@ CREATE TABLE Customers(
 
 -- Order Process table
 CREATE TABLE ProcessOrders(
-    EmpID   INTEGER NOT NULL,                       -- Employees ID for each employee
+    EmpID   CHAR(8) NOT NULL,                       -- Employees ID for each employee
     OrderID INTEGER NOT NULL,                       -- Order number for each order
 
     PRIMARY KEY(EmpID, OrderID),                    -- Sets the primary key (EmpID, OrderID)

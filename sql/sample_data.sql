@@ -212,7 +212,15 @@ VALUES
 
 
 INSERT INTO Employees
-(EmpID, Name, Password)
+VALUES
+(
+	'admin',
+	'admin',
+	'admin'
+);
+
+
+INSERT INTO Employees
 VALUES
 (
 	'1900409',
@@ -222,7 +230,6 @@ VALUES
 
 
 INSERT INTO Employees
-(EmpID, Name, Password)
 VALUES
 (
 	'1894079',
@@ -234,8 +241,18 @@ VALUES
 INSERT INTO Customers
 VALUES
 (
+	'admin',
+	'admin',
+	'admin',
+	'admin@niu.cs.edu'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
 	'petrovskidavid',
 	'SlowR6',
 	'David Petrovski',
 	'petrovskidavid1@gmail.com'
-)
+);
