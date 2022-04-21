@@ -13,9 +13,9 @@
 
 .login_window
 {
-    text-align: center;          /* Aligns all the text in the window to center */
-    font-family: Gill Sans;      /* Sets font for the whole window */
-    background-color: #FAFAFA; /* Sets background color for window */
+    text-align: center;                   /* Aligns all the text in the window to center */
+    font-family: "Gill Sans", sans-serif; /* Sets font for the whole window */
+    background-color: #FAFAFA;             /* Sets background color for window */
     
     /* Creates a 3px border of the selected color */
     border: 3px;
@@ -30,7 +30,7 @@
 
     /* Positions the window in the middle of the screen and 35% from the top */
     position: absolute;
-    top: 26%;
+    
     left: 50%;
     transform: translate(-50%, 0);
 }
@@ -68,7 +68,9 @@
 
 .login_error
 {
-    color: red;       /* Sets the color of the error message */
+    color: red;          /* Sets the color of the error message */
     text-align: center; /* Centers the error message */
     font-weight: bold;  /* Bolds the text */
+    position: relative; /* Makes the position relative to the other elements present */
+    bottom: 35px;       /* Moves error message to the top of the login window */
 }

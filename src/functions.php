@@ -24,7 +24,7 @@
     function create_login_window($type){
 
         // Creates form for customer login
-        echo "<form method=\"POST\" class=\"login_window\">";
+        echo "<br><br><br><form method=\"POST\" class=\"login_window\">";
 
         if($type == 1){        // Creates customer login window
 

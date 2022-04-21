@@ -13,16 +13,16 @@
 
 input[type=submit]
 {
-    background: #60706E;  /* Selects the normal background color */
-    color: #FAFAFA;       /* Selects the font color */
-    border: none;           /* Removes border */
-    padding: 8px;           /* Adds padding around text */
-    font-family: Gill Sans; /* Sets font */
+    background: #60706E;                  /* Selects the normal background color */
+    color: #FAFAFA;                       /* Selects the font color */
+    border: none;                         /* Removes border */
+    padding: 8px;                         /* Adds padding around text */
+    font-family: "Gill Sans", sans-serif; /* Sets font */
 }
 
 
 input[type=submit]:hover
 {
-    background: #8AA29E; /* Selects color when hovering over button */
+    background: #8AA29E;   /* Selects color when hovering over button */
     cursor: pointer;       /* Makes cursor turn into a pointer when hover over */
 }
