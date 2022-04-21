@@ -52,7 +52,7 @@
 
             // Creates field for employee ID input
             echo "<label for=\"EmpID\">Employee ID: </label><br>";
-            echo "<input type=\"text\" name=\"EmpID\" /><br><br>";
+            echo "<input type=\"text\" name=\"EmpID\" maxlength=\"8\" /><br><br>";
 
             // Creates a field for password input
             echo "<label for=\"Password\">Password: </label><br>";
