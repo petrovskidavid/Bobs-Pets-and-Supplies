@@ -135,14 +135,8 @@
            
             if($type == 3) // Checks if the user is creating an account
             {
-                // Checks if the username already exists
-                if($row[$first_field] == $POST[$first_field])
-                {
-                    return true;
-                }
-
-                // Checks if the email is already in use
-                if($row["Email"] == $POST["Email"])
+                // Checks if the username or email already exists
+                if($row[$first_field] == $POST[$first_field] or $row["Email"] == $POST["Email"])
                 {
                     return true;
                 }

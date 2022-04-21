@@ -209,3 +209,23 @@ VALUES
 	'999.99',
 	'6' 
 );
+
+
+INSERT INTO Employees
+(EmpID, Name, Password)
+VALUES
+(
+	'1900409',
+	'Isabelle Coletti',
+	'pink'
+);
+
+
+INSERT INTO Employees
+(EmpID, Name, Password)
+VALUES
+(
+	'1894079',
+	'David Petrovski',
+	'SlowR6'
+);

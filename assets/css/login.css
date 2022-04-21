@@ -64,3 +64,11 @@
 {
     font-size: 15px; /* Sets font size */
 }
+
+
+.login_error
+{
+    color: red;       /* Sets the color of the error message */
+    text-align: center; /* Centers the error message */
+    font-weight: bold;  /* Bolds the text */
+}

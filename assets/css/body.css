@@ -17,10 +17,3 @@ body
     font-family: Gill Sans; /* Sets font for the whole body tag */
     margin: 0;              /* Makes the header go to the top of the screen */
 }
-
-.login_error
-{
-    color: red;       /* Sets the color of the error message */
-    text-align: center; /* Centers the error message */
-    font-weight: bold;  /* Bolds the text */
-}

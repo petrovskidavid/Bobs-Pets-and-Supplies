@@ -65,7 +65,7 @@
                             header("Location: store.php?Username=".$_POST["Username"]); 
                     
                         } else {
-                            echo "<p class=\"login_error\"'>Something went wrong! Make sure your data is valid, and try again.</p>";
+                            echo "<p class=\"login_error\"'>Something went wrong! Make sure your information is correct, and try again.</p>";
                         }
                     }
                     else        // Otherwise prints an error message

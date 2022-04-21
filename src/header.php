@@ -21,7 +21,7 @@
         echo "<img src=\"./assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";
         
         // Updates action link to accomodate index.phps location in the repo 
-        echo "<form method=\"POST\" action=\"./src/employee_login.php\" >";
+        echo "<form action=\"./src/employee_login.php\" >";
         
         // Puts the text and creates a submit button
         echo "<input type=\"submit\" value=\"Employee Login\" class=\"e_login\" />";
