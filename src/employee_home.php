@@ -30,7 +30,12 @@
 ?>
 
 <form action="./scr/view_orders.php">
-	<input type="submit" name="View Orders"
+	<input type="submit" name="submit" value="View Orders"/>
+</form>
+
+<form action="./scr/view_inventory.php">
+	<input type="submit" name="submit" value="View Inventory"/>
+</form>
 
 
 </body></html>
