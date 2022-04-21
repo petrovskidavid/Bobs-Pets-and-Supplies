@@ -27,11 +27,10 @@
         include("header.php"); // Creates the header of the page
         include("secrets.php"); // Logs into the db
         include("functions.php"); // Gives the file with the login window creation function
+?>
+
+<form action="./scr/view_orders.php">
+	<input type="submit" name="View Orders"
 
 
-        echo "This is the employee home page.";
-        $EmpID = $_GET["EmpID"];
-
-        echo $EmpID;
-    ?>
 </body></html>
