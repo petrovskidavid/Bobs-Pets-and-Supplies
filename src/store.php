@@ -33,9 +33,20 @@
         //echo "This is the store front.";
         $result = $pdo->query("SELECT ImgLink from Products;");
         $links = $result->fetchAll(PDO::FETCH_ASSOC);
+        $count = 0;
         foreach($links as $link)
         {
-            echo "<img src=\"$link\" />";
+            $addr = $link["ImgLink"];
+            //echo $link["ImgLink"];
+            //echo "$link['ImgLink']";
+            //echo "<img src='$link['ImgLink']' />";
+            echo "<img src='$addr' class='product_img' height=250 width=250/>";
+            $count++;
+            if($count == 5)
+            {
+                echo "<br/>";
+                $count = 0;
+            }
         }
     ?>
 </body></html>
