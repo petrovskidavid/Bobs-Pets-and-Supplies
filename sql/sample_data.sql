@@ -100,7 +100,7 @@ VALUES
 
 
 INSERT INTO Products
-(Name, Price, Quantitym ImgLink)
+(Name, Price, Quantity, ImgLink)
 VALUES
 (	
 	'Pet Bed (Large)',
