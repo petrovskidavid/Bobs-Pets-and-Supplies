@@ -117,7 +117,7 @@ VALUES
 	'Brush',
 	'9.99',
 	'400',
-	'https://thumbs2.imgbox.com/98/af/LzKtEsvQ_b.png'
+	'https://images2.imgbox.com/98/af/LzKtEsvQ_o.png'
 );
 
 
