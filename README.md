@@ -18,7 +18,13 @@ This is the repo for our project, and this README.md will be updated as we build
 4. ~~Create database and sample data sql.~~
 5. ~~Create 'secrets.php' file~~
 6. ~~Create php file that connects to database~~
-7. Create login screen and welcome screen for customers
+7. ~~Create login screen and welcome screen for customers~~
 8. ~~Create button to go to employees screen for login~~
-9. Create login screen for employee
-10. ...
+9. ~~Create login screen for employee~~
+10. Create store page with products
+11. Create employee home page
+12. Create cart logo and show it in store page for user to be able to click on it
+13. Create cart page
+14. Enable user to add to cart
+15. Enable user to purchase products
+16. ...
