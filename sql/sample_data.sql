@@ -258,6 +258,15 @@ VALUES
 );
 
 
+INSERT INTO Employees
+VALUES
+(
+	'1866286',
+	'Amanda Zedwick',
+	'fox'
+);
+
+
 INSERT INTO Customers
 VALUES
 (
