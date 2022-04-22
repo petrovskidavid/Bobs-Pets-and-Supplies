@@ -288,8 +288,9 @@ VALUES
 
 
 INSERT INTO Orders 
-(EmpID)
+(EmpID, Username)
 VALUES
 (
+	'admin',
 	'admin'
 );
