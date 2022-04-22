@@ -26,16 +26,18 @@ CREATE TABLE Employees(
 
 -- Orders table
 CREATE TABLE Orders(
-    OrderID     INTEGER AUTO_INCREMENT,            -- Order number for each order
-    EmpID       CHAR(8),
-    Status      INTEGER DEFAULT 1,                 -- Status of order (1 = in cart (default), 2 = received, 3 = processed)
-    TrackingNum INTEGER,                           -- Tracking number of order, initially null untill shipped
-    Notes       CHAR(255),                         -- Notes for order, intially null
-    Address     CHAR(255),                         -- Address where the order should be shipped, null untill order is placed
+    OrderID     INTEGER AUTO_INCREMENT,                  -- Order number for each order
+    EmpID       CHAR(8),                                 -- Employee assigned to process order
+    Username    CHAR(15),                                -- Customer that made the order
+    Status      INTEGER DEFAULT 1,                       -- Status of order (1 = in cart (default), 2 = received, 3 = processed)
+    TrackingNum INTEGER,                                 -- Tracking number of order, initially null untill shipped
+    Notes       CHAR(255),                               -- Notes for order, intially null
+    Address     CHAR(255),                               -- Address where the order should be shipped, null untill order is placed
 
-    PRIMARY KEY(OrderID),                          -- Sets the primary key (OrderID)
-    FOREIGN KEY(EmpID) REFERENCES Employees(EmpID) -- Sets the foreign key from Employees table
-) AUTO_INCREMENT = 1252;                           -- Starts to increment from specified value
+    PRIMARY KEY(OrderID),                                -- Sets the primary key (OrderID)
+    FOREIGN KEY(EmpID) REFERENCES Employees(EmpID)       -- Sets the foreign key from Employees table
+    FOREIGN KEY(Username) REFERENCES Customers(Username) -- Sets the foreign key from Customers table
+) AUTO_INCREMENT = 1252;                                 -- Starts to increment from specified value
 
 
 -- Products table
@@ -57,7 +59,7 @@ CREATE TABLE Customers(
     Name     CHAR(255) NOT NULL, -- Customers name
     Email    CHAR(255) NOT NULL, -- Customers email
 
-    PRIMARY KEY(Username)       -- Sets the primary key (Username)
+    PRIMARY KEY(Username)        -- Sets the primary key (Username)
 );
 
 
