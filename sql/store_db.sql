@@ -33,7 +33,7 @@ CREATE TABLE Orders(
     Notes       CHAR(255),                         -- Notes for order, intially null
     Address     CHAR(255),                         -- Address where the order should be shipped, null untill order is placed
 
-    PRIMARY KEY(OrderID)                           -- Sets the primary key (OrderID)
+    PRIMARY KEY(OrderID),                          -- Sets the primary key (OrderID)
     FOREIGN KEY(EmpID) REFERENCES Employees(EmpID) -- Sets the foreign key from Employees table
 ) AUTO_INCREMENT = 1252;                           -- Starts to increment from specified value
 
