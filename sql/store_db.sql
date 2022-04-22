@@ -11,7 +11,7 @@
  */
 
 
-DROP TABLE IF EXISTS Carts, ProcessOrders, Customers, Products, Orders, Employees;
+DROP TABLE IF EXISTS Carts, Orders, Customers, Products, Employees;
 
 
 -- Employees table
@@ -22,18 +22,6 @@ CREATE TABLE Employees(
 
     PRIMARY KEY(EmpID)           -- Sets the primary key (EmpID)
 );          
-
-
--- Orders table
-CREATE TABLE Orders(
-    OrderID     INTEGER AUTO_INCREMENT, -- Order number for each order
-    Status      INTEGER DEFAULT 1,      -- Status of order (1 = in cart (default), 2 = received, 3 = processed)
-    TrackingNum INTEGER,                -- Tracking number of order, initially null untill shipped
-    Notes       CHAR(255),              -- Notes for order, intially null
-    Address     CHAR(255),              -- Address where the order should be shipped, null untill order is placed
-
-    PRIMARY KEY(OrderID)                -- Sets the primary key (OrderID)
-) AUTO_INCREMENT = 1252;                -- Starts to increment from specified value
 
 
 -- Products table
@@ -55,19 +43,24 @@ CREATE TABLE Customers(
     Name     CHAR(255) NOT NULL, -- Customers name
     Email    CHAR(255) NOT NULL, -- Customers email
 
-    PRIMARY KEY(Username)       -- Sets the primary key (Username)
+    PRIMARY KEY(Username)        -- Sets the primary key (Username)
 );
 
 
--- Order Process table
-CREATE TABLE ProcessOrders(
-    EmpID   CHAR(8) NOT NULL,                       -- Employees ID for each employee
-    OrderID INTEGER NOT NULL,                       -- Order number for each order
+-- Orders table
+CREATE TABLE Orders(
+    OrderID     INTEGER AUTO_INCREMENT,                  -- Order number for each order
+    EmpID       CHAR(8),                                 -- Employee assigned to process order
+    Username    CHAR(15) NOT NULL,                       -- Customer that made the order
+    Status      INTEGER DEFAULT 1,                       -- Status of order (1 = in cart (default), 2 = received, 3 = processed)
+    TrackingNum INTEGER,                                 -- Tracking number of order, initially null untill shipped
+    Notes       CHAR(255),                               -- Notes for order, intially null
+    Address     CHAR(255),                               -- Address where the order should be shipped, null untill order is placed
 
-    PRIMARY KEY(EmpID, OrderID),                    -- Sets the primary key (EmpID, OrderID)
-    FOREIGN KEY(EmpID) REFERENCES Employees(EmpID), -- Sets the foreign key from Employees table
-    FOREIGN KEY(OrderID) REFERENCES Orders(OrderID) -- Sets the foreign key from Orders table
-);
+    PRIMARY KEY(OrderID),                                -- Sets the primary key (OrderID)
+    FOREIGN KEY(EmpID) REFERENCES Employees(EmpID),      -- Sets the foreign key from Employees table
+    FOREIGN KEY(Username) REFERENCES Customers(Username) -- Sets the foreign key from Customers table
+) AUTO_INCREMENT = 1252;                                 -- Starts to increment from specified value
 
 
 -- Shopping Carts table
