@@ -258,6 +258,15 @@ VALUES
 );
 
 
+INSERT INTO Employees
+VALUES
+(
+	'1866286',
+	'Amanda Zedwick',
+	'fox'
+);
+
+
 INSERT INTO Customers
 VALUES
 (
@@ -275,4 +284,12 @@ VALUES
 	'SlowR6',
 	'David Petrovski',
 	'petrovskidavid1@gmail.com'
+);
+
+
+INSERT INTO Orders 
+(EmpID)
+VALUES
+(
+	'admin'
 );
