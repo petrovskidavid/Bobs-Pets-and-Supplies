@@ -96,35 +96,42 @@
         if(isset($_POST["add_to_cart"]))
         {
             // Save the product ID
-            $product_id = $_POST["ProductID"];
+            $productID = $_POST["ProductID"];
             // Save the amount to add to cart
             $amount = $_POST["amount"];
             // Save the username
             $username = $_GET['Username'];
-
+            
             // Checks if the customer has any current or past orders in the Carts table
-            $result = $pdo->query("SELECT OrderID FROM Orders WHERE Username = ".$username." AND Status = 1");
+            $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
+            $result->execute(array($username));
 
-            // Fetches the data
-            $orderID = $result->fetch(PDO::FETCH_ASSOC);
-
-            // If no OrderID is found, add new order to the Orders and Carts tables
-            if(empty($orderID)) 
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            
+            // If no OrderID is found with Status of 1 then new order is created
+            if(empty($row)) 
             {
                 // Create a new order for the user with default values except for username
-                $pdo->query("INSERT INTO Orders (Username) VALUES(".$username.")"); 
-                
+                $result = $pdo->prepare("INSERT INTO Orders (Username) VALUES(?)"); 
+                $result->execute(array($username));
+
                 // Select OrderID from Orders Where Username = $username
-                $rows = $pdo->query("SELECT OrderID FROM Orders WHERE Username = $username");
-                $row = $rows->fetch(PDO::FETCH_ASSOC);
+                $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=?");
+                $result->execute(array($username));
+
+                // Gets the new orders OrderID and stores it
+                $row = $result->fetch(PDO::FETCH_ASSOC);
                 $orderID = $row["OrderID"];
-                
-               
+            }
+            else
+            {
+                // Stores the already existing unprocessed order OrderID
+                $orderID = $row["OrderID"];
             }
            
-            //$pre = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
-
-            
+            // Adds the chosen product to the correct customers cart
+            $result = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
+            $result->execute(array($orderID, $productID, $username, $amount));   
         }
     
         
