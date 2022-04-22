@@ -37,6 +37,8 @@
         // Create a counter to display 5 rows of products
         $count = 0;
 
+        // Add space for cart messages
+        echo "<br/><br/>";
         // Create a table
         echo "<table>";
         // Loop through every product in the table
