@@ -30,72 +30,99 @@
         include("functions.php"); // Gives the file with the login window creation function
 
 
-        //echo "This is the store front.";
+        // Get the product name, ID, and image source link from Products table
         $result = $pdo->query("SELECT ImgLink, Name, ProductID from Products;");
         $links = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        // Create a counter to display 5 rows of products
         $count = 0;
-        $nameArr = [];
-        $nameCount = 0;
+
+        // Create a table
         echo "<table>";
+        // Loop through every product in the table
         foreach($links as $link)
         {
+            // Save the image source link 
             $addr = $link["ImgLink"];
+            // Save the product name
             $name = $link["Name"];
+            // Save the product ID 
             $ID = $link["ProductID"];
-        
 
+            // Check if we are in the beginning of the table
             if($count == 0)
             {
+                // If so, begin a new row
                 echo "<tr>";
             }
+
+            // Begin a new data cell
             echo "<td>";
+            // Create a new form with POST method
             echo "<form method='POST'>";
-            echo "<img src='$addr' class='product_img' height=250 width=250/><br>";
+            // Display the product image and a new line
+            echo "<img src='$addr' class='product_img' alt='$name Product Image' height=250 width=250/><br>";
+            // Display the product name
             echo "<p class='product_name'>$name</p>";
+            // Display a number textbox for the user to enter an amount to add to cart
             echo "<input type='number' name='amount' min='1' value='1' style='height:25px'/>";
             echo " ";
+            // Display an "Add To Cart" button
             echo "<input type='submit' name='add_to_cart' value='Add To Cart' \/>";
+            // Add a hidden attribute to send the product ID when button is submitted
             echo "<input type='hidden' name='ProductID' value='$ID' />";
+            // End the form
             echo "</form>";
+            // End the data cell
             echo "</td>";
+
+            // Increment the counter
             $count++;
+
+            // If 5 products have been displayed,
             if($count == 5)
             {
+                // End the row
                 echo "</tr>";
+                // Reset the count to 0
                 $count = 0;
             }
 
         }
+        // End the table
         echo "</table>";
 
+        // Check if an "Add To Cart" button was clicked
         if(isset($_POST["add_to_cart"]))
         {
+            // Save the product ID
             $product_id = $_POST["ProductID"];
+            // Save the amount to add to cart
             $amount = $_POST["amount"];
+            // Save the username
             $username = $_GET['Username'];
 
             // Checks if the customer has any current or past orders in the Carts table
-            $result = $pdo->query("SELECT OrderID FROM Orders WHERE Username=".$username." AND Status=1");
+            $result = $pdo->query("SELECT OrderID FROM Orders WHERE Username = ".$username." AND Status = 1");
 
-            // Fetches the data.
+            // Fetches the data
             $orderID = $result->fetch(PDO::FETCH_ASSOC);
 
-            if(empty($orderID)) // If no OrderID add new order to the Orders table and Carts
+            // If no OrderID is found, add new order to the Orders and Carts tables
+            if(empty($orderID)) 
             {
-                
+                // Create a new order for the user with default values except for username
                 $pdo->query("INSERT INTO Orders (Username) VALUES(".$username.")"); 
                 
                 // Select OrderID from Orders Where Username = $username
-
-                //$result = $pdo->prepare("INSERT INTO Carts")
+                $rows = $pdo->query("SELECT OrderID FROM Orders WHERE Username = $username");
+                $row = $rows->fetch(PDO::FETCH_ASSOC);
+                $orderID = $row["OrderID"];
                 
-                //$pre = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
+               
             }
-            else
-            {
-                //$pre = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
-            }
-
+           
+            //$pre = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
 
             
         }
