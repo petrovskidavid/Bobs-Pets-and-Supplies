@@ -28,7 +28,7 @@
         include("secrets.php"); // Logs into the db
 	include("functions.php"); // Gives the file with the login window creation function
 
-	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2'";
+	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE (Status='2' OR Status='3')";
 
 	$result = $pdo->query($sql);
 	$result->setFetchMode(PDO::FETCH_ASSOC); ?>
@@ -36,7 +36,7 @@
 	<h2 style="text-align:center"> Orders </h2>
 
 <?php
-	echo "<table border=1 width='50%' style='float:right'>";
+	echo "<table border=1 width='50%' style='float:left'>";
 
 	echo "<tr>";
 		echo "<th style='text-align:center' colspan=5> All Unprocessed Orders </th>";
@@ -51,12 +51,20 @@
 	echo "</tr>";
 
 	foreach($result as $row)
-	{ ?>
+	{ 
+		if ($row['Status'] == 2)
+		{
+			$stat="Received";
+		}
+		else
+		{
+			$stat="Shipped";
+		} ?>
 		<tr>
 			<td style="text-align:center"> <?php echo "$row[OrderID]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]" ?> </td>
-			<td style="text-align:center"> <?php echo "$row[Status]" ?> </td>
+			<td style="text-align:center"> <?php echo "$stat" ?> </td>
 			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
 		</tr>
 <?php   }
@@ -67,7 +75,7 @@
 	$result2 = $pdo->query($sql2);
 	$result2->setFetchMode(PDO::FETCH_ASSOC);
 
-	echo "<table border=1 width='50%' style='float:left'>";
+	echo "<table border=1 width='50%' style='float:right'>";
 
 	echo "<tr>";
 		echo "<th style='text-align:center' colspan=5> Your Unprocessed Orders </th>";
@@ -82,12 +90,12 @@
 	echo "</tr>";
 
 	foreach($result2 as $row2)
-	{ ?>
+	{ ?> 
 		<tr>
 			<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$row2[Status]"; ?> </td>
+			<td style="text-align:center"> Received </td>
 			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="OrderID" value="<?php echo "$row2[OrderID]" ?>"/> </form> </td>
 		</tr>
 <?php   }
