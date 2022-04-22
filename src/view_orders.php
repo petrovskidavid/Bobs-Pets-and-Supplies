@@ -28,14 +28,20 @@
         include("secrets.php"); // Logs into the db
 	include("functions.php"); // Gives the file with the login window creation function
 
-	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='received'";
+	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2'";
 
 	$result = $pdo->query($sql);
-	$result->setFetchMode(PDO::FETCH_ASSOC);
+	$result->setFetchMode(PDO::FETCH_ASSOC); ?>
 
-	echo "h2 text-align='center'> Orders </h2>";
+	<h2 style="text-align:center"> Orders </h2>
 
-	echo "<table border=1>";
+<?php
+	echo "<table border=1 width='40%'>";
+
+	echo "<tr>";
+		echo "<th style='text-align:center' colspan=5> All Unprocessed Orders </th>";
+	echo "</tr>";
+
 	echo "<tr>";
 		echo "<th style='text-align:center'> OrderID </th>";
 		echo "<th style='text-align:center'> TrackingNum </th>";
@@ -43,21 +49,49 @@
 		echo "<th style='text-align:center'> Status </th>";
 		echo "<th style='text-align:center'> View Details </th>";
 	echo "</tr>";
-	
-	while ($row = $result->fetch()):
-		echo "<tr>";
-			echo "<td style='text-align:center'> $row[OrderID] </td>";
-			echo "<td style='text-align:center'> $row[TrackingNum] </tr>";
-			echo "<td style='text-align:center'> $row[Address] </tr>";
-			echo "<td style='text-align:center'> $row[Status] </tr>";
-			echo   "<td style='text-align:center'>
-				<form action='./src/order_details.php'>
-					<input type='submit' name='submit' value='View Order Details'/> </form> </td>";
-		echo "</tr>";
-	endwhile
 
+	foreach($result as $row)
+	{ ?>
+		<tr>
+			<td style="text-align:center"> <? echo "$row[OrderID]" ?> </td>
+			<td style="text-align:center"> <? echo "$row[TrackingNum]" ?> </td>
+			<td style="text-align:center"> <? echo "$row[Address]" ?> </td>
+			<td style="text-align:center"> <? echo "$row[Status]" ?> </td>
+			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
+		</tr>
+<?php   }
 	echo "</table>";
 
+	$sql2="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2'";
+
+	$result2 = $pdo->query($sql2);
+	$result2->setFetchMode(PDO::FETCH_ASSOC);
+
+	echo "<table border=1 width='40%'>";
+
+	echo "<tr>";
+		echo "<th style='text-align:center' colspan=5> Your Unprocessed Orders </th>";
+	echo "</tr>";
+
+	echo "<tr>";
+		echo "<th style='text-align:center'> OrderID </th>";
+		echo "<th style='text-align:center'> TrackingNum </th>";
+		echo "<th style='text-align:center'> Address </th>";
+		echo "<th style='text-align:center'> Status </th>";
+		echo "<th style='text-align:center'> View Details </th>";
+	echo "</tr>";
+
+	foreach($result2 as $row2)
+	{ ?>
+		<tr>
+			<td style="text-align:center"> <? echo "$row2[OrderID]" ?> </td>
+			<td style="text-align:center"> <? echo "$row2[TrackingNum]" ?> </td>
+			<td style="text-align:center"> <? echo "$row2[Address]" ?> </td>
+			<td style="text-align:center"> <? echo "$row2[Status]" ?> </td>
+			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
+		</tr>
+<?php   }
+	echo "</table>";
 ?>
 
 
