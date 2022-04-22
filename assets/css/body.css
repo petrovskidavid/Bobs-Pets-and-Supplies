@@ -18,14 +18,45 @@ body
     margin: 0;                            /* Makes the header go to the top of the screen */
 }
 
-.product_name
+
+.welcome_msg
 {
-    text-align: center;
+    text-align: center; /* Centers the message */
 }
 
-.added_to_cart
+
+.product_table
 {
-    text-align: center;
     position: absolute;
-    top: 12%;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+.product_name
+{
+    text-align: center; /* Centers the product name */
+}
+
+
+.succ_added_to_cart
+{
+    color: #049a89;     /* Sets the color of the message */
+    text-align: center; /* Centers the message */
+    font-weight: bold;  /* Bolds the text */
+
+    position: relative; /* Makes the position relative to the other elements present */
+    bottom: 25px;       /* Moves error message to the top of the login window */
+}
+
+
+.err_added_to_cart
+{
+    color: red;         /* Sets the color of the message */
+    text-align: center; /* Centers the message */
+    font-weight: bold;  /* Bolds the text */
+
+    position: relative; /* Makes the position relative to the other elements present */
+    bottom: 25px;       /* Moves error message to the top of the login window */
 }

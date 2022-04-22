@@ -29,6 +29,16 @@
         include("secrets.php"); // Logs into the db
         include("functions.php"); // Gives the file with the login window creation function
 
+        // Prepares query to get customers name
+        $result = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
+        $result->execute(array($_GET["Username"]));
+
+        // Saves customers name
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $customer_name = $row["Name"];
+        
+        // Displays welcome message
+        echo "<br><h3 class=\"welcome_msg\">Welcome back ".$customer_name."! Happy shopping!";
 
         // Get the product name, ID, and image source link from Products table
         $result = $pdo->query("SELECT ImgLink, Name, ProductID from Products;");
@@ -40,7 +50,7 @@
         // Add space for cart messages
         echo "<br/><br/>";
         // Create a table
-        echo "<table>";
+        echo "<table class=\"product_table\" cellpadding=20>";
         // Loop through every product in the table
         foreach($links as $link)
         {
@@ -81,8 +91,8 @@
             // Increment the counter
             $count++;
 
-            // If 5 products have been displayed,
-            if($count == 5)
+            // If 4 products have been displayed,
+            if($count == 4)
             {
                 // End the row
                 echo "</tr>";
@@ -167,12 +177,12 @@
                 $name = $row["Name"];
 
                 // Print a message letting the user know they added the product to their cart
-                echo "<p class='added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
+                echo "<p class='succ_added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
             }
             else    // Otherwise, if the insert/update failed,
             {
                 // Print an error message and let the user know
-                echo "<p class='added_to_cart'>An error occurred. Please try again.</p>";
+                echo "<p class='err_added_to_cart'>An error occurred. Please try again.</p>";
             }
         }
     
