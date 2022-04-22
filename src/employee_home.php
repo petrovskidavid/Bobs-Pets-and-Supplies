@@ -27,15 +27,23 @@
         include("header.php"); // Creates the header of the page
         include("secrets.php"); // Logs into the db
         include("functions.php"); // Gives the file with the login window creation function
+        
+
+        // Creates button that redirects employee to the Orders page
+        echo "<form action=\"./view_orders.php\" method=\"POST\" >";
+
+        // Sends the employees EmpID so that it is saved for later use
+        echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
+        echo "<input type=\"submit\" name=\"submit\" value=\"View Orders\" class=\"view_order_btn\" />";
+        echo "</form>";
+
+        // Creates button that redirects employee to the Inventory page
+        echo "<form action=\"./inventory.php\" method=\"POST\" >";
+
+        // Sends the employees EmpID so that it is saved for later use
+        echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
+        echo "<input type=\"submit\" name=\"submit\" value=\"View Inventory\" class=\"view_inventory_btn\" />";
+        echo "</form>";
 ?>
-
-<form action="./view_orders.php" class="view_order_btn">
-	<input type="submit" name="submit" value="View Orders"/>
-</form>
-
-<form action="./view_inventory.php" class="view_inventory_btn">
-	<input type="submit" name="submit" value="View Inventory"/>
-</form>
-
 
 </body></html>

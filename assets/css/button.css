@@ -26,3 +26,21 @@ input[type=submit]:hover
     background: #8AA29E;   /* Selects color when hovering over button */
     cursor: pointer;       /* Makes cursor turn into a pointer when hover over */
 }
+
+
+.view_order_btn
+{
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+.view_inventory_btn
+{
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
