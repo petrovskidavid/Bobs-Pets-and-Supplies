@@ -285,3 +285,11 @@ VALUES
 	'David Petrovski',
 	'petrovskidavid1@gmail.com'
 );
+
+
+INSERT INTO Orders 
+(EmpID)
+VALUES
+(
+	'admin'
+);
