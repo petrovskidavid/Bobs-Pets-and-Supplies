@@ -28,7 +28,7 @@
         include("secrets.php"); // Logs into the db
 	include("functions.php"); // Gives the file with the login window creation function
 
-	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='1'";
+	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2'";
 
 	$result = $pdo->query($sql);
 	$result->setFetchMode(PDO::FETCH_ASSOC); ?>
@@ -62,7 +62,7 @@
 <?php   }
 	echo "</table>";
 
-	$sql2="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='1' AND EmpID='admin'";
+	$sql2="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2' AND EmpID='admin'";
 
 	$result2 = $pdo->query($sql2);
 	$result2->setFetchMode(PDO::FETCH_ASSOC);
