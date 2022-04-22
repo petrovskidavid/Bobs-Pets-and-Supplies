@@ -36,7 +36,7 @@
 	<h2 style="text-align:center"> Orders </h2>
 
 <?php
-	echo "<table border=1 width='40%'>";
+	echo "<table border=1 width='50%' style='float:right'>";
 
 	echo "<tr>";
 		echo "<th style='text-align:center' colspan=5> All Unprocessed Orders </th>";
@@ -53,21 +53,21 @@
 	foreach($result as $row)
 	{ ?>
 		<tr>
-			<td style="text-align:center"> <? echo "$row[OrderID]" ?> </td>
-			<td style="text-align:center"> <? echo "$row[TrackingNum]" ?> </td>
-			<td style="text-align:center"> <? echo "$row[Address]" ?> </td>
-			<td style="text-align:center"> <? echo "$row[Status]" ?> </td>
+			<td style="text-align:center"> <?php echo "$row[OrderID]" ?> </td>
+			<td style="text-align:center"> <?php echo "$row[TrackingNum]" ?> </td>
+			<td style="text-align:center"> <?php echo "$row[Address]" ?> </td>
+			<td style="text-align:center"> <?php echo "$row[Status]" ?> </td>
 			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
 		</tr>
 <?php   }
 	echo "</table>";
 
-	$sql2="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2'";
+	$sql2="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2' AND EmpID='admin'";
 
 	$result2 = $pdo->query($sql2);
 	$result2->setFetchMode(PDO::FETCH_ASSOC);
 
-	echo "<table border=1 width='40%'>";
+	echo "<table border=1 width='50%' style='float:left'>";
 
 	echo "<tr>";
 		echo "<th style='text-align:center' colspan=5> Your Unprocessed Orders </th>";
