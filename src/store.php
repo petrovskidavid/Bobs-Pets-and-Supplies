@@ -128,10 +128,50 @@
                 // Stores the already existing unprocessed order OrderID
                 $orderID = $row["OrderID"];
             }
+            
+            // Check if the product is already in their cart
+            $result = $pdo->prepare("SELECT Amount FROM Carts WHERE ProductID=? AND OrderID=?");
+            $result->execute(array($productID, $orderID));
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            
+            // If not,
+            if(empty($row))
+            {
+                // Insert a new row into the cart table with the product ID, order ID, username, and amount
+                $result = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
+                $success = $result->execute(array($orderID, $productID, $username, $amount));   
+            }
+            else    // If the product is already in their cart,
+            {
+                // Get the amount currently in the cart
+                $previousAmt = $row["Amount"];
+                // Add the previous amount to the new amount
+                $newAmount = $amount + $previousAmt;
+
+                // Update the row in the table with the new amount
+                $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND OrderID=?");
+                $success = $result->execute(array($newAmount, $productID, $orderID));   
+            }
            
-            // Adds the chosen product to the correct customers cart
-            $result = $pdo->prepare("INSERT INTO Carts VALUES(?, ?, ?, ?)");
-            $result->execute(array($orderID, $productID, $username, $amount));   
+            // If the insert/update did not fail,
+            if($success)
+            {
+                // Get the name of the product they added to their cart
+                $result = $pdo->prepare("SELECT Name FROM Products WHERE ProductID=?");
+                $result->execute(array($productID));
+                $row = $result->fetch(PDO::FETCH_ASSOC);
+
+                // Save the name of the product
+                $name = $row["Name"];
+
+                // Print a message letting the user know they added the product to their cart
+                echo "<p class='added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
+            }
+            else    // Otherwise, if the insert/update failed,
+            {
+                // Print an error message and let the user know
+                echo "<p class='added_to_cart'>An error occurred. Please try again.</p>";
+            }
         }
     
         
