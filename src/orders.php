@@ -11,10 +11,10 @@
 <body>
     <?php
         /**
-         * @file employee_home.php
+         * @file orders.php
          * 
-         * @brief This is the employee home page.
-         *        This is where they can access the orders they need to process.
+         * @brief This is the orders page where employees can see the orders they
+		 * 		  need to process and all the other orders that were processed and shipped.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
@@ -26,12 +26,16 @@
          
         include("header.php"); // Creates the header of the page
         include("secrets.php"); // Logs into the db
-	include("functions.php"); // Gives the file with the login window creation function
+		include("functions.php"); // Gives the file with the login window creation function
 
-	$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE (Status='2' OR Status='3')";
+		$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE (Status='2' OR Status='3')";
 
-	$result = $pdo->query($sql);
-	$result->setFetchMode(PDO::FETCH_ASSOC); ?>
+		$result = $pdo->query($sql);
+		$result->setFetchMode(PDO::FETCH_ASSOC); 
+
+		// Creates a return button to the employee home page.
+		create_return_btn("./employee_home.php", 2);
+	?>
 
 	<h2 style="text-align:center"> Orders </h2>
 

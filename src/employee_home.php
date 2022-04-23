@@ -42,7 +42,7 @@
         echo "<br><br><table class=\"emp_options\" cellpadding=20 >";
         echo "<td>";
         // Creates button that redirects employee to the Orders page
-        echo "<form action=\"./view_orders.php\" >";
+        echo "<form action=\"./orders.php\" >";
 
         // Sends the employees EmpID so that it is saved for later use
         echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
