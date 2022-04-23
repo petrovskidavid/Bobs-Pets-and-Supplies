@@ -26,3 +26,29 @@ input[type=submit]:hover
     background: #8AA29E;   /* Selects color when hovering over button */
     cursor: pointer;       /* Makes cursor turn into a pointer when hover over */
 }
+
+
+.view_order_btn
+{
+    font-size: 25px; /* Sets buttons fonts size */
+    width: 200px;    /* Sets buttons width */
+}
+
+
+.view_inventory_btn
+{
+    font-size: 25px; /* Sets buttons fonts size */
+    width: 200px;    /* Sets buttons width */
+}
+
+
+.return_btn
+{
+    font-size: 15px; /* Sets buttons font size */
+    width: 100px;    /* Sets buttons width */
+
+    /* Positions button to be inline with the rest of the text and on the left side of the page */
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 20px;
+}

@@ -27,7 +27,7 @@
         // Updates action link to accomodate index.phps location in the repo 
         echo "<form action=\"./src/employee_login.php\" >";
         
-        // Puts the text and creates a submit button
+        // Puts the text and creates a submit button for the employee to login
         echo "<input type=\"submit\" value=\"Employee Login\" class=\"e_login\" />";
         echo "</form>";
 
@@ -39,10 +39,20 @@
         echo "<a href=$home_link>";
 
         // Updates src link to accomodate the files location in the repo
-        echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" />";  
+        echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" /></a>"; 
+        
+        // Checks if we are NOT in the employee login or customer sing up pages, to display a logout button
+        if (!(substr($_SERVER['PHP_SELF'], -19)  == "customer_signup.php" or substr($_SERVER['PHP_SELF'], -18)  == "employee_login.php"))
+        {
+            // Updates action link to accomodate index.phps location in the repo 
+            echo "<form action=$home_link method=\"POST\">";
+            
+            // Puts the text and creates a submit button to logout
+            echo "<input type=\"submit\" value=\"Logout\" class=\"logout\" />";
+            echo "</form>";
+        }
     }
 
-    
     // Prints the name of the store
     echo "<h2><a href=$home_link>Bob's Pets and Supplies</a></h2>";
     

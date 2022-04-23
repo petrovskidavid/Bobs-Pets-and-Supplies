@@ -16,16 +16,87 @@ body
     background: #E3F2FD;                  /* Background color of the whole page */
     font-family: "Gill Sans", sans-serif; /* Sets font for the whole body tag */
     margin: 0;                            /* Makes the header go to the top of the screen */
+    padding-bottom: 50px;                 /* Adds some space at the bottom of the page */
 }
+
+
+.welcome_msg
+{
+    text-align: center; /* Centers the message */
+}
+
+
+.product_table
+{
+    /* Positioned table in the middle of the page */
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
 
 .product_name
 {
-    text-align: center;
+    text-align: center; /* Centers the product name */
 }
 
-.added_to_cart
+
+.price_lbl
 {
-    text-align: center;
+    font-weight: normal; /* Gives the price label a normal font weight */
+}
+
+
+.succ_added_to_cart
+{
+    color: #049a89;     /* Sets the color of the message */
+    text-align: center; /* Centers the message */
+    font-weight: bold;  /* Bolds the text */
+
+    /* Positions the message at the middle of the screen above all of the products */
     position: absolute;
-    top: 12%;
+    top: 175px;        
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+.err_added_to_cart
+{
+    color: red;         /* Sets the color of the message */
+    text-align: center; /* Centers the message */
+    font-weight: bold;  /* Bolds the text */
+
+    position: relative; /* Makes the position relative to the other elements present */
+    bottom: 25px;       /* Moves error message to the top of the login window */
+}
+
+
+.emp_options
+{
+    /* Positions the buttons in the middle of the screen */
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+.inventory_table
+{
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
+.orders
+{
+    /* Positions the orders tables in the middle of the screen */
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
 }

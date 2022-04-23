@@ -4,8 +4,12 @@
     <title>Bob's Pets and Supplies</title>  
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/css/login.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
+    <script>
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
 </head>
 
 <body>
@@ -15,7 +19,7 @@
          * 
          * @brief This is the online store page.
          *        On this page customers can browse through the products and put items in their cart,
-         *        as well as access the their cart.
+         *        as well as access their cart.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
@@ -29,18 +33,28 @@
         include("secrets.php"); // Logs into the db
         include("functions.php"); // Gives the file with the login window creation function
 
+        // Prepares query to get customers name
+        $result = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
+        $result->execute(array($_GET["Username"]));
+
+        // Saves customers name
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $customer_name = $row["Name"];
+        
+        // Displays welcome message
+        echo "<br><h3 class=\"welcome_msg\">Welcome back ".$customer_name."! Happy shopping!";
 
         // Get the product name, ID, and image source link from Products table
-        $result = $pdo->query("SELECT ImgLink, Name, ProductID from Products;");
+        $result = $pdo->query("SELECT * from Products;");
         $links = $result->fetchAll(PDO::FETCH_ASSOC);
 
         // Create a counter to display 5 rows of products
         $count = 0;
 
         // Add space for cart messages
-        echo "<br/><br/>";
+        echo "<br/><br/><br>";
         // Create a table
-        echo "<table>";
+        echo "<table class=\"product_table\" cellpadding=20>";
         // Loop through every product in the table
         foreach($links as $link)
         {
@@ -50,46 +64,59 @@
             $name = $link["Name"];
             // Save the product ID 
             $ID = $link["ProductID"];
+            // Save the quantity in stock
+            $quantity = $link["Quantity"];
+            // Save the price of the product
+            $price = $link["Price"];
+            // Format the price to have 2 decimal places
+            $price = number_format($price, 2);
 
-            // Check if we are in the beginning of the table
-            if($count == 0)
+            // Make sure the product is in stock
+            if($quantity > 0)
             {
-                // If so, begin a new row
-                echo "<tr>";
+                 // Check if we are in the beginning of the table
+                if($count == 0)
+                {
+                   // If so, begin a new row
+                   echo "<tr>";
+                }
+
+                // Begin a new data cell
+                echo "<td>";
+                // Create a new form with POST method
+                echo "<form method='POST'>";
+                // Display the product image and a new line
+                echo "<img src='$addr' class='product_img' alt='$name Product Image' height=250 width=250/><br>";
+                // Display the product name
+                echo "<p class='product_name'>$name</p>";
+                // Display the product price
+                echo "<p class='price_lbl'>Price: <b>$".$price."</b></p>";
+                // Display a number textbox for the user to enter an amount to add to cart
+                echo "<input type='number' name='amount' min='1' value='1' style='height:25px'/>";
+                echo " ";
+                // Display an "Add To Cart" button
+                echo "<input type='submit' name='add_to_cart' value='Add To Cart' \/>";
+                // Add a hidden attribute to send the product ID when button is submitted
+                echo "<input type='hidden' name='ProductID' value='$ID' />";
+                // End the form
+                echo "</form>";
+                // End the data cell
+                echo "</td>";
+
+                // Increment the counter
+                $count++;
+
+                // If 4 products have been displayed,
+                if($count == 4)
+                {
+                    // End the row
+                    echo "</tr>";
+                    // Reset the count to 0
+                    $count = 0;
+                }
+
             }
-
-            // Begin a new data cell
-            echo "<td>";
-            // Create a new form with POST method
-            echo "<form method='POST'>";
-            // Display the product image and a new line
-            echo "<img src='$addr' class='product_img' alt='$name Product Image' height=250 width=250/><br>";
-            // Display the product name
-            echo "<p class='product_name'>$name</p>";
-            // Display a number textbox for the user to enter an amount to add to cart
-            echo "<input type='number' name='amount' min='1' value='1' style='height:25px'/>";
-            echo " ";
-            // Display an "Add To Cart" button
-            echo "<input type='submit' name='add_to_cart' value='Add To Cart' \/>";
-            // Add a hidden attribute to send the product ID when button is submitted
-            echo "<input type='hidden' name='ProductID' value='$ID' />";
-            // End the form
-            echo "</form>";
-            // End the data cell
-            echo "</td>";
-
-            // Increment the counter
-            $count++;
-
-            // If 5 products have been displayed,
-            if($count == 5)
-            {
-                // End the row
-                echo "</tr>";
-                // Reset the count to 0
-                $count = 0;
-            }
-
+           
         }
         // End the table
         echo "</table>";
@@ -117,17 +144,17 @@
                 $result = $pdo->prepare("INSERT INTO Orders (Username) VALUES(?)"); 
                 $result->execute(array($username));
 
-                // Select OrderID from Orders Where Username = $username
+                // Get the order ID for the new order
                 $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=?");
                 $result->execute(array($username));
-
-                // Gets the new orders OrderID and stores it
                 $row = $result->fetch(PDO::FETCH_ASSOC);
+
+                // Save the order ID
                 $orderID = $row["OrderID"];
             }
             else
             {
-                // Stores the already existing unprocessed order OrderID
+                // Stores the already existing unprocessed order's ID
                 $orderID = $row["OrderID"];
             }
             
@@ -167,15 +194,13 @@
                 $name = $row["Name"];
 
                 // Print a message letting the user know they added the product to their cart
-                echo "<p class='added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
+                echo "<p class='succ_added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
             }
             else    // Otherwise, if the insert/update failed,
             {
                 // Print an error message and let the user know
-                echo "<p class='added_to_cart'>An error occurred. Please try again.</p>";
+                echo "<p class='err_added_to_cart'>An error occurred. Please try again.</p>";
             }
         }
-    
-        
     ?>
 </body></html>
