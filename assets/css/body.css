@@ -28,7 +28,8 @@ body
 
 .product_table
 {
-    position: absolute;
+    /* Positioned table in the middle of the page */
+    position: relative;
     
     left: 50%;
     transform: translate(-50%, 0);
@@ -47,8 +48,11 @@ body
     text-align: center; /* Centers the message */
     font-weight: bold;  /* Bolds the text */
 
-    position: relative; /* Makes the position relative to the other elements present */
-    bottom: 25px;       /* Moves error message to the top of the login window */
+    /* Positions the message at the middle of the screen above all of the products */
+    position: absolute;
+    top: 175px;        
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 

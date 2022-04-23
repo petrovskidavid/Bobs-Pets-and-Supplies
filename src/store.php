@@ -52,7 +52,7 @@
         $count = 0;
 
         // Add space for cart messages
-        echo "<br/><br/>";
+        echo "<br/><br/><br>";
         // Create a table
         echo "<table class=\"product_table\" cellpadding=20>";
         // Loop through every product in the table
@@ -189,7 +189,5 @@
                 echo "<p class='err_added_to_cart'>An error occurred. Please try again.</p>";
             }
         }
-    
-        
     ?>
 </body></html>
