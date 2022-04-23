@@ -42,7 +42,7 @@
         echo "<br><br><table class=\"emp_options\" cellpadding=20 >";
         echo "<td>";
         // Creates button that redirects employee to the Orders page
-        echo "<form action=\"./view_orders.php\" method=\"POST\" >";
+        echo "<form action=\"./view_orders.php\" >";
 
         // Sends the employees EmpID so that it is saved for later use
         echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
@@ -53,11 +53,11 @@
 
         echo "<td>";
         // Creates button that redirects employee to the Inventory page
-        echo "<form action=\"./inventory.php\" method=\"POST\" class=\"view_inventory_btn\"  >";
+        echo "<form action=\"./inventory.php\" >";
 
         // Sends the employees EmpID so that it is saved for later use
         echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
-        echo "<input type=\"submit\" name=\"submit\" value=\"View Inventory\" class=\"view_order_btn\" />";
+        echo "<input type=\"submit\" name=\"submit\" value=\"View Inventory\" class=\"view_inventory_btn\" />";
         echo "</form>";
 
         echo "</td>";

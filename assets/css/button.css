@@ -38,3 +38,15 @@ input[type=submit]:hover
 {
     font-size: 25px; /* Sets buttons fonts size */
 }
+
+
+.return_btn
+{
+    font-size: 15px; /* Sets buttons font size */
+    width: 100px;    /* Sets buttons width */
+
+    /* Positions button to be inline with the rest of the text and on the left side of the page */
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 20px;
+}

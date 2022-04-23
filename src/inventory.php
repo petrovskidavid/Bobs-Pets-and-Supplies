@@ -31,7 +31,13 @@
 		$result = $pdo->query($sql);
 		$result->setFetchMode(PDO::FETCH_ASSOC); 
 
+
+		echo "<form action=\"./employee_home.php\" >";
+		echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
+        echo "<input type=\"submit\" name=\"submit\" value=\"Back\" class=\"return_btn\" />";
+        echo "</form>";
 	?>
+
 	<h2 style="text-align:center"> Inventory </h2>
 
 	<table border=1" cellpadding=15 class="product_table">
