@@ -36,21 +36,27 @@
 		create_return_btn("./employee_home.php", 2);
 	?>
 
-	<h2 style="text-align:center"> Orders </h2>
+	<h2 style="text-align:center">Bob's Pets and Supplies Orders</h2>
 
 <?php
-	echo "<table border=1 width='50%' style='float:left'>";
 
-	echo "<tr>";
-		echo "<th style='text-align:center' colspan=5> All Unprocessed Orders </th>";
+	// Additional table that is used to display both tables in center of page
+	echo "<table class=\"orders\" cellpadding=35>";
+	echo "<td>";
+
+	// All Orders table
+	echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
+
+	echo "<tr bgcolor=\"#8AA29E\">";
+		echo "<th style='text-align:center' colspan=5> All Orders </th>";
 	echo "</tr>";
 
-	echo "<tr>";
+	echo "<tr bgcolor=\"#8AA29E\">";
 		echo "<th style='text-align:center'> OrderID </th>";
 		echo "<th style='text-align:center'> TrackingNum </th>";
 		echo "<th style='text-align:center'> Address </th>";
 		echo "<th style='text-align:center'> Status </th>";
-		echo "<th style='text-align:center'> View Details </th>";
+		echo "<th style='text-align:center'></th>";
 	echo "</tr>";
 
 	foreach($result as $row)
@@ -63,7 +69,7 @@
 		{
 			$stat="Shipped";
 		} ?>
-		<tr>
+		<tr bgcolor="#FAFAFA">
 			<td style="text-align:center"> <?php echo "$row[OrderID]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]" ?> </td>
@@ -72,37 +78,51 @@
 		</tr>
 <?php   }
 	echo "</table>";
+	echo "</td>";
+	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
 
-	$sql2="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE Status='2' AND EmpID='admin'";
+	$result2 = $pdo->prepare($sql2);
+	$result2->execute(array($_GET['EmpID']));
+	$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
+	
 
-	$result2 = $pdo->query($sql2);
-	$result2->setFetchMode(PDO::FETCH_ASSOC);
+	echo "<td>";
 
-	echo "<table border=1 width='50%' style='float:right'>";
+	// Checks if the employee has any orders to process, if not it prints a message
+	if(empty($result2))
+	{
+		echo "<h4>You don't have any orders to process at the moment. Congrats!</h4>";
+	}
+	else
+	{
+		// Employees Orders table
+		echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
 
-	echo "<tr>";
-		echo "<th style='text-align:center' colspan=5> Your Unprocessed Orders </th>";
-	echo "</tr>";
+		echo "<tr bgcolor=\"#8AA29E\">";
+			echo "<th style='text-align:center' colspan=5> Your Unprocessed Orders </th>";
+		echo "</tr>";
 
-	echo "<tr>";
-		echo "<th style='text-align:center'> OrderID </th>";
-		echo "<th style='text-align:center'> TrackingNum </th>";
-		echo "<th style='text-align:center'> Address </th>";
-		echo "<th style='text-align:center'> Status </th>";
-		echo "<th style='text-align:center'> View Details </th>";
-	echo "</tr>";
+		echo "<tr bgcolor=\"#8AA29E\">";
+			echo "<th style='text-align:center'> OrderID </th>";
+			echo "<th style='text-align:center'> TrackingNum </th>";
+			echo "<th style='text-align:center'> Address </th>";
+			echo "<th style='text-align:center'></th>";
+		echo "</tr>";
 
-	foreach($result2 as $row2)
-	{ ?> 
-		<tr>
-			<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-			<td style="text-align:center"> Received </td>
-			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="OrderID" value="<?php echo "$row2[OrderID]" ?>"/> </form> </td>
-		</tr>
-<?php   }
-	echo "</table>";
+		foreach($result2 as $row2)
+		{ ?> 
+			<tr bgcolor="#FAFAFA">
+				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
+				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
+				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
+				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="OrderID" value="<?php echo "$row2[OrderID]" ?>"/> </form> </td>
+			</tr>
+	<?php   }
+		echo "</table>";
+		}
+		
+	echo "</td></table>";
+
 ?>
 
 </body>
