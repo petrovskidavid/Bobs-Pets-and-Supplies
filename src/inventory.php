@@ -12,7 +12,7 @@
         /**
          * @file inventory.php
          * 
-         * @brief This is the inventory page where employees can view their inventory
+         * @brief This is the inventory page where employees can view their inventory.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
