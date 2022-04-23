@@ -31,12 +31,14 @@ input[type=submit]:hover
 .view_order_btn
 {
     font-size: 25px; /* Sets buttons fonts size */
+    width: 200px;    /* Sets buttons width */
 }
 
 
 .view_inventory_btn
 {
     font-size: 25px; /* Sets buttons fonts size */
+    width: 200px;    /* Sets buttons width */
 }
 
 

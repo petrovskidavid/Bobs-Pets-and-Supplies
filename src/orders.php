@@ -4,7 +4,6 @@
     <title>Orders</title>  
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/css/login.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
 </head>
 

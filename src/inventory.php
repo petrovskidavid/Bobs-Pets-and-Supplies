@@ -37,8 +37,8 @@
 
 	<h2 style="text-align:center"> Inventory </h2>
 
-	<table border=1" cellpadding=15 class="product_table">
-		<tr>
+	<table border=1" style="border:solid;" cellpadding=15 class="product_table">
+		<tr bgcolor="#8AA29E">
 			<th style="text-align:center"> ProductID </th>
 			<th style="text-align:center"> Name </th>
 			<th style="text-align:center"> Price </th>
@@ -48,7 +48,7 @@
 
 		<?php foreach($result as $row)
 		{ ?>
-			<tr>
+			<tr bgcolor="#FAFAFA">
 				<td style="text-align:center"> <?php echo "$row[ProductID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row[Name]"; ?> </td>
 				<td style="text-align:center"> $<?php echo "$row[Price]"; ?> </td>
@@ -66,8 +66,6 @@
 			</tr>
 		<?php 	} ?>
 	</table>
-
-
 </body>
 </html>
 
