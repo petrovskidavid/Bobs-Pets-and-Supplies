@@ -42,8 +42,8 @@
 			<th style="text-align:center"> ProductID </th>
 			<th style="text-align:center"> Name </th>
 			<th style="text-align:center"> Price </th>
-			<th style="text-align:center"> Quantity </th>
 			<th style="text-align:center"> In Stock </th>
+			<th style="text-align:center"> Quantity </th>
 		</tr>
 
 		<?php foreach($result as $row)
@@ -52,7 +52,6 @@
 				<td style="text-align:center"> <?php echo "$row[ProductID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row[Name]"; ?> </td>
 				<td style="text-align:center"> $<?php echo "$row[Price]"; ?> </td>
-				<td style="text-align:center"> <?php echo "$row[Quantity]"; ?> </td>
 				<td style="text-align:center"> 
 				<?php
 					// Checks if the quantity is 0 then it is out of stock and display it in red
@@ -63,7 +62,7 @@
 					}
 				?>
 				</td>
-				
+				<td style="text-align:center"> <?php echo "$row[Quantity]"; ?> </td>
 			</tr>
 		<?php 	} ?>
 	</table>
