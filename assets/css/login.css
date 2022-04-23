@@ -29,7 +29,7 @@
     padding-bottom: 20px;       
     
     /* Positions the window in the middle of the screen and 35% from the top */
-    position: relative;
+    position: absolute;
     
     left: 50%;
     transform: translate(-50%, 0);
