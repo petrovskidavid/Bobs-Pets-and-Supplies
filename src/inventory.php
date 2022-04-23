@@ -51,7 +51,7 @@
 			<tr bgcolor="#FAFAFA">
 				<td style="text-align:center"> <?php echo "$row[ProductID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row[Name]"; ?> </td>
-				<td style="text-align:center"> $<?php echo "$row[Price]"; ?> </td>
+				<td style="text-align:center"> $<?php $price = number_format($row["Price"], 2); echo "$price"; ?> </td>
 				<td style="text-align:center"> 
 				<?php
 					// Checks if the quantity is 0 then it is out of stock and display it in red
