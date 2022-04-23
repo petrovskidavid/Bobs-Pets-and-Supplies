@@ -42,6 +42,12 @@ body
 }
 
 
+.price_lbl
+{
+    font-weight: normal; /* Gives the price label a normal font weight */
+}
+
+
 .succ_added_to_cart
 {
     color: #049a89;     /* Sets the color of the message */

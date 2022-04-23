@@ -45,7 +45,7 @@
         echo "<br><h3 class=\"welcome_msg\">Welcome back ".$customer_name."! Happy shopping!";
 
         // Get the product name, ID, and image source link from Products table
-        $result = $pdo->query("SELECT ImgLink, Name, ProductID, Quantity from Products;");
+        $result = $pdo->query("SELECT * from Products;");
         $links = $result->fetchAll(PDO::FETCH_ASSOC);
 
         // Create a counter to display 5 rows of products
@@ -66,6 +66,10 @@
             $ID = $link["ProductID"];
             // Save the quantity in stock
             $quantity = $link["Quantity"];
+            // Save the price of the product
+            $price = $link["Price"];
+            // Format the price to have 2 decimal places
+            $price = number_format($price, 2);
 
             // Make sure the product is in stock
             if($quantity > 0)
@@ -85,6 +89,8 @@
                 echo "<img src='$addr' class='product_img' alt='$name Product Image' height=250 width=250/><br>";
                 // Display the product name
                 echo "<p class='product_name'>$name</p>";
+                // Display the product price
+                echo "<p class='price_lbl'>Price: <b>$".$price."</b></p>";
                 // Display a number textbox for the user to enter an amount to add to cart
                 echo "<input type='number' name='amount' min='1' value='1' style='height:25px'/>";
                 echo " ";
