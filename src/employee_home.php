@@ -36,7 +36,7 @@
         $emp_name = $row["Name"];
         
         // Displays welcome message
-        echo "<br><h3 class=\"welcome_msg\">Welcome back ".$emp_name."! Choose which page you want to access bellow.";
+        echo "<br><h3 class=\"welcome_msg\">Welcome back ".$emp_name."! Choose which page you want to access below.";
 
         // Puts buttons in table and in the same row to center them in the page.
         echo "<br><br><table class=\"emp_options\" cellpadding=20 >";
