@@ -28,7 +28,7 @@ body
 
 .product_table
 {
-    position: relative;
+    position: absolute;
     
     left: 50%;
     transform: translate(-50%, 0);
@@ -65,15 +65,26 @@ body
 
 .emp_options
 {
-    /* Positions the window in the middle of the screen */
+    /* Positions the buttons in the middle of the screen */
     position: relative;
     
     left: 50%;
     transform: translate(-50%, 0);
 }
 
+
+.inventory_table
+{
+    position: relative;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
 .orders
 {
+    /* Positions the orders tables in the middle of the screen */
     position: relative;
     
     left: 50%;

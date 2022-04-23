@@ -37,7 +37,7 @@
 
 	<h2 style="text-align:center"> Inventory </h2>
 
-	<table border=1" style="border:solid;" cellpadding=15 class="product_table">
+	<table border=1" style="border:solid;" cellpadding=15 class="inventory_table">
 		<tr bgcolor="#8AA29E">
 			<th style="text-align:center"> ProductID </th>
 			<th style="text-align:center"> Name </th>
@@ -68,7 +68,3 @@
 	</table>
 </body>
 </html>
-
-
-
-
