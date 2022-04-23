@@ -31,11 +31,8 @@
 		$result = $pdo->query($sql);
 		$result->setFetchMode(PDO::FETCH_ASSOC); 
 
-		// Adds a button that can return back to the employee home page and saves EmpID
-		echo "<form action=\"./employee_home.php\" >";
-		echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
-        echo "<input type=\"submit\" name=\"submit\" value=\"Back\" class=\"return_btn\" />";
-        echo "</form>";
+		// Creates a return button to the employee home page.
+		create_return_btn("./employee_home.php", 2);
 	?>
 
 	<h2 style="text-align:center"> Inventory </h2>

@@ -154,4 +154,37 @@
 
         return false;
     }
+
+
+    /**
+     * @brief Creates a button that returns one page back provided by the first param, and it 
+     *        sends the Username/EmpID through the GET method.
+     * 
+     * @param $dest Destination when button clicked.
+     * @param $usr_type Type of user that is using the page.
+     *                  1 -> Customer
+     *                  2 -> Employee
+     */
+    function create_return_btn($dest, $type){
+
+        // Checks if the user that is using the button is a Customer or Employee
+        if($type == 1)
+        {
+            $ID = "Username";
+        } 
+        else 
+        {
+            $ID = "EmpID";
+        }
+
+        // Creates a form for the button with the given destination
+		echo "<form action=".$dest." >";
+
+        // Sends in the Username/EmpID through the form
+		echo "<input type=\"hidden\" name=".$ID." value=".$_GET[$ID]." />";
+
+        // Creates the button
+        echo "<input type=\"submit\" name=\"submit\" value=\"Back\" class=\"return_btn\" />";
+        echo "</form>";
+    }
 ?>
