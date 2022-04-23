@@ -5,6 +5,11 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
+    <script>
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
 </head>
 
 <body>
