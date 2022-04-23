@@ -30,17 +30,11 @@ input[type=submit]:hover
 
 .view_order_btn
 {
-    position: relative;
-    
-    left: 50%;
-    transform: translate(-50%, 0);
+    font-size: 25px; /* Sets buttons fonts size */
 }
 
 
 .view_inventory_btn
 {
-    position: relative;
-    
-    left: 50%;
-    transform: translate(-50%, 0);
+    font-size: 25px; /* Sets buttons fonts size */
 }

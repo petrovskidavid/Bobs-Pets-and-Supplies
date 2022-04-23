@@ -60,3 +60,13 @@ body
     position: relative; /* Makes the position relative to the other elements present */
     bottom: 25px;       /* Moves error message to the top of the login window */
 }
+
+
+.emp_options
+{
+    /* Positions the window in the middle of the screen */
+    position: absolute;
+    
+    left: 50%;
+    transform: translate(-50%, 0);
+}
