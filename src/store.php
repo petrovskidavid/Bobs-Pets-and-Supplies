@@ -195,6 +195,7 @@
 
                 // Print a message letting the user know they added the product to their cart
                 echo "<p class='succ_added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
+                
             }
             else    // Otherwise, if the insert/update failed,
             {

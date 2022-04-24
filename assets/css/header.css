@@ -43,6 +43,27 @@ header a
 }
 
 
+.cart_icon
+{
+    /* Positions cart to the absolute position on the right side of the page above the logout button */
+    position: absolute;
+    top: 15px;
+    left: 98%;
+    transform: translate(-98%, 0);
+}
+
+
+.num_items
+{
+    color: black;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 99%;
+    transform: translate(-99%, 0);
+}
+
+
 .e_login
 {
     float: right;                /* Makes the text float to the right of the page */
