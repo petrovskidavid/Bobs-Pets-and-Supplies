@@ -26,7 +26,7 @@ body
 }
 
 
-.product_table
+.product_table_store
 {
     /* Positioned table in the middle of the page */
     position: relative;
@@ -36,13 +36,13 @@ body
 }
 
 
-.product_name
+.product_name_store
 {
     text-align: center; /* Centers the product name */
 }
 
 
-.price_lbl
+.price_lbl_store
 {
     font-weight: normal; /* Gives the price label a normal font weight */
 }
@@ -85,6 +85,7 @@ body
 
 .inventory_table
 {
+    /* Positions inventory table in the middle of the page */
     position: relative;
     
     left: 50%;
@@ -99,4 +100,38 @@ body
     
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+
+.cart_msg
+{
+    text-align: center; /* Center welcome message */
+}
+
+
+.cart_display
+{
+    /* Positions the cart table on the left side of the page spaced from order content above it */
+    position: relative;
+
+    margin-top: 35px;
+    left: 5%;
+}
+
+
+.product_in_stock_cart
+{
+    color: #049a89; /* Sets the color of the message */ 
+}
+
+
+.product_low_stock_cart
+{
+    color: red; /* Sets the color of the message */
+}
+
+
+.total_cart
+{
+    font-size: 20px;    /* Sets font for carts total */
 }

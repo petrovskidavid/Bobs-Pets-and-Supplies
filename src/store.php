@@ -54,7 +54,7 @@
         // Add space for cart messages
         echo "<br/><br/><br>";
         // Create a table
-        echo "<table class=\"product_table\" cellpadding=20>";
+        echo "<table class=\"product_table_store\" cellpadding=20>";
         // Loop through every product in the table
         foreach($links as $link)
         {
@@ -86,11 +86,11 @@
                 // Create a new form with POST method
                 echo "<form method='POST'>";
                 // Display the product image and a new line
-                echo "<img src='$addr' class='product_img' alt='$name Product Image' height=250 width=250/><br>";
+                echo "<img src='$addr' alt='$name Product Image' height=250 width=250/><br>";
                 // Display the product name
-                echo "<p class='product_name'>$name</p>";
+                echo "<p class='product_name_store'>$name</p>";
                 // Display the product price
-                echo "<p class='price_lbl'>Price: <b>$".$price."</b></p>";
+                echo "<p class='price_lbl_store'>Price: <b>$".$price."</b></p>";
                 // Display a number textbox for the user to enter an amount to add to cart
                 echo "<input type='number' name='amount' min='1' value='1' style='height:25px'/>";
                 echo " ";
