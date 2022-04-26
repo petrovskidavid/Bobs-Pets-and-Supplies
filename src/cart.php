@@ -32,7 +32,7 @@
         include("functions.php"); // Gives the file with the login window creation function
 
 
-        // Check if an "Add To Cart" button was clicked from the product view page
+        // Check if an "Add To Cart" button was clicked from the product view page to update item quantity
         if(isset($_POST["add_to_cart"]))  
         {
             // Used to indicate the amount requested exceed what is in the cart
