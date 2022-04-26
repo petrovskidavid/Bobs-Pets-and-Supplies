@@ -77,7 +77,7 @@
 			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
 		</tr>
 <?php   }
-	echo "</table>";
+	echo "</table></td>";
 
 	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
 
@@ -85,7 +85,7 @@
 	$result2->execute(array($_GET['EmpID']));
 	$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
 
-
+	echo "<td>";
 	// Checks if the employee has any orders to process, if not it prints a message
 	if(empty($result2))
 	{
