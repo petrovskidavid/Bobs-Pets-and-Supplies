@@ -236,7 +236,11 @@
 
             // Creates form for checkout button
             echo "<form action=\"checkout.php\" >";
+            // Sends the username to the checkout page
             echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." /><br>";
+            // Sends the order total to the checkout page
+            echo "<input type=\"hidden\" name=\"Total\" value=".$order_total." />";
+            // Creates the checkout button
             echo "<input type=\"submit\" name=\"checkout\" value=\"Checkout\" class=\"checkout_btn\" >";
             echo "</form>";
 
