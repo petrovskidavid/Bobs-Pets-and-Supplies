@@ -53,6 +53,7 @@ CREATE TABLE Orders(
     OrderID     INTEGER  AUTO_INCREMENT,                  -- Order number for each order
     EmpID       CHAR(8),                                  -- Employee assigned to process order
     Username    CHAR(15) NOT NULL,                        -- Customer that made the order
+    Total       DOUBLE,                                   -- The total of the order
     Status      INTEGER  DEFAULT 1,                       -- Status of order (1 = in cart (default), 2 = received, 3 = processed)
     TrackingNum INTEGER,                                  -- Tracking number of order, initially null untill shipped
     Notes       CHAR(255),                                -- Notes for order, intially null
