@@ -30,7 +30,7 @@
 		$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE (Status='2' OR Status='3')";
 
 		$result = $pdo->query($sql);
-		$result->setFetchMode(PDO::FETCH_ASSOC); 
+		$result = $result->fetchAll(PDO::FETCH_ASSOC); 
 
 		// Creates a return button to the employee home page.
 		create_return_btn("./employee_home.php", 2);
@@ -43,32 +43,38 @@
 	// Additional table that is used to display both tables in center of page
 	echo "<table class=\"orders\" cellpadding=35>";
 	echo "<td>";
+	if(empty($result))
+	{
+		echo "<h4>There are no orders to process at this time.</h4>";
+	}
+	else
+	{
 
-	// All Orders table
-	echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
+		// All Orders table
+		echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
 
-	echo "<tr bgcolor=\"#8AA29E\">";
-		echo "<th style='text-align:center' colspan=5> All Orders </th>";
-	echo "</tr>";
+		echo "<tr bgcolor=\"#8AA29E\">";
+			echo "<th style='text-align:center' colspan=5> All Orders </th>";
+		echo "</tr>";
 
-	echo "<tr bgcolor=\"#8AA29E\">";
-		echo "<th style='text-align:center'> OrderID </th>";
-		echo "<th style='text-align:center'> TrackingNum </th>";
-		echo "<th style='text-align:center'> Address </th>";
-		echo "<th style='text-align:center'> Status </th>";
-		echo "<th style='text-align:center'></th>";
-	echo "</tr>";
+		echo "<tr bgcolor=\"#8AA29E\">";
+			echo "<th style='text-align:center'> OrderID </th>";
+			echo "<th style='text-align:center'> TrackingNum </th>";
+			echo "<th style='text-align:center'> Address </th>";
+			echo "<th style='text-align:center'> Status </th>";
+			echo "<th style='text-align:center'></th>";
+		echo "</tr>";
 
-	foreach($result as $row)
-	{ 
-		if ($row['Status'] == 2)
-		{
-			$stat="Received";
-		}
-		else
-		{
-			$stat="Shipped";
-		} ?>
+		foreach($result as $row)
+		{ 
+			if ($row['Status'] == 2)
+			{
+				$stat="Received";
+			}
+			else
+			{
+				$stat="Shipped";
+			} ?>
 		<tr bgcolor="#FAFAFA">
 			<td style="text-align:center"> <?php echo "$row[OrderID]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]" ?> </td>
@@ -77,7 +83,9 @@
 			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
 		</tr>
 <?php   }
-	echo "</table></td>";
+	    echo "</table>";
+	}
+	echo "</td>";
 
 	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
 
