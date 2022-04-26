@@ -52,3 +52,15 @@ input[type=submit]:hover
     margin-left: 20px;
     margin-top: 20px;
 }
+
+
+input[type=submit].remove_items_btn
+{
+    background: #DB5461; /* Selects the normal background color */
+}
+
+
+input[type=submit]:hover.remove_items_btn
+{
+    background: #ef939c; /* Selects color when hovering over button */
+}

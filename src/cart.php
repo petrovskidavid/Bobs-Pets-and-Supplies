@@ -56,7 +56,7 @@
 
             // Creates a table view of all the items, including their image, their name, quantity and price
             echo "<table class=\"cart_display\" cellpadding=10>";
-            foreach($items_in_cart as $item){
+            foreach($items_in_cart as $item){   
 
                 // Prepares query to get info on the product found in the customers cart
                 $result = $pdo->prepare("SELECT * FROM Products WHERE ProductID=?");
@@ -64,6 +64,12 @@
 
                 // Saves the product info
                 $product_info = $result->fetch(PDO::FETCH_ASSOC);
+
+    
+                if(isset($_GET["remove_items"]) or isset($_GET["update_qty"]))
+                {
+                    header("Location: cart.php?Username=".$_GET["Username"]);
+                }
 
                 // Display the product image
                 echo "<tr><td><img src='".$product_info["ImgLink"]."' alt='".$product_info["Name"]." Product Image' height=150 width=150/></td>";
@@ -81,13 +87,30 @@
                     echo "<p class=\"product_low_stock_cart\">".$product_info["Quantity"]." left in stock! Order soon.</p>";
                 }
 
-                // Display the quantity in customers cart
-                echo "<br>Quantity: <b>".$item["Amount"]."</b></td>";
+                // Creates form to update number of items of the selected product
+                echo "<form>";
+
+                // Sends the username so that it is saved
+                echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." />";
+
+                // Sends the productID of the item
+                echo "<input type=\"hidden\" name=\"ProductID\" value=".$product_info["ProductID"]." />";
+                
+                // Display the quantity in customers cart in the input textbox
+                echo "Quantity: ";
+                echo "<input type=\"number\" name=\"amount\" min='0' max=".$product_info["Quantity"]." value=".$item["Amount"]." style=\"height: 15px;\"/><br><br>";
+
+                // Display update and remove buttons
+                echo "<input type=\"submit\" name=\"remove_items\" value=\"Remove\" class=\"remove_items_btn\" /> ";
+                echo "<input type=\"submit\" name=\"update_qty\" value=\"Update\">";
+             
+                echo "</form>";
                 
                 // Format the price to have 2 decimal places
                 $price = number_format($product_info["Price"], 2);
-                echo "<td><br><br><br><br>Price: <b>$".$price."</b></td></tr>";
+                echo "<td><br>Price: <b>$".$price."</b></td></tr>";
 
+                // Increments the number of items in the cart
                 $number_of_items += $item["Amount"];
                 
                 // Calculates the carts current total
@@ -104,6 +127,21 @@
         else 
         {
             echo "<h3 class=\"cart_msg\">Your cart is empty!</h2>";
+        }
+
+        // Checks if the Update button was clicked
+        if(isset($_GET["update_qty"]))
+        {
+            // Update the row in the table with the new amount
+            $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND Username=?");
+            $success = $result->execute(array($_GET["amount"], $_GET["ProductID"], $_GET["Username"])); 
+            
+        }
+        else if(isset($_GET["remove_items"]))
+        {
+            // Remove the row in the table with the selected item
+            $result = $pdo->prepare("DELETE FROM Carts WHERE ProductID=? AND Username=?");
+            $success = $result->execute(array($_GET["ProductID"], $_GET["Username"])); 
         }
     ?>
 </body></html>

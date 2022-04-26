@@ -92,7 +92,7 @@
                 // Display the product price
                 echo "<p class='price_lbl_store'>Price: <b>$".$price."</b></p>";
                 // Display a number textbox for the user to enter an amount to add to cart
-                echo "<input type='number' name='amount' min='1' max='$quantity' value='1' style='height:25px'/>";
+                echo "<input type='number' name='amount' min='1' max='$quantity' value='1' style='height:25px;'/>";
                 echo " ";
                 // Display an "Add To Cart" button
                 echo "<input type='submit' name='add_to_cart' value='Add To Cart' \/>";
