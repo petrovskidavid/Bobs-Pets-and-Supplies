@@ -74,6 +74,7 @@ body
 .product_info_view
 {
     vertical-align: top; /* Aligns product info at the top of the cell */
+    font-size: 20px;
 }
 
 .product_name_view
@@ -81,7 +82,6 @@ body
     font-weight: bold; /* Sets font to bold */
     font-size: 40px; /* Sets font size */
 }
-
 
 .succ_added_to_cart
 {

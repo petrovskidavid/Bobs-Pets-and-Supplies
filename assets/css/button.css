@@ -31,21 +31,21 @@ input[type=submit]:hover
 .view_order_btn
 {
     font-size: 25px; /* Sets buttons fonts size */
-    width: 200px;    /* Sets buttons width */
+    width: 250px;    /* Sets buttons width */
 }
 
 
 .view_inventory_btn
 {
     font-size: 25px; /* Sets buttons fonts size */
-    width: 200px;    /* Sets buttons width */
+    width: 250px;    /* Sets buttons width */
 }
 
 
 .return_btn
 {
     font-size: 15px; /* Sets buttons font size */
-    width: 100px;    /* Sets buttons width */
+    width: 180px;    /* Sets buttons width */
 
     /* Positions button to be inline with the rest of the text and on the left side of the page */
     position: absolute;
@@ -64,6 +64,14 @@ input[type=submit]:hover.remove_items_btn
 {
     background: #ef939c; /* Selects color when hovering over button */
 }
+
+
+input[type=submit].add_to_cart_btn
+{
+    font-size: 18px;
+    width: 150px;
+}
+
 
 input[type=submit].checkout_btn
 {
