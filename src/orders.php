@@ -78,15 +78,13 @@
 		</tr>
 <?php   }
 	echo "</table>";
-	echo "</td>";
+
 	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
 
 	$result2 = $pdo->prepare($sql2);
 	$result2->execute(array($_GET['EmpID']));
 	$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
-	
 
-	echo "<td>";
 
 	// Checks if the employee has any orders to process, if not it prints a message
 	if(empty($result2))
