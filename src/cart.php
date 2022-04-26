@@ -33,7 +33,7 @@
 
 
         // Creates a return button to the store page.
-		create_return_btn("./store.php", 1);
+		create_return_btn("./store.php", 1, "Continue Shopping");
 
         // Infom customer this is the cart page
         echo "<h2 class=\"cart_msg\">Your Shopping Cart</h2>";
