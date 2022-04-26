@@ -35,7 +35,12 @@
         // Creates a return button to the cart page.
 		create_return_btn("./cart.php", 1);
 
+        // Saves the customers usrename
+        $username = $_GET["Username"];
 
+        // Saves the current order total
+        $order_total = $_GET["Total"];
+        
         /* Make sure to delete the order from the Cart after checkout is processed, assign an employee to the order, update the status of the order and also update
            the products quantity after the order is sucesfully checked out.
         */
