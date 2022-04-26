@@ -64,3 +64,9 @@ input[type=submit]:hover.remove_items_btn
 {
     background: #ef939c; /* Selects color when hovering over button */
 }
+
+input[type=submit].checkout_btn
+{
+    width: 80%;
+    font-size: 18px;
+}

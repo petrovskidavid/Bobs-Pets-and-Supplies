@@ -114,10 +114,12 @@ body
 
 .cart_display
 {
+    width: 82%; /* Sets width of table compared to page */
+
     /* Positions the cart table on the left side of the page spaced from order content above it */
     position: relative;
 
-    margin-top: 35px;
+    margin-top: 25px;
     left: 5%;
 }
 
@@ -136,5 +138,10 @@ body
 
 .total_cart
 {
-    font-size: 20px;    /* Sets font for carts total */
+    width: 40%;      /* Uses 40% of parent tables width */
+    font-size: 20px; /* Sets font for carts total */
+    
+    /* Aligns text at top center of the cell */
+    vertical-align: top; 
+    text-align: center;
 }

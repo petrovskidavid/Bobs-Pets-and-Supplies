@@ -15,11 +15,9 @@
 <body>
     <?php
         /**
-         * @file store.php
+         * @file cart.php
          * 
-         * @brief This is the online store page.
-         *        On this page customers can browse through the products and put items in their cart,
-         *        as well as access their cart.
+         * @brief This is the page where the customer can view their cart and start checkout process.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
@@ -55,7 +53,9 @@
             $number_of_items = 0;
 
             // Creates a table view of all the items, including their image, their name, quantity and price
-            echo "<table class=\"cart_display\" cellpadding=10>";
+            echo "<table class=\"cart_display\">";
+            // Used to organize the view
+            echo "<td><table cellpadding=10>";
             foreach($items_in_cart as $item){   
 
                 // Prepares query to get info on the product found in the customers cart
@@ -65,7 +65,7 @@
                 // Saves the product info
                 $product_info = $result->fetch(PDO::FETCH_ASSOC);
 
-    
+                // Checks if the update or remove buttons were clicked to update what is displayed
                 if(isset($_GET["remove_items"]) or isset($_GET["update_qty"]))
                 {
                     header("Location: cart.php?Username=".$_GET["Username"]);
@@ -79,7 +79,6 @@
                 // Display if product is in stock, if 5 or less are in stock display a message informing the customer
                 if($product_info["Quantity"] > 5)
                 {
-
                     echo "<p class=\"product_in_stock_cart\">In Stock<p>";
                 }
                 else
@@ -116,10 +115,15 @@
                 // Calculates the carts current total
                 $order_total += $price * $item["Amount"];
             }
-
+            echo "</table>";
             // Puts the cart total at the bottom center of the table
-            echo "<tr><td> </td><td class=\"total_cart\"><br>Cart Total (".$number_of_items." items): <b>$".number_format($order_total, 2)."</b></td<td> </td></tr>";
+            echo "<td class=\"total_cart\"><br>Cart Total (".$number_of_items." items): <b>$".number_format($order_total, 2)."</b>";
 
+            // Creates form for checkout button
+            echo "<form action=\"checkout.php\" >";
+            echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." /><br>";
+            echo "<input type=\"submit\" name=\"checkout\" value=\"Checkout\" class=\"checkout_btn\" >";
+            echo "</form>";
 
             // Add btn to checkout at bottom whole row, then also add delete btn under every quantity
             echo "</table>";
@@ -135,7 +139,6 @@
             // Update the row in the table with the new amount
             $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND Username=?");
             $success = $result->execute(array($_GET["amount"], $_GET["ProductID"], $_GET["Username"])); 
-            
         }
         else if(isset($_GET["remove_items"]))
         {

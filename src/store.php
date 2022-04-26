@@ -217,7 +217,7 @@
                 if($amountExceeded){
 
                     // Prints message letting the user know their requsted amount exceed what was in stock, so the amount in their cart is the maximum avaliable
-                    echo "<p class=\"err_added_to_cart\">The requested amount exceeds the quantity of ".$name." that we have in stock. The quantity in your cart was set to ".$newAmount."!";
+                    echo "<p class=\"err_added_to_cart\">The requested amount is too large. Your cart was updated to have the maximum amount we have in stock!";
                 }
                 else
                 {
