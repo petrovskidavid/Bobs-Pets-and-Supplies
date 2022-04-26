@@ -124,6 +124,8 @@
         // Check if an "Add To Cart" button was clicked
         if(isset($_POST["add_to_cart"]))
         {
+            // Used to indicate the amount requested exceed what is in the cart
+            $amountExceeded = false;
             // Save the product ID
             $productID = $_POST["ProductID"];
             // Save the amount to add to cart
@@ -172,10 +174,28 @@
             }
             else    // If the product is already in their cart,
             {
+
+                // Prepares query to get quantity in stock of the selected product
+                $result = $pdo->prepare("SELECT Quantity FROM Products WHERE ProductID=?");
+                $result->execute(array($productID));
+
+                // Saves the quantity in stock
+                $quantity = $result->fetch(PDO::FETCH_ASSOC);
+                $quantity = $quantity["Quantity"];
+
                 // Get the amount currently in the cart
                 $previousAmt = $row["Amount"];
                 // Add the previous amount to the new amount
                 $newAmount = $amount + $previousAmt;
+
+                // Checks if the customers current request to add is higher than what is in stock and updated to hold the current maximum value
+                if($newAmount > $quantity){
+
+                    $newAmount = $quantity;
+
+                    // Used to indicate that the amount requested exceeded what we have in stock
+                    $amountExceeded = true;
+                }
 
                 // Update the row in the table with the new amount
                 $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND OrderID=?");
@@ -193,8 +213,18 @@
                 // Save the name of the product
                 $name = $row["Name"];
 
-                // Print a message letting the user know they added the product to their cart
-                echo "<p class='succ_added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>";
+                // Checks if the amount requested exceeds what we have in stock
+                if($amountExceeded){
+
+                    // Prints message letting the user know their requsted amount exceed what was in stock, so the amount in their cart is the maximum avaliable
+                    echo "<p class=\"err_added_to_cart\">The requested amount exceeds the quantity of ".$name." that we have in stock. The quantity in your cart was set to ".$newAmount."!";
+                }
+                else
+                {
+                    // Print a message letting the user know they added the product to their cart
+                    echo "<p class='succ_added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>"; 
+                }
+                
                 
             }
             else    // Otherwise, if the insert/update failed,
