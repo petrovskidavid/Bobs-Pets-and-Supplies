@@ -53,6 +53,7 @@ body
     color: #049a89;     /* Sets the color of the message */
     text-align: center; /* Centers the message */
     font-weight: bold;  /* Bolds the text */
+    font-size: 17px;    /* Sets the font size */
 
     /* Positions the message at the middle of the screen above all of the products */
     position: absolute;
@@ -67,6 +68,7 @@ body
     color: red;         /* Sets the color of the message */
     text-align: center; /* Centers the message */
     font-weight: bold;  /* Bolds the text */
+    font-size: 17px;    /* Sets the font size */
 
     /* Positions the message at the middle of the screen above all of the products */
     position: absolute;

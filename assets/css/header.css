@@ -45,24 +45,33 @@ header a
 }
 
 
-.cart_icon
+.header_right_w_cart
 {
-    /* Positions cart to the absolute position on the right side of the page above the logout button */
-    position: absolute;
-    top: 15px;
-    left: 98%;
-    transform: translate(-98%, 0);
+    float: right;                /* Makes the text float to the right of the page */
+    margin-top: 10px;            /* Moves it lower on the page */
+    margin-right: 5px;           /* Moves it more left on the page */
+}
+
+
+.header_right
+{
+    float: right;                /* Makes the text float to the right of the page */
+    margin-top: 68px;            /* Moves it lower on the page */
+    margin-right: 5px;           /* Moves it more left on the page */
+}
+
+
+.cart_icon
+{ 
+    float: left;        /* Makes the icon float to the left of the container */
+    margin-bottom: 8px; /* Spaces the container with the logout button */
 }
 
 
 .num_items
 {
-    color: black;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    left: 99%;
-    transform: translate(-99%, 0);
+    color: black;      /* Sets font color */
+    font-weight: bold; /* Bolds the text */
 }
 
 
@@ -77,9 +86,6 @@ header a
 
 .logout
 {
-    float: right;                /* Makes the text float to the right of the page */
-    margin-top: 68px;            /* Moves it lower on the page */
-    margin-right: 5px;           /* Moves it more left on the page */
     font-size: 14px;             /* Changes font size */
     width: 90px;                 /* Sets the width of the button */
 }

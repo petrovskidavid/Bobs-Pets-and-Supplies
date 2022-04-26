@@ -67,6 +67,6 @@ input[type=submit]:hover.remove_items_btn
 
 input[type=submit].checkout_btn
 {
-    width: 80%;
-    font-size: 18px;
+    width: 80%;      /* Sets buttons width */
+    font-size: 18px; /* Sets buttons font size */
 }
