@@ -16,7 +16,7 @@ INSERT INTO Products
 VALUES
 (
 	'Dog Food',
-	'test',
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit dui at consectetur pulvinar. Aliquam vehicula odio eu tortor blandit, vel bibendum nisl pretium. Aenean ut volutpat orci. Proin vitae nisl lorem. Vivamus scelerisque',
 	'25.50',
 	'500',
 	'https://images2.imgbox.com/e7/74/OhlW7DXn_o.png'
