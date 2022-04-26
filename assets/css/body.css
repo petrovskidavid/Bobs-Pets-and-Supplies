@@ -66,15 +66,16 @@ body
     /* Positioned table in the left of the page */
     position: relative;
     
-    margin-top: 65px;
-    left: 5%;
+    margin-top: 70px;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 
 .product_info_view
 {
     vertical-align: top; /* Aligns product info at the top of the cell */
-    font-size: 20px;
+    font-size: 20px;     /* Sets font size */
 }
 
 .product_name_view
@@ -88,11 +89,11 @@ body
     color: #049a89;     /* Sets the color of the message */
     text-align: center; /* Centers the message */
     font-weight: bold;  /* Bolds the text */
-    font-size: 17px;    /* Sets the font size */
+    font-size: 18px;    /* Sets the font size */
 
     /* Positions the message at the middle of the screen above all of the products */
     position: absolute;
-    top: 160px;        
+    top: 142px;        
     left: 50%;
     transform: translate(-50%, 0);
 }
@@ -103,11 +104,11 @@ body
     color: red;         /* Sets the color of the message */
     text-align: center; /* Centers the message */
     font-weight: bold;  /* Bolds the text */
-    font-size: 17px;    /* Sets the font size */
+    font-size: 18px;    /* Sets the font size */
 
     /* Positions the message at the middle of the screen above all of the products */
     position: absolute;
-    top: 160px;        
+    top: 142px;        
     left: 50%;
     transform: translate(-50%, 0);
 }
@@ -156,7 +157,7 @@ body
     /* Positions the cart table on the left side of the page spaced from order content above it */
     position: relative;
 
-    margin-top: 25px;
+    margin-top: 52px;
     left: 5%;
 }
 
