@@ -31,6 +31,9 @@
         include("secrets.php"); // Logs into the db
         include("functions.php"); // Gives the file with the login window creation function
 
+
+        // Creates a return button to the cart page.
+		create_return_btn("./cart.php", 1);
     
     ?>
 </body></html>

@@ -16,7 +16,7 @@ INSERT INTO Products
 VALUES
 (
 	'Dog Food',
-	' ',
+	'test',
 	'25.50',
 	'500',
 	'https://images2.imgbox.com/e7/74/OhlW7DXn_o.png'
@@ -304,13 +304,4 @@ VALUES
 	'SlowR6',
 	'David Petrovski',
 	'petrovskidavid1@gmail.com'
-);
-
-
-INSERT INTO Orders 
-(EmpID, Username)
-VALUES
-(
-	'admin',
-	'admin'
 );

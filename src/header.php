@@ -40,17 +40,41 @@
 
         // Updates src link to accomodate the files location in the repo
         echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" /></a>"; 
-        
-        // Checks if we are in the store page to display the cart
-        if(substr($_SERVER['PHP_SELF'], -9)  == "store.php")
+
+        // Checks if we are in the store or product view page to display the cart
+        if(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php")
         {
+
+            echo "<div class=\"header_right_w_cart\">";
+            
+            // Prepares query to get the total number of items that the customer has in their cart
+            $result = $pdo->prepare("SELECT SUM(Amount) FROM Carts WHERE Username=?");
+            $result->execute(array($_GET["Username"]));
+
+            // Fetches the row
+            $num_items = $result->fetch(PDO::FETCH_ASSOC);
+            
+            // Saves the number
+            $num_items = $num_items["SUM(Amount)"];
+
+            // Checks if NULL was saved and updated items number to correct value
+            if($num_items == NULL){
+                $num_items = 0;
+            }
+    
             // Displays cart icon and sends user to the carts page and saves their username for later use
-            echo "<a href=\"cart.php?Username=".$_GET["Username"]."\"><img src=\"../assets/img/cart.png\" alt=\"Cart icon\" height=50 width=50 class=\"cart_icon\" /></a>";
+            echo "<a href=\"cart.php?Username=".$_GET["Username"]."\" class=\"num_items\" ><img src=\"../assets/img/cart.png\" alt=\"Cart icon\" class=\"cart_icon\" height=50 width=50 />".$num_items."</a>";
+            
         }
 
         // Checks if we are NOT in the employee login or customer sing up pages, to display a logout button
         if (!(substr($_SERVER['PHP_SELF'], -19)  == "customer_signup.php" or substr($_SERVER['PHP_SELF'], -18)  == "employee_login.php"))
         {
+            // Check to see if we are not in the store or product view page to make sure the cart icon doesn't display
+            if(!(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php")){
+                echo "<div class=\"header_right\">";
+            }
+
             // Updates action link to accomodate index.phps location in the repo 
             echo "<form action=$home_link method=\"POST\">";
             
@@ -58,6 +82,7 @@
             echo "<input type=\"submit\" value=\"Logout\" class=\"logout\" />";
             echo "</form>";
         }
+        echo "</div>";
     }
 
     // Prints the name of the store

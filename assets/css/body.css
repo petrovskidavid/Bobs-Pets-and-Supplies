@@ -36,6 +36,19 @@ body
 }
 
 
+.product_view_link a
+{
+    text-decoration: none; /* Removes hyperlink styling */
+    color: black;          /* Sets font color */
+}
+
+
+.product_view_link:hover
+{
+    opacity: 20%; /* When hovering over changes opacity */
+}
+
+
 .product_name_store
 {
     text-align: center; /* Centers the product name */
@@ -45,6 +58,28 @@ body
 .price_lbl_store
 {
     font-weight: normal; /* Gives the price label a normal font weight */
+}
+
+
+.product_view_table
+{
+    /* Positioned table in the left of the page */
+    position: relative;
+    
+    margin-top: 65px;
+    left: 5%;
+}
+
+
+.product_info_view
+{
+    vertical-align: top; /* Aligns product info at the top of the cell */
+}
+
+.product_name_view
+{
+    font-weight: bold; /* Sets font to bold */
+    font-size: 40px; /* Sets font size */
 }
 
 

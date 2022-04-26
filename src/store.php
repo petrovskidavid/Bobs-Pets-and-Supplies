@@ -28,10 +28,10 @@
          * CSCI 466 - 1
          */
 
-         
-        include("header.php"); // Creates the header of the page
-        include("secrets.php"); // Logs into the db
+
         include("functions.php"); // Gives the file with the login window creation function
+        include("secrets.php"); // Logs into the db
+        include("header.php"); // Creates the header of the page
 
         // Prepares query to get customers name
         $result = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
@@ -82,24 +82,16 @@
                 }
 
                 // Begin a new data cell
-                echo "<td>";
-                // Create a new form with POST method
-                echo "<form method='POST'>";
+                echo "<td class=\"product_view_link\">";
+                // Create link for every product to redirect to its product_view page
+                echo "<a href=\"product_view.php?Username=".$_GET["Username"]."&ProductID=".$ID."\">";
                 // Display the product image and a new line
                 echo "<img src='$addr' alt='$name Product Image' height=250 width=250/><br>";
                 // Display the product name
                 echo "<p class='product_name_store'>$name</p>";
                 // Display the product price
                 echo "<p class='price_lbl_store'>Price: <b>$".$price."</b></p>";
-                // Display a number textbox for the user to enter an amount to add to cart
-                echo "<input type='number' name='amount' min='1' max='$quantity' value='1' style='height:25px;'/>";
-                echo " ";
-                // Display an "Add To Cart" button
-                echo "<input type='submit' name='add_to_cart' value='Add To Cart' \/>";
-                // Add a hidden attribute to send the product ID when button is submitted
-                echo "<input type='hidden' name='ProductID' value='$ID' />";
-                // End the form
-                echo "</form>";
+                echo "</a>";
                 // End the data cell
                 echo "</td>";
 
@@ -224,8 +216,7 @@
                     // Print a message letting the user know they added the product to their cart
                     echo "<p class='succ_added_to_cart'>Successfully added $amount " . $name . "(s) to your cart.</p>"; 
                 }
-                
-                
+
             }
             else    // Otherwise, if the insert/update failed,
             {
