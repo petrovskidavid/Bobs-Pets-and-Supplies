@@ -117,12 +117,11 @@
 			</tr>
 	<?php   }
 		echo "</table>";
-		}
+	}
 		
 	echo "</td></table>";
 
 ?>
-
 </body>
 </html>
 
