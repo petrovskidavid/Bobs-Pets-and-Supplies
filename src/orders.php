@@ -77,12 +77,12 @@
 				$stat="Shipped";
 			} ?>
 		<tr bgcolor="#FAFAFA">
-			<td style="text-align:center"> <?php echo "$row[OrderID]" ?> </td>
-			<td style="text-align:center"> <?php echo "$row[EmpID]" ?> </td>
-			<td style="text-align:center"> <?php echo "$row[TrackingNum]" ?> </td>
-			<td style="text-align:center"> <?php echo "$row[Address]" ?> </td>
-			<td style="text-align:center"> <?php echo "$stat" ?> </td>
-			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"] ?> /> <input type="hidden" name="OrderID" value=<?php echo $row["OrderID"] ?> ></form> </td>
+			<td style="text-align:center"> <?php echo "$row[OrderID]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$row[EmpID]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
+			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"]; ?> /> <input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> ></form> </td>
 		</tr>
 <?php   }
 	    echo "</table>";
@@ -123,7 +123,7 @@
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"] ?> /> <input type="hidden" name="OrderID" value="<?php echo "$row2[OrderID]" ?>"/> </form> </td>
+				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"]; ?> /> <input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /> </form> </td>
 			</tr>
 	<?php   }
 		echo "</table>";
