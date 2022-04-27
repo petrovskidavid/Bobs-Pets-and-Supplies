@@ -184,86 +184,108 @@ body
     text-align: center;
 }
 
+
 .shipping
 {
-    text-align: center;
-    font-size: 21px;
+    text-align: center; /* Aligns the text */
+    font-size: 21px;    /* Sets the font size */
 }
+
 
 .checkout_table
 {
+    /* Positions the whole checkout table and sets its width */
     width: 35%;
     margin-left: auto;
     margin-right: auto;
 }
 
+
 .order_breakdown
 {
-    text-align: left;
-    font-size: 18px;
+    text-align: left; /* Aligns text */
+    font-size: 18px;  /* Sets font size */
 }
+
 
 .order_details
 {
-    text-align: right;
-    font-size: 18px;
+    text-align: right; /* Aligns text */
+    font-size: 18px;   /* Sets font size */
 }
+
 
 .checkout_details
 {
-    text-align: center;
+    text-align: center; /* Centers the text */
 }
+
 
 .shipping_address
 {
-    width: 35%;
+    width: 35%; /* Sets width of the input field */
 }
+
 
 .card_number
 {
-    width: 35%;
+    width: 35%; /* Sets width of the input field */
 }
+
 
 .exp_table
 {
+    /* Sets up the table that will have the expiration input fields */
     width: 36%;
     margin-left: auto;
     margin-right: auto;
 }
 
+
 .exp_month
 {
-    width: 25%;
-    text-align: left;
-    font-size: 18px;
+    width: 25%;       /* Sets the width of the label field */
+    text-align: left; /* Aligns the text */
+    font-size: 18px;  /* Sets the font size */
 }
+
 
 .exp_year
 {
-    width: 22%;
-    text-align: right;
-    font-size: 18px;
+    width: 22%;        /* Sets the width of the label field */
+    text-align: right; /* Aligns the text */
+    font-size: 18px;   /* Sets the font size */
 }
+
 
 .expiration_date_left
 {
-    width: 90%;
-    margin-right: 50%;
+    width: 90%;        /* Sets the width of the input field */
+    margin-right: 50%; /* Positions it in the cell */
 }
+
 
 .expiration_date_right
 {
-    width: 90%;
-    margin-left: 5%;
+    width: 90%;      /* Sets the width of the input field */
+    margin-left: 5%; /* Positions it in the cell */
 }
 
+
 .purchase_error
-{
-    text-align: center;
-    position: relative;
+{    
+    color: red;        /* Sets font color */
+    text-align: center; /* Centers text */
+    
+    /* Positions error message */
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 495px;
 }
+
 
 .billing_information
 {
-    font-size: 18px;
+    font-size: 18px; /* Sets font size */
 }

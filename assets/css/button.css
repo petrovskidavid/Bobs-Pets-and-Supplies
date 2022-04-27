@@ -81,9 +81,11 @@ input[type=submit].checkout_btn
 
 .purchase_button
 {
+    width: 35%;      /* Sets buttons width */
+    font-size: 18px; /* Sets buttons font size */
+    
+    /* Positions the purchase button */
     position: relative;
     margin-top: 3%;
     margin-bottom: 2%;
-    width: 35%;      /* Sets buttons width */
-    font-size: 18px; /* Sets buttons font size */
 }
