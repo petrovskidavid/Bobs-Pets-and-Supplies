@@ -81,8 +81,26 @@
         if (!(substr($_SERVER['PHP_SELF'], -19)  == "customer_signup.php" or substr($_SERVER['PHP_SELF'], -18)  == "employee_login.php"))
         {
             // Check to see if we are not in the store or product view page to make sure the cart icon doesn't display
-            if(!(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php")){
+            if(substr($_SERVER['PHP_SELF'], -8)  == "cart.php"){
+                echo "<div class=\"header_right_w_order\">";
+
+            }else if (!(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php")){
                 echo "<div class=\"header_right\">";
+            }
+            
+            // Check to see if we are in the store, product or cart page to add the order history button to the left of the logout button
+            if(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php" or substr($_SERVER['PHP_SELF'], -8)  == "cart.php"){
+                
+                // Creates a table to have the buttons appear next to each other each in their own cell
+                echo "<table><td>";
+
+                // Creates a form that sends user to their order history page
+                echo "<form action=\"order_history.php\">";
+                echo "<input type=\"submit\" value=\"Order History\" class=\"order_history\" />";
+                echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." />";
+                echo "</form></td>";
+
+                echo "<td>";
             }
 
             // Updates action link to accomodate index.phps location in the repo 
@@ -91,6 +109,11 @@
             // Puts the text and creates a submit button to logout
             echo "<input type=\"submit\" value=\"Logout\" class=\"logout\" />";
             echo "</form>";
+
+            // Check to see if we are in the store, product or cart page to add the order history button AGAIN to close the table and cell for layout purposes
+            if(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php" or substr($_SERVER['PHP_SELF'], -8)  == "cart.php"){
+                echo "</td></table>";
+            }
         }
         echo "</div>";
     }

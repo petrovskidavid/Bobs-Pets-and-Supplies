@@ -206,7 +206,7 @@
                 }
 
                 // If everything above was successful, redirect to the order history page
-                header("Location: order_history.php?Username=".$_GET["Username"]);
+                header("Location: order_history.php?Username=".$_GET["Username"]."&new_order=".$orderID);
             } 
             else    // If not all 4 fields were filled,
             {
