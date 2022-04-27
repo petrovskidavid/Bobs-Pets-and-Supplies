@@ -49,7 +49,7 @@
         {
             // If so, give the customer free shipping
             $shipping = 0;
-            echo "<p class='shipping'>Your order total is over $200 so you qualify for free shipping!</p>";
+            echo "<p class='shipping'><u>Your order total is over $200 so you qualify for free shipping!</u></p>";
         }
         else    // If the subtotal is not over $200,
         {
@@ -94,7 +94,7 @@
 
         // Create a form for the shipping and billing information that redirects to the same checkout page
         echo "<form method='POST' action='checkout.php?Username=".$_GET["Username"]."&Total=".$_GET["Total"]."' class='checkout_details'>";
-        echo "<p>Please enter your information below to complete your purchase.</p>";
+        echo "<p style='font-size: 18px;'>Please enter your information below to complete your purchase.</p>";
         echo "<br/>";
         echo "<p class='billing_information'>Shipping Address:</p>";
         // Input box for the shipping information with max length of 255 characters
@@ -110,19 +110,15 @@
         // Create a table to format 2 text boxes next to each other
         echo "<table class='exp_table'>";
         echo "<tr>";
-        echo "<td class='exp_month'>";
-        echo "Expiration Month:";
-        echo "</td>";
-        echo "<td>";
+        echo "<td class='exp_month_lbl'>";
+        echo "Expiration Month:<br><br>";
         // Input box for the expiration month of the card needing 2 numeric digits
-        echo "<input type='text' pattern='[0-9]*' minlength='2' maxlength='2' title='Please enter numeric digits only.' class='expiration_date_left' name='month'>";
+        echo "<input type='text' pattern='[0-9]*' minlength='2' maxlength='2' title='Please enter numeric digits only.' class='exp_month_field' name='month'>";
         echo "</td>";
-        echo "<td class='exp_year'>";
-        echo "Expiration Year:";
-        echo "</td>";
-        echo "<td>";
+        echo "<td class='exp_year_lbl'>";
+        echo "Expiration Year:<br><br>";
         // Input box for the expiration year of the card needing 4 numeric digits
-        echo "<input type='text' pattern='[0-9]*' minlength='4' maxlength='4' title='Please enter numeric digits only.' class='expiration_date_right' name='year'>";
+        echo "<input type='text' pattern='[0-9]*' minlength='4' maxlength='4' title='Please enter numeric digits only.' class='exp_year_field' name='year'>";
         echo "</td>";
         // End the table
         echo "</table>";

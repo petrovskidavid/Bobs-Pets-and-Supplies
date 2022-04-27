@@ -223,12 +223,14 @@ body
 
 .shipping_address
 {
-    width: 35%; /* Sets width of the input field */
+    text-align: center; /* Centers the input from the user */
+    width: 35%;         /* Sets width of the input field */
 }
 
 
 .card_number
 {
+    text-align: center;
     width: 35%; /* Sets width of the input field */
 }
 
@@ -242,33 +244,31 @@ body
 }
 
 
-.exp_month
+.exp_month_lbl
 {
-    width: 25%;       /* Sets the width of the label field */
-    text-align: left; /* Aligns the text */
-    font-size: 18px;  /* Sets the font size */
+    text-align: center; /* Centers the input from the user */
+    font-size: 18px;    /* Sets the font size */
 }
 
 
-.exp_year
+.exp_year_lbl
 {
-    width: 22%;        /* Sets the width of the label field */
-    text-align: right; /* Aligns the text */
-    font-size: 18px;   /* Sets the font size */
+    text-align: center; /* Centers the input from the user */
+    font-size: 18px;    /* Sets the font size */
 }
 
 
-.expiration_date_left
+.exp_month_field
 {
-    width: 90%;        /* Sets the width of the input field */
-    margin-right: 50%; /* Positions it in the cell */
+    width: 90%;         /* Sets the width of the input field */
+    text-align: center; /* Centers the input from the user */
 }
 
 
-.expiration_date_right
+.exp_year_field
 {
-    width: 90%;      /* Sets the width of the input field */
-    margin-left: 5%; /* Positions it in the cell */
+    width: 90%;         /* Sets the width of the input field */
+    text-align: center; /* Centers the input from the user */
 }
 
 
@@ -281,7 +281,7 @@ body
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    top: 495px;
+    top: 510px;
 }
 
 
