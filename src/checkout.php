@@ -39,8 +39,7 @@
         $username = $_GET["Username"];
 
         // Saves the current order total
-        $orderTotal = $_GET["Total"];
-        $order_total = number_format($orderTotal, 2);
+        $order_total = $_GET["Total"];
         $shipping = 14.99;
         if($order_total >= 200)
         {
@@ -50,20 +49,18 @@
         else
         {
             $balance = 200 - $order_total;
-            $balance = number_format($balance, 2);
-            echo "<p class='shipping'>Spend $" .$balance. " more to qualify for free shipping!</p>";
+            echo "<p class='shipping'>Spend $" .number_format($balance, 2). " more to qualify for free shipping!</p>";
         }
 
         echo "<table class='checkout_table' border=0>";
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Order Subtotal: </p></td>";
-        echo "<td class='order_details'><b>$".$order_total."</b></td>";
+        echo "<td class='order_details'><b>$".number_format($order_total, 2)."</b></td>";
         echo "</tr>";
 
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Shipping: </p></td>";
-        $shipping = number_format($shipping, 2);
-        echo "<td class='order_details'><b>$".$shipping."</b></td>";
+        echo "<td class='order_details'><b>$".number_format($shipping, 2)."</b></td>";
         echo "</tr>";
 
         echo "<tr>";
@@ -76,8 +73,7 @@
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Order Total: </p></td>";
         $total = $order_total + $shipping + $tax;
-        $total = number_format($total, 2);
-        echo "<td class='order_details'><b>$".$total."</b></td>";
+        echo "<td class='order_details'><b>$".number_format($total, 2)."</b></td>";
         echo "</tr>";
         echo "</table>";
 
@@ -107,7 +103,7 @@
         echo "</td>";
         echo "</table>";
         echo "<input type='submit' class='purchase_button' name='purchase' value='Confirm Purchase'>";
-        echo "<input type='hidden' name='Total' value='$orderTotal' />";
+        echo "<input type='hidden' name='Total' value='$order_total' />";
         echo "<input type='hidden' name='Username' value='$username' />";
         echo "</form>";
 
@@ -147,49 +143,9 @@
                 $rows->execute(array($orderID));
                 
                 // Choose an employee to assign the order to
-                $rows = $pdo->prepare("SELECT EmpID, COUNT(*) FROM Orders GROUP BY EmpID ORDER BY COUNT(*)");
-                $rows->execute();
-                // Save the employee with the least amount of orders in the Orders table
-                $emps_with_orders = $rows->fetchAll(PDO::FETCH_ASSOC);
-
-                $rows = $pdo->prepare("SELECT EmpID FROM Employees");
-                $rows->execute();
-                $emps = $rows->fetchAll(PDO::FETCH_ASSOC);
-                $found = false;
-                $emp_to_assign = '';
-
-                foreach($emps as $emp)
-                {
-                    foreach($emps_with_orders as $emp_with_order)
-                    {
-                        if($emp["EmpID"] == $emp_with_order["EmpID"])
-                        {
-                            $found = true;
-                        }
-                    }
-                    if($found == false)
-                    {
-                        $emp_to_assign = $emp["EmpID"];
-                        break;
-                    }
-                }
-
-                if($found == true)
-                {
-                    $rows = $pdo->prepare("SELECT EmpID, COUNT(*) FROM Orders GROUP BY EmpID ORDER BY COUNT(*)");
-                    $rows->execute();
-                    // Save the employee with the least amount of orders in the Orders table
-                    $results = $rows->fetchAll(PDO::FETCH_ASSOC);
-                    foreach($results as $result)
-                    {
-                        if($result["EmpID"] != "NULL")
-                        {
-                            $emp_to_assign = $results["EmpID"];
-                            break;
-                        }
-                    }
-                }
-
+                $result = $pdo->query("SELECT EmpID FROM Employees ORDER BY RAND() LIMIT 1");
+                $emp_to_assign = $result->fetch(PDO::FETCH_ASSOC);
+                $emp_to_assign = $emp_to_assign["EmpID"];
                 
                 // Assign the employee to the order
                 $rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
