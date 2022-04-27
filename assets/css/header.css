@@ -72,7 +72,7 @@ header a
 .cart_icon
 { 
     float: left;        /* Makes the icon float to the left of the container */
-    margin-left: 75px;  /* Spaces the icon with the left side of the container */
+    margin-left: 128px;  /* Spaces the icon with the left side of the container */
     margin-bottom: 6px; /* Spaces the container with the logout button */
     margin-top: 2px;    /* Removes space between buttons and cart icon */
 }

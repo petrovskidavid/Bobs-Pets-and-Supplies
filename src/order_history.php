@@ -32,7 +32,7 @@
         include("header.php"); // Creates the header of the page
 
         // Creates a return button to the store page.
-		create_return_btn("./store.php", 1);
+		create_return_btn("./store.php", 1, "Continue Shopping");
 
         // Check if an order was just placed
         if(isset($_GET["new_order"]))
