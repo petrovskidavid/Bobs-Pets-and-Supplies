@@ -47,24 +47,34 @@ header a
 
 .header_right_w_cart
 {
-    float: right;                /* Makes the text float to the right of the page */
-    margin-top: 10px;            /* Moves it lower on the page */
-    margin-right: 5px;           /* Moves it more left on the page */
+    float: right;      /* Makes the text float to the right of the page */
+    margin-top: 3px;   /* Moves it lower on the page */
+    margin-right: 2px; /* Moves it more left on the page */
+}
+
+
+.header_right_w_order
+{
+    float: right;      /* Makes the text float to the right of the page */
+    margin-top: 61px;  /* Moves it lower on the page */
+    margin-right: 2px; /* Moves it more left on the page */
 }
 
 
 .header_right
 {
-    float: right;                /* Makes the text float to the right of the page */
-    margin-top: 68px;            /* Moves it lower on the page */
-    margin-right: 5px;           /* Moves it more left on the page */
+    float: right;      /* Makes the text float to the right of the page */
+    margin-top: 64px;  /* Moves it lower on the page */
+    margin-right: 5px; /* Moves it more left on the page */
 }
 
 
 .cart_icon
 { 
     float: left;        /* Makes the icon float to the left of the container */
-    margin-bottom: 8px; /* Spaces the container with the logout button */
+    margin-left: 75px;  /* Spaces the icon with the left side of the container */
+    margin-bottom: 6px; /* Spaces the container with the logout button */
+    margin-top: 2px;    /* Removes space between buttons and cart icon */
 }
 
 
@@ -77,15 +87,22 @@ header a
 
 .e_login
 {
-    float: right;                /* Makes the text float to the right of the page */
-    margin-top: 68px;            /* Moves it lower on the page */
-    margin-right: 5px;           /* Moves it more left on the page */
-    font-size: 14px;             /* Changes font size */
+    float: right;      /* Makes the text float to the right of the page */
+    margin-top: 68px;  /* Moves it lower on the page */
+    margin-right: 5px; /* Moves it more left on the page */
+    font-size: 14px;   /* Changes font size */
 }
 
 
 .logout
 {
-    font-size: 14px;             /* Changes font size */
-    width: 90px;                 /* Sets the width of the button */
+    font-size: 14px; /* Changes font size */
+    width: 100px;    /* Sets the width of the button */
+}
+
+
+.order_history
+{
+    font-size: 14px; /* Changes font size */
+    width: 100px;    /* Sets the width of the button */
 }

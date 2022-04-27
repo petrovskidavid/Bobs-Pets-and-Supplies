@@ -80,11 +80,19 @@
         // Checks if we are NOT in the employee login or customer sing up pages, to display a logout button
         if (!(substr($_SERVER['PHP_SELF'], -19)  == "customer_signup.php" or substr($_SERVER['PHP_SELF'], -18)  == "employee_login.php"))
         {
-            // Check to see if we are not in the store or product view page to make sure the cart icon doesn't display
-            if(substr($_SERVER['PHP_SELF'], -8)  == "cart.php"){
+            
+            if(substr($_SERVER['PHP_SELF'], -8)  == "cart.php")                                                                       // Check to see if we are in the cart page
+            {
+
+                // Space the buttons correctly in the cart page
                 echo "<div class=\"header_right_w_order\">";
 
-            }else if (!(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php")){
+        
+            }
+            else if (!(substr($_SERVER['PHP_SELF'], -9)  == "store.php" or substr($_SERVER['PHP_SELF'], -16)  == "product_view.php")) // Check to see if we are in any other page where there will be a logout button
+            {
+
+                // Space the logout button correctly for the rest of the pages it appears on alone
                 echo "<div class=\"header_right\">";
             }
             
