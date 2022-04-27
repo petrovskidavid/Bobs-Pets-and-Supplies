@@ -183,3 +183,40 @@ body
     vertical-align: top; 
     text-align: center;
 }
+
+.shipping
+{
+    text-align: center;
+}
+
+.checkout_table
+{
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order_breakdown
+{
+    text-align: left;
+}
+
+.order_details
+{
+    text-align: right;
+}
+
+.checkout_details
+{
+    text-align: center;
+}
+
+.shipping_address
+{
+    width: 35%;
+}
+
+.card_number
+{
+    width: 35%;
+}

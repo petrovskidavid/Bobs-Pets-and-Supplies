@@ -41,6 +41,54 @@
         // Saves the current order total
         $order_total = $_GET["Total"];
         
+        $shipping = 14.99;
+        if($order_total >= 200)
+        {
+            $shipping = 0;
+            echo "<p class='shipping'>Your order total is over $200 so you qualify for free shipping!</p>";
+        }
+        else
+        {
+            $balance = 200 - $order_total;
+            echo "<p class='shipping'>Spend $" .$balance. " more to qualify for free shipping!</p>";
+        }
+
+        echo "<table class='checkout_table' border=0>";
+        echo "<tr>";
+        echo "<td><p class='order_breakdown'>Order Subtotal: </p></td>";
+        echo "<td class='order_details'>$".$order_total."</td>";
+        echo "</tr>";
+
+        echo "<tr>";
+        echo "<td><p class='order_breakdown'>Shipping: </p></td>";
+        $shipping = number_format($shipping, 2);
+        echo "<td class='order_details'>$".$shipping."</td>";
+        echo "</tr>";
+
+        echo "<tr>";
+        echo "<td><p class='order_breakdown'>Tax: </p></td>";
+        $tax = ($shipping + $order_total) * .0509;
+        $tax = number_format($tax, 2);
+        echo "<td class='order_details'>$".$tax."</td>";
+        echo "</tr>";
+
+        echo "<tr>";
+        echo "<td><p class='order_breakdown'>Order Total: </p></td>";
+        $total = $order_total + $shipping + $tax;
+        $total = number_format($total, 2);
+        echo "<td class='order_details'>$".$total."</td>";
+        echo "</tr>";
+        echo "</table>";
+
+        echo "<form class='checkout_details'>";
+        echo "<p>Please enter your information below to complete the checkout process.</p>";
+        echo "<p>Shipping Address:</p>";
+        echo "<input type='text' maxlength='255' class='shipping_address'>";
+        echo "<p>Credit Card Number:</p>";
+        echo "<input type='text' maxlength='16' min='0' class='card_number'>";
+        echo "<p>Security Code (CCV):</p>";
+        echo "<input type='text' pattern=‘[0-9]{3,3}’ class='card_number'>";
+        echo "</form>";
         /* Make sure to delete the order from the Cart after checkout is processed, assign an employee to the order, update the status of the order and also update
            the products quantity after the order is sucesfully checked out.
         */
