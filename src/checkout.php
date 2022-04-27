@@ -87,7 +87,8 @@
         echo "<p>Credit Card Number:</p>";
         echo "<input type='text' maxlength='16' min='0' class='card_number'>";
         echo "<p>Security Code (CCV):</p>";
-        echo "<input type='text' pattern=‘[0-9]{3,3}’ class='card_number'>";
+        echo "<input type='text' pattern='[0-9]*' minlength=3 maxlength=3 title='asdsad' class='card_number'>";
+        echo "<input type='submit' name='test' value='TEST' />";
         echo "</form>";
         /* Make sure to delete the order from the Cart after checkout is processed, assign an employee to the order, update the status of the order and also update
            the products quantity after the order is sucesfully checked out.
