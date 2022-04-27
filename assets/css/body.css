@@ -187,6 +187,7 @@ body
 .shipping
 {
     text-align: center;
+    font-size: 21px;
 }
 
 .checkout_table
@@ -199,11 +200,13 @@ body
 .order_breakdown
 {
     text-align: left;
+    font-size: 18px;
 }
 
 .order_details
 {
     text-align: right;
+    font-size: 18px;
 }
 
 .checkout_details
@@ -230,14 +233,16 @@ body
 
 .exp_month
 {
-    width: 22%;
+    width: 25%;
     text-align: left;
+    font-size: 18px;
 }
 
 .exp_year
 {
-    width: 19%;
+    width: 22%;
     text-align: right;
+    font-size: 18px;
 }
 
 .expiration_date_left
@@ -252,10 +257,13 @@ body
     margin-left: 5%;
 }
 
-.purchase_button
+.purchase_error
 {
+    text-align: center;
     position: relative;
-    margin-top: 3%;
-    width: 35%;      /* Sets buttons width */
-    font-size: 18px; /* Sets buttons font size */
+}
+
+.billing_information
+{
+    font-size: 18px;
 }
