@@ -88,7 +88,7 @@ header a
 .e_login
 {
     float: right;      /* Makes the text float to the right of the page */
-    margin-top: 68px;  /* Moves it lower on the page */
+    margin-top: 64px;  /* Moves it lower on the page */
     margin-right: 5px; /* Moves it more left on the page */
     font-size: 14px;   /* Changes font size */
 }

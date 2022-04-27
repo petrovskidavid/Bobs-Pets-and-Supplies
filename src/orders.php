@@ -27,7 +27,7 @@
         include("secrets.php"); // Logs into the db
 		include("functions.php"); // Gives the file with the login window creation function
 
-		$sql="SELECT OrderID, TrackingNum, Address, Status FROM Orders WHERE (Status='2' OR Status='3')";
+		$sql="SELECT * FROM Orders WHERE (Status='2' OR Status='3')";
 
 		$result = $pdo->query($sql);
 		$result = $result->fetchAll(PDO::FETCH_ASSOC); 
@@ -54,11 +54,12 @@
 		echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
 
 		echo "<tr bgcolor=\"#8AA29E\">";
-			echo "<th style='text-align:center' colspan=5> All Orders </th>";
+			echo "<th style='text-align:center' colspan=6> All Orders </th>";
 		echo "</tr>";
 
 		echo "<tr bgcolor=\"#8AA29E\">";
 			echo "<th style='text-align:center'> OrderID </th>";
+			echo "<th style='text-align:center'> Assigned Employee </th>";
 			echo "<th style='text-align:center'> TrackingNum </th>";
 			echo "<th style='text-align:center'> Address </th>";
 			echo "<th style='text-align:center'> Status </th>";
@@ -69,7 +70,7 @@
 		{ 
 			if ($row['Status'] == 2)
 			{
-				$stat="Received";
+				$stat="Processing";
 			}
 			else
 			{
@@ -77,10 +78,11 @@
 			} ?>
 		<tr bgcolor="#FAFAFA">
 			<td style="text-align:center"> <?php echo "$row[OrderID]" ?> </td>
+			<td style="text-align:center"> <?php echo "$row[EmpID]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]" ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]" ?> </td>
 			<td style="text-align:center"> <?php echo "$stat" ?> </td>
-			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> </form> </td>
+			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"] ?> /> <input type="hidden" name="OrderID" value=<?php echo $row["OrderID"] ?> ></form> </td>
 		</tr>
 <?php   }
 	    echo "</table>";
@@ -121,7 +123,7 @@
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="OrderID" value="<?php echo "$row2[OrderID]" ?>"/> </form> </td>
+				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"] ?> /> <input type="hidden" name="OrderID" value="<?php echo "$row2[OrderID]" ?>"/> </form> </td>
 			</tr>
 	<?php   }
 		echo "</table>";
