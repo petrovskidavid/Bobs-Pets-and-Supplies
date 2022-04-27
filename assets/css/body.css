@@ -220,3 +220,42 @@ body
 {
     width: 35%;
 }
+
+.exp_table
+{
+    width: 36%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.exp_month
+{
+    width: 22%;
+    text-align: left;
+}
+
+.exp_year
+{
+    width: 19%;
+    text-align: right;
+}
+
+.expiration_date_left
+{
+    width: 90%;
+    margin-right: 50%;
+}
+
+.expiration_date_right
+{
+    width: 90%;
+    margin-left: 5%;
+}
+
+.purchase_button
+{
+    position: relative;
+    margin-top: 3%;
+    width: 35%;      /* Sets buttons width */
+    font-size: 18px; /* Sets buttons font size */
+}

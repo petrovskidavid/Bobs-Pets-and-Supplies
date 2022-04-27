@@ -39,8 +39,8 @@
         $username = $_GET["Username"];
 
         // Saves the current order total
-        $order_total = $_GET["Total"];
-        
+        $orderTotal = $_GET["Total"];
+        $order_total = number_format($orderTotal, 2);
         $shipping = 14.99;
         if($order_total >= 200)
         {
@@ -50,48 +50,180 @@
         else
         {
             $balance = 200 - $order_total;
+            $balance = number_format($balance, 2);
             echo "<p class='shipping'>Spend $" .$balance. " more to qualify for free shipping!</p>";
         }
 
         echo "<table class='checkout_table' border=0>";
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Order Subtotal: </p></td>";
-        echo "<td class='order_details'>$".$order_total."</td>";
+        echo "<td class='order_details'><b>$".$order_total."</b></td>";
         echo "</tr>";
 
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Shipping: </p></td>";
         $shipping = number_format($shipping, 2);
-        echo "<td class='order_details'>$".$shipping."</td>";
+        echo "<td class='order_details'><b>$".$shipping."</b></td>";
         echo "</tr>";
 
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Tax: </p></td>";
         $tax = ($shipping + $order_total) * .0509;
         $tax = number_format($tax, 2);
-        echo "<td class='order_details'>$".$tax."</td>";
+        echo "<td class='order_details'><b>$".$tax."</b></td>";
         echo "</tr>";
 
         echo "<tr>";
         echo "<td><p class='order_breakdown'>Order Total: </p></td>";
         $total = $order_total + $shipping + $tax;
         $total = number_format($total, 2);
-        echo "<td class='order_details'>$".$total."</td>";
+        echo "<td class='order_details'><b>$".$total."</b></td>";
         echo "</tr>";
         echo "</table>";
 
-        echo "<form class='checkout_details'>";
-        echo "<p>Please enter your information below to complete the checkout process.</p>";
+        echo "<form method='POST' action='checkout.php?Username=".$_GET["Username"]."&Total=".$_GET["Total"]."' class='checkout_details'>";
+        echo "<p>Please enter your information below to complete your purchase.</p>";
         echo "<p>Shipping Address:</p>";
-        echo "<input type='text' maxlength='255' class='shipping_address'>";
+        echo "<input type='text' maxlength='255' class='shipping_address' name='addr'>";
         echo "<p>Credit Card Number:</p>";
-        echo "<input type='text' maxlength='16' min='0' class='card_number'>";
+        echo "<input type='text' pattern='[0-9]*' maxlength='16' minlength='16' title='Please enter numeric digits only.' class='card_number' name='cardnum'>";
         echo "<p>Security Code (CCV):</p>";
-        echo "<input type='text' pattern='[0-9]*' minlength=3 maxlength=3 title='asdsad' class='card_number'>";
-        echo "<input type='submit' name='test' value='TEST' />";
+        echo "<input type='text' pattern='[0-9]*' minlength='3' maxlength='3' title='Please enter numeric digits only.' class='card_number' name='ccv'>";
+
+        echo "<br/><br/>";
+        echo "<table class='exp_table'>";
+        echo "<tr>";
+        echo "<td class='exp_month'>";
+        echo "Expiration Month:";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type='text' pattern='[0-9]*' minlength='2' maxlength='2' title='Please enter numeric digits only.' class='expiration_date_left' name='month'>";
+        echo "</td>";
+        echo "<td class='exp_year'>";
+        echo "Expiration Year:";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type='text' pattern='[0-9]*' minlength='4' maxlength='4' title='Please enter numeric digits only.' class='expiration_date_right' name='year'>";
+        echo "</td>";
+        echo "</table>";
+        echo "<input type='submit' class='purchase_button' name='purchase' value='Confirm Purchase'>";
+        echo "<input type='hidden' name='Total' value='$orderTotal' />";
+        echo "<input type='hidden' name='Username' value='$username' />";
         echo "</form>";
+
         /* Make sure to delete the order from the Cart after checkout is processed, assign an employee to the order, update the status of the order and also update
            the products quantity after the order is sucesfully checked out.
         */
+
+        if(isset($_POST['purchase']))
+        {
+            if(($_POST['addr']) and ($_POST['cardnum']) and ($_POST['ccv']) and ($_POST['month']) and ($_POST['year']))
+            {
+                if($_POST['month'] > 12)
+                {
+                    echo "<p class='month_error'>Invalid month.</p>";
+                    exit;
+                }
+                else if($_POST['year'] < 2022)
+                {
+                    echo "<p class='year_error'>Invalid year.</p>";
+                    exit;
+                }
+
+                $address = $_POST["addr"];
+                // Get the order ID
+                $rows = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
+                $rows->execute(array($username));
+                $row = $rows->fetch(PDO::FETCH_ASSOC);
+                // Save the order ID
+                $orderID = $row["OrderID"];
+
+                // Add the address and total to the order
+                $rows = $pdo->prepare("UPDATE Orders SET Address=?, Total=? WHERE OrderID=?");
+                $rows->execute(array($address, $total, $orderID));
+
+                // Set the order status to received 
+                $rows = $pdo->prepare("UPDATE Orders SET Status=2 WHERE OrderID=?");
+                $rows->execute(array($orderID));
+                
+                // Choose an employee to assign the order to
+                $rows = $pdo->prepare("SELECT EmpID, COUNT(*) FROM Orders GROUP BY EmpID ORDER BY COUNT(*)");
+                $rows->execute();
+                // Save the employee with the least amount of orders in the Orders table
+                $emps_with_orders = $rows->fetchAll(PDO::FETCH_ASSOC);
+
+                $rows = $pdo->prepare("SELECT EmpID FROM Employees");
+                $rows->execute();
+                $emps = $rows->fetchAll(PDO::FETCH_ASSOC);
+                $found = false;
+                $emp_to_assign = '';
+
+                foreach($emps as $emp)
+                {
+                    foreach($emps_with_orders as $emp_with_order)
+                    {
+                        if($emp["EmpID"] == $emp_with_order["EmpID"])
+                        {
+                            $found = true;
+                        }
+                    }
+                    if($found == false)
+                    {
+                        $emp_to_assign = $emp["EmpID"];
+                        break;
+                    }
+                }
+
+                if($found == true)
+                {
+                    $rows = $pdo->prepare("SELECT EmpID, COUNT(*) FROM Orders GROUP BY EmpID ORDER BY COUNT(*)");
+                    $rows->execute();
+                    // Save the employee with the least amount of orders in the Orders table
+                    $results = $rows->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($results as $result)
+                    {
+                        if($result["EmpID"] != "NULL")
+                        {
+                            $emp_to_assign = $results["EmpID"];
+                            break;
+                        }
+                    }
+                }
+
+                
+                // Assign the employee to the order
+                $rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
+                $rows->execute(array($emp_to_assign, $orderID));
+
+                // Update the product quantities
+                $rows = $pdo->prepare("SELECT ProductID, Amount FROM Carts WHERE OrderID=?");
+                $rows->execute(array($orderID));
+                $results = $rows->fetchAll(PDO::FETCH_ASSOC);
+                foreach($results as $result)
+                {
+                    $product_ID = $result["ProductID"];
+                    $amount_purchased = $result["Amount"];
+
+                    $get_amount = $pdo->prepare("SELECT Quantity FROM Products WHERE ProductID=?");
+                    $get_amount->execute(array($product_ID));
+                    $amt = $get_amount->fetch(PDO::FETCH_ASSOC);
+                    $old_amount = $amt["Quantity"];
+
+                    $updated_amount = $old_amount - $amount_purchased;
+                    $prepare_product = $pdo->prepare("UPDATE Products SET Quantity=? WHERE ProductID=?");
+                    $prepare_product->execute(array($updated_amount, $product_ID));
+                }
+
+                // // Remove the order from the Carts table
+                // $rows = $pdo->prepare("DELETE FROM Carts WHERE OrderID=?");
+                // $rows->execute(array($orderID));
+
+                header("Location: order_history.php??Username=".$_GET["Username"]);
+            } 
+            else
+            {
+                echo "<p class='purchase_error'>Please fill in all fields.</p>";
+            }
+        }
     ?>
 </body></html>
