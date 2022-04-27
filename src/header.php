@@ -47,19 +47,29 @@
 
             echo "<div class=\"header_right_w_cart\">";
             
-            // Prepares query to get the total number of items that the customer has in their cart
-            $result = $pdo->prepare("SELECT SUM(Amount) FROM Carts WHERE Username=?");
+            // Prepares query to search for an existing cart
+            $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
             $result->execute(array($_GET["Username"]));
 
-            // Fetches the row
-            $num_items = $result->fetch(PDO::FETCH_ASSOC);
-            
-            // Saves the number
-            $num_items = $num_items["SUM(Amount)"];
+            // Fetch an order ID if avaliable
+            $orderID = $result->fetch(PDO::FETCH_ASSOC);
 
-            // Checks if NULL was saved and updated items number to correct value
-            if($num_items == NULL){
-                $num_items = 0;
+            // Checks if there is a current cart for the customer
+            if(!empty($orderID["OrderID"])){
+
+                // Prepares query to get the total number of items that the customer has in their cart
+                $result = $pdo->prepare("SELECT SUM(Amount) FROM Carts WHERE Username=? AND OrderID=?");
+                $result->execute(array($_GET["Username"], $orderID["OrderID"]));
+
+                // Fetches the row
+                $num_items = $result->fetch(PDO::FETCH_ASSOC);
+                
+                // Saves the number
+                $num_items = $num_items["SUM(Amount)"];
+            }
+            else 
+            {
+                $num_items = 0;    
             }
     
             // Displays cart icon and sends user to the carts page and saves their username for later use

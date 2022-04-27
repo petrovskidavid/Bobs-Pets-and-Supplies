@@ -58,7 +58,7 @@
                 $result->execute(array($username));
  
                 // Get the order ID for the new order
-                $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=?");
+                $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
                 $result->execute(array($username));
                 $row = $result->fetch(PDO::FETCH_ASSOC);
  
@@ -153,16 +153,27 @@
         // Infom customer this is the cart page
         echo "<h2 class=\"cart_msg\">Your Shopping Cart</h2>";
 
-        // Prepares query to search for all the items in the customers cart
-        $result = $pdo->prepare("SELECT * FROM Carts WHERE Username=?");
+        // Prepares query to search for an existing cart
+        $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
         $result->execute(array($_GET["Username"]));
 
-        // Saves the list of items in the customers cart
-        $items_in_cart = $result->fetchAll(PDO::FETCH_ASSOC);
+        // Fetch an order ID if avaliable
+        $orderID = $result->fetch(PDO::FETCH_ASSOC);
 
         // Checks if the cart is not empty to then display the products in the cart, otherwise it notifies the customer that the cart is empty
-        if(!empty($items_in_cart))
+        if(!empty($orderID))
         {
+            // Saves the order ID
+            $orderID = $orderID["OrderID"];
+
+            // Prepares query to search for all the items in the customers cart
+            $result = $pdo->prepare("SELECT * FROM Carts WHERE Username=? AND OrderID=?");
+            $result->execute(array($_GET["Username"], $orderID));
+
+            // Saves the list of items in the customers cart
+            $items_in_cart = $result->fetchAll(PDO::FETCH_ASSOC);
+
+
             // Resets counter values
             $order_total = 0;
             $number_of_items = 0;
@@ -180,9 +191,35 @@
                 // Saves the product info
                 $product_info = $result->fetch(PDO::FETCH_ASSOC);
 
-                // Checks if the update or remove buttons were clicked to update what is displayed
-                if(isset($_GET["remove_items"]) or isset($_GET["update_qty"]))
+                if(isset($_GET["remove_items"])) // Checks if remove buttons was clicked
                 {
+                    // Remove the row in the table with the selected item
+                    $result = $pdo->prepare("DELETE FROM Carts WHERE ProductID=? AND Username=? AND OrderID=?");
+                    $result->execute(array($_GET["ProductID"], $_GET["Username"], $_GET["OrderID"])); 
+
+                    // Check if there are any other products in the Cart with the same OrderID
+                    $result = $pdo->prepare("SELECT OrderID FROM Carts WHERE OrderID=?");
+                    $result->execute(array($_GET["OrderID"]));
+
+                    // Fetch the data
+                    $orderID = $result->fetch(PDO::FETCH_ASSOC);
+
+                    // If none are found delete the order from the Orders table since no products are in the order
+                    if(empty($orderID)){
+                        $result = $pdo->prepare("DELETE FROM Orders WHERE OrderID=?");
+                        $result->execute(array($_GET["OrderID"]));
+                    }
+
+                    // Refresh page
+                    header("Location: cart.php?Username=".$_GET["Username"]."&ProductID=".$_GET["ProductID"]."&OrderID=".$_GET["OrderID"]);
+                }
+                else if(isset($_GET["update_qty"])){ // Checks if the update quantity button was clicked
+
+                    // Update the row in the table with the new amount
+                    $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND Username=?");
+                    $result->execute(array($_GET["amount"], $_GET["ProductID"], $_GET["Username"])); 
+
+                    // Refresh page
                     header("Location: cart.php?Username=".$_GET["Username"]);
                 }
 
@@ -209,10 +246,13 @@
 
                 // Sends the productID of the item
                 echo "<input type=\"hidden\" name=\"ProductID\" value=".$product_info["ProductID"]." />";
+
+                // Sends the orderID for the current cart
+                echo "<input type=\"hidden\" name=\"OrderID\" value=".$orderID." />";
                 
                 // Display the quantity in customers cart in the input textbox
                 echo "Quantity: ";
-                echo "<input type=\"number\" name=\"amount\" min='0' max=".$product_info["Quantity"]." value=".$item["Amount"]." style=\"height: 15px;\"/><br><br>";
+                echo "<input type=\"number\" name=\"amount\" min='1' max=".$product_info["Quantity"]." value=".$item["Amount"]." style=\"height: 15px;\"/><br><br>";
 
                 // Display update and remove buttons
                 echo "<input type=\"submit\" name=\"remove_items\" value=\"Remove\" class=\"remove_items_btn\" /> ";
@@ -250,19 +290,6 @@
         else 
         {
             echo "<h3 class=\"cart_msg\">Your cart is empty!</h2>";
-        }
-
-        if(isset($_GET["update_qty"]))   // Otherwise checks if the Update button was clicked
-        {
-            // Update the row in the table with the new amount
-            $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND Username=?");
-            $success = $result->execute(array($_GET["amount"], $_GET["ProductID"], $_GET["Username"])); 
-        }
-        else if(isset($_GET["remove_items"])) // Or it checks if the Remove button was clicked
-        {
-            // Remove the row in the table with the selected item
-            $result = $pdo->prepare("DELETE FROM Carts WHERE ProductID=? AND Username=?");
-            $success = $result->execute(array($_GET["ProductID"], $_GET["Username"])); 
         }
     ?>
 </body></html>
