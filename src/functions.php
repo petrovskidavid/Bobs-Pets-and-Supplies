@@ -164,8 +164,9 @@
      * @param $usr_type Type of user that is using the page.
      *                  1 -> Customer
      *                  2 -> Employee
+     * @param $btn_value The text inside the button (Default = 'Back')
      */
-    function create_return_btn($dest, $type){
+    function create_return_btn($dest, $type, $btn_value = "Back"){
 
         // Checks if the user that is using the button is a Customer or Employee
         if($type == 1)
@@ -184,7 +185,7 @@
 		echo "<input type=\"hidden\" name=".$ID." value=".$_GET[$ID]." />";
 
         // Creates the button
-        echo "<input type=\"submit\" name=\"submit\" value=\"Back\" class=\"return_btn\" />";
+        echo "<input type=\"submit\" name=\"submit\" value=\"".$btn_value."\" class=\"return_btn\" />";
         echo "</form>";
     }
 ?>

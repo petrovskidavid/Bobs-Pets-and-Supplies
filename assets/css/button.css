@@ -31,24 +31,61 @@ input[type=submit]:hover
 .view_order_btn
 {
     font-size: 25px; /* Sets buttons fonts size */
-    width: 200px;    /* Sets buttons width */
+    width: 250px;    /* Sets buttons width */
 }
 
 
 .view_inventory_btn
 {
     font-size: 25px; /* Sets buttons fonts size */
-    width: 200px;    /* Sets buttons width */
+    width: 250px;    /* Sets buttons width */
 }
 
 
 .return_btn
 {
     font-size: 15px; /* Sets buttons font size */
-    width: 100px;    /* Sets buttons width */
+    width: 180px;    /* Sets buttons width */
 
     /* Positions button to be inline with the rest of the text and on the left side of the page */
     position: absolute;
     margin-left: 20px;
     margin-top: 20px;
+}
+
+
+input[type=submit].remove_items_btn
+{
+    background: #DB5461; /* Selects the normal background color */
+}
+
+
+input[type=submit]:hover.remove_items_btn
+{
+    background: #ef939c; /* Selects color when hovering over button */
+}
+
+
+input[type=submit].add_to_cart_btn
+{
+    font-size: 18px; /* Sets font size */
+    width: 150px;    /* Sets button width */
+}
+
+
+input[type=submit].checkout_btn
+{
+    width: 80%;      /* Sets buttons width */
+    font-size: 18px; /* Sets buttons font size */
+}
+
+.purchase_button
+{
+    width: 35%;      /* Sets buttons width */
+    font-size: 18px; /* Sets buttons font size */
+    
+    /* Positions the purchase button */
+    position: relative;
+    margin-top: 3%;
+    margin-bottom: 2%;
 }
