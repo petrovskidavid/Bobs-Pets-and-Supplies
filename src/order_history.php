@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bob's Pets and Supplies</title>  
+    <title>Your Orders</title>  
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
