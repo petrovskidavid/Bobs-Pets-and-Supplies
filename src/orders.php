@@ -25,7 +25,7 @@
          
         include("header.php"); // Creates the header of the page
         include("secrets.php"); // Logs into the db
-		include("functions.php"); // Gives the file with the login window creation function
+	include("functions.php"); // Gives the file with the login window creation function
 
 		$sql="SELECT * FROM Orders WHERE (Status='2' OR Status='3')";
 
