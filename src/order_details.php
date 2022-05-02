@@ -127,9 +127,12 @@
 			{
 				$track = "Order not Shipped";
 			} 
+
+			//get the ID of the employee assigned to the order
+			$employee = $row['EmpID'];
 			
 			//get the assigned employee's name (display ID if no name set)
-			$sql2 = "SELECT Name FROM Employees WHERE EmpID='$emp'";
+			$sql2 = "SELECT Name FROM Employees WHERE EmpID='$employee'";
 
 			$result2 = $pdo->query($sql2);
 			$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
@@ -243,9 +246,14 @@
 
 		echo "</table>"; 
 
-		} ?>
+		} 
 		
-		<br><br><br><br>
+		echo "<br><br><br><br>";
+
+		//if the employee is assigned to the order...
+		if ($emp == $employee)
+		{
+?>
 	
 		<form method="POST">
 
@@ -259,6 +267,7 @@
 		</form>
 
 <?php
+		}
 	}
 	
         else if (isset($_GET["Username"])) // Checks if a customer is visiting the page
