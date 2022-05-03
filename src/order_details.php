@@ -18,7 +18,7 @@
          * @file order_details.php
          * 
          * @brief This is the page where order details can be seen both from employees and customers.
-         *        The view depends on where the user is coming from
+         *        The view depends on where the user is coming from.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
@@ -39,39 +39,48 @@
             // Creates a return button to the orders page for employees
 			create_return_btn("./orders.php", 2);
 
-			//store EmpID, OrderID for later
+			// Store EmpID, OrderID for later
 			$emp = $_GET["EmpID"];
 			$ID = $_GET["OrderID"];
 
+			// Check if notes were added
 			if (isset($_POST['add_notes']))
 			{
+				// If so, save the notes
 				$newNote = $_POST['Notes'];
+				// Then update the Orders table with the notes
 				$updateSQL = "UPDATE Orders SET Notes=? WHERE OrderID=?";
 				$result = $pdo->prepare($updateSQL);
 				$result->execute(array($newNote, $ID));
 			}
-			else
+			else	// Otherwise, no notes were added
 			{
 				$newNote = null;
 			}
 			
+			// Check if the "Ship Order" button was clicked
 			if(isset($_POST['ship_order']))
 			{
+				// Generate a random tracking number
 				$trackNum = rand(10000000,99999999);
 					
+				// Updated the Orders table to change the status to shipped and put in the tracking number
 				$updateSQL = "UPDATE Orders SET Status=3, TrackingNum=? WHERE OrderID=?";
 				$result = $pdo->prepare($updateSQL);
 				$result->execute(array($trackNum, $ID));
 
+				// Redirect to the orders page
 				header("Location: ./orders.php?EmpID=".$emp);
 			}
 			
-			//sql to view details of the order
-			$sql="SELECT * FROM Orders WHERE OrderID='$ID'";
+			// Sql to view details of the order
+			$sql = "SELECT * FROM Orders WHERE OrderID=?";
+			$result = $pdo->prepare($sql);
+			$result->execute(array($ID));
 
-			$result = $pdo->query($sql);
 			$result = $result->fetchAll(PDO::FETCH_ASSOC);
 			
+			// Create a table to show the order information
 			echo "<table class=\"orders\" style=\"top:60px;\" cellpadding=35>";
 			echo "<tr><td>";
 			echo "<table border=1 style=\"border: solid; top:100px;\" cellpadding=5>";
@@ -81,6 +90,7 @@
 			echo "</tr>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
+				// Print labels for the table
 				echo "<th style='text-align:center'> Assigned Employee </th>";
 				echo "<th style='text-align:center'> Customer Name </th>";
 				echo "<th style='text-align:center'> Customer Email </th>";
@@ -92,8 +102,9 @@
 
 			foreach($result as $row)
 			{
+				// Save the status of the order
 				$order_status = $row["Status"];
-				//ensure status of order is shown as a word, not a number
+				// Ensure status of order is shown as a word, not a number
 				if ($row['Status'] == 2)
 				{
 					$stat="<b>Processing</b>";
@@ -103,7 +114,7 @@
 					$stat = "<p style=\"color:#049a89; font-weight:bold;\">Shipped</p>";
 				}
 
-				//ensure something still shows if a tracking number isn't present
+				// Ensure something still shows if a tracking number isn't present
 				if (isset($row['TrackingNum']))
 				{
 					$track = $row['TrackingNum'];
@@ -113,7 +124,7 @@
 					$track = "Order Not Shipped";
 				} 
 
-				//get notes info
+				// Get notes info
 				if (isset($row['Notes']))
 				{
 					$notes = $row['Notes'];
@@ -123,11 +134,14 @@
 					$notes = "No notes have been added to this order yet.";
 				}
 
+				// Get the customer's name and email
 				$customer_info = $pdo->prepare("SELECT Name, Email FROM Customers WHERE Username=?");
 				$customer_info->execute(array($row["Username"]));
 
 				$customer_info = $customer_info->fetch(PDO::FETCH_ASSOC);
+				// Save the customer's name
 				$customer_name = $customer_info["Name"];
+				// Save the customer's email
 				$customer_email = $customer_info["Email"];
 ?>
 		
@@ -142,7 +156,7 @@
 					// Sends the EmpID to have for later
 					echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
 													
-					// Sends the OrderID of the Order that the employee clicks on
+					// Sends the OrderID of the order that the employee clicks on
 					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
 
 					// Creates the button to assign an order to the employee
@@ -151,18 +165,19 @@
 				}
 				else				      // Order has an assigned employee and it displays their name	
 				{
-					// Gets the assigned employees name
+					// Gets the assigned employee's name
 					$result2 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
 					$result2->execute(array($row['EmpID']));
 													
-					// Fetches the assigned employees name
+					// Fetches the assigned employee's name
 					$emp_name = $result2->fetch(PDO::FETCH_ASSOC);
 
-					// Displays the assigned employees name
+					// Displays the assigned employee's name
 					echo $emp_name["Name"];
 				}
 			?> 
 			</td>
+			<!-- Display the customer's information -->
 			<td style="text-align:center"> <?php echo "$customer_name"; ?> </td>
 			<td style="text-align:center"> <?php echo "$customer_email"; ?> </td>
 			<td style="text-align:center"> <?php echo "$".number_format($row["Total"],2); ?> </td>
@@ -172,6 +187,7 @@
 		</tr>
 
 		<tr bgcolor="8AA29E">
+			<!-- Display the contents of the order -->
 			<th style="text-align:center" colspan=7>Items Ordered</th>
 		</tr>
 
@@ -184,34 +200,42 @@
 
 <?php
 
-		$sql3 = "SELECT * FROM Carts WHERE OrderID='$ID'";
-		
-		$result3 = $pdo->query($sql3);
+		// Get the information from the Carts table on the order
+		$sql3 = "SELECT * FROM Carts WHERE OrderID=?";
+		$result3 = $pdo->prepare($sql3);
+		$result3->execute(array($ID));
+
 		$result3 = $result3->fetchAll(PDO::FETCH_ASSOC);
 
+		// Loop through every product in the cart
 		foreach($result3 as $row3)
 		{
-			//get product name from id
+			// Save the product ID
 			$prodID = $row3['ProductID'];
 	
-			$sql4 = "SELECT Name, Price FROM Products WHERE ProductID=$prodID";
+			// Get product name from ID
+			$sql4 = "SELECT Name, Price FROM Products WHERE ProductID=?";
+			$result4 = $pdo->prepare($sql4);
+			$result4->execute(array($prodID));
 
-			$result4 = $pdo->query($sql4);
 			$result4 = $result4->fetchAll(PDO::FETCH_ASSOC);
 
 			foreach($result4 as $row4)
 			{
 				if (isset($row4['Name']))
 				{
+					// Save the product name
 					$prodName = $row4['Name'];
 				}
 
 				if (isset($row4['Price']))
 				{
+					// Save the product price
 					$price = $row4['Price'];
 				}
 			}
 			echo "<tr bgcolor=#FAFAFA>";
+			// Display the product information
 			echo "<td style=text-align:center colspan=2> $prodName </td>";
 			echo "<td style=text-align:center colspan=3> $row3[Amount] </td>";
 			echo "<td style=text-align:center colspan=2> $".number_format($price, 2)."</td>";
@@ -224,7 +248,7 @@
 		</tr>
 
 <?php 
-			//displaying order notes
+			// Displaying order notes
 			if (isset($row['Notes']))
 			{
 				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=7> $row[Notes] </td> </tr>";
@@ -238,13 +262,14 @@
 		
 		}
 
-		//if there is an employee assigned to the order and if it is this employee and if the order isn't shipped
+		// If there is an employee assigned to the order and if it is this employee and if the order isn't shipped
 		if ($row["EmpID"] != NULL and $emp == $row["EmpID"] and $order_status == 2)
 		{
 ?>
 				<td>
 				<form method="POST">
 
+				<!-- Display an input box for notes to be added -->
 					Enter Notes Below: <br><br>
 					<textarea style="height:100px; width:500px; text-align:left; resize:none;" name="Notes" maxlength="255"></textarea>
 					<br>
@@ -253,6 +278,7 @@
 				</td>
 				<tr>
 					<td colspan=2>
+						<!-- Display a button for the employee to click to ship the order -->
 						<form method="POST" style="text-align: center">
 							<input type="hidden" name="EmpID" value="<?php echo $emp; ?>" />
 							<input type="submit" name="ship_order" value="Ship Order" class="shipped_btn" />
@@ -271,18 +297,20 @@
 			create_return_btn("./order_history.php", 1);
 
 
-			//create stat variable for later
+			// Create stat variable for later
 			$stat = "empty";
 
-			//store OrderID for later
+			// Store OrderID for later
 			$ID = $_GET["OrderID"];
 			
-			//sql to view details of the order
-			$sql="SELECT * FROM Orders WHERE OrderID='$ID'";
+			// Sql to view details of the order
+			$sql="SELECT * FROM Orders WHERE OrderID=?";
+			$result = $pdo->prepare($sql);
+			$result->execute(array($ID));
 
-			$result = $pdo->query($sql);
 			$result = $result->fetchAll(PDO::FETCH_ASSOC);
 
+			// Create a table to display the order information
 			echo "<table border=1 style=\"border: solid; top:100px;\" class=\"orders\" cellpadding=5>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
@@ -290,6 +318,7 @@
 			echo "</tr>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
+				// Display the customer's information
 				echo "<th style='text-align:center'> Customer Name </th>";
 				echo "<th style='text-align:center'> Order Total </th>";
 				echo "<th style='text-align:center'> Status </th>";
@@ -299,7 +328,7 @@
 
 			foreach($result as $row)
 			{
-				//ensure status of order is shown as a word, not a number
+				// Ensure status of order is shown as a word, not a number
 				if ($row['Status'] == 2)
 				{
 					$stat="<b>Processing</b>";
@@ -310,7 +339,7 @@
 				}
 
 
-				//ensure something still shows if a tracking number isn't present
+				// Ensure something still shows if a tracking number isn't present
 				if (isset($row['TrackingNum']))
 				{
 					$track = $row['TrackingNum'];
@@ -320,8 +349,7 @@
 					$track = "Order Not Shipped";
 				} 
 				
-				//get notes info
-
+				// Get notes info
 				if (isset($row['Notes']))
 				{
 					$notes = $row['Notes'];
@@ -331,14 +359,17 @@
 					$notes = "No notes have been added to this order yet.";
 				}
 
+				// Get the customer's name
 				$customer_name = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
 				$customer_name->execute(array($row["Username"]));
 
 				$customer_name = $customer_name->fetch(PDO::FETCH_ASSOC);
+				// Save the customer's name
 				$customer_name = $customer_name["Name"];
 ?>
 		
 		<tr bgcolor="#FAFAFA">
+			<!-- Display the customer's information -->
 			<td style="text-align:center"> <?php echo "$customer_name"; ?> </td>
 			<td style="text-align:center"> <?php echo "$".number_format($row["Total"],2); ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
@@ -347,6 +378,7 @@
 		</tr>
 
 		<tr bgcolor="8AA29E">
+			<!-- Display the contents of the order -->
 			<th style="text-align:center" colspan=6> Info on Items Ordered </th>
 		</tr>
 
@@ -358,25 +390,29 @@
 
 <?php
 
-		$sql3 = "SELECT * FROM Carts WHERE OrderID='$ID'";
-		
-		$result3 = $pdo->query($sql3);
+		// Get the information from the Carts table on the order
+		$sql3 = "SELECT * FROM Carts WHERE OrderID=?";
+		$result3 = $pdo->prepare($sql3);
+		$result3->execute(array($ID));
+
 		$result3 = $result3->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach($result3 as $row3)
 		{
-			//get product name from id
+			// Save the product ID
 			$prodID = $row3['ProductID'];
-	
-			$sql4 = "SELECT Name, Price FROM Products WHERE ProductID=$prodID";
+			// Get product name from ID
+			$sql4 = "SELECT Name, Price FROM Products WHERE ProductID=?";
+			$result4 = $pdo->prepare($sql4);
+			$result4->execute(array($prodID));
 
-			$result4 = $pdo->query($sql4);
 			$result4 = $result4->fetchAll(PDO::FETCH_ASSOC);
 
 			foreach($result4 as $row4)
 			{
 				if (isset($row4['Name']))
 				{
+					// Save the product name
 					$prodName = $row4['Name'];
 				}
 				else
@@ -386,6 +422,7 @@
 
 				if (isset($row4['Price']))
 				{
+					// Save the product price
 					$price = $row4['Price'];
 				}
 				else
@@ -394,6 +431,7 @@
 				}
 			}
 			echo "<tr bgcolor=#FAFAFA>";
+			// Display the product information
 			echo "<td style=text-align:center colspan=2> $prodName </td>";
 			echo "<td style=text-align:center colspan=2> $row3[Amount] </td>";
 			echo "<td style=text-align:Center colspan=2> $".number_format($price, 2)." </td>";
@@ -409,7 +447,7 @@
 
 
 <?php 
-			//displaying order notes
+			// Displaying order notes
 			if (isset($row['Notes']))
 			{
 				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=6> $row[Notes] </td> </tr>";
@@ -419,6 +457,7 @@
 				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=6> No notes currently for this order. </td> </tr>";
 			}
 
+		// End the table
 		echo "</table>"; 
 
 		} 
