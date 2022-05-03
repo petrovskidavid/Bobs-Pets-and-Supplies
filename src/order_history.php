@@ -58,7 +58,7 @@
         {
         
             echo "<h4 style='text-align: center; font-size:25px;'>Your Orders!</h4>";
-            echo "<p class=TotalToDate>The total of all your orders is $".number_format($totalToDate,2).".</p>";
+            echo "<p class=TotalToDate><u>The total of all your orders is $".number_format($totalToDate,2).".</u></p>";
             echo "<table border=1 style=\"border: solid;\" class=\"orders\" cellpadding=10>";
 
             echo "<tr bgcolor=\"#8AA29E\">";
