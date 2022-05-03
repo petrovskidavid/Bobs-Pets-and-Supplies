@@ -289,3 +289,9 @@ body
 {
     font-size: 18px; /* Sets font size */
 }
+
+.TotalToDate
+{
+    font-size: 18px; /* Sets font size */
+    text-align: center; /* Centers text */
+}

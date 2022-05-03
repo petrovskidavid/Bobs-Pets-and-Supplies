@@ -45,6 +45,10 @@
         $result->execute(array($_GET["Username"]));
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
+        $result2 = $pdo->prepare("SELECT SUM(Total) FROM Orders WHERE Username=?");
+        $result2->execute(array($_GET["Username"]));
+        $rows2 = $result2->fetch(PDO::FETCH_ASSOC);
+        $totalToDate = $rows2["SUM(Total)"];
 
         if(empty($rows))
         {
@@ -53,7 +57,8 @@
         else 
         {
         
-            echo "<h4 style='text-align: center; font-size:25px;'>Your Orders!</h4><br>";
+            echo "<h4 style='text-align: center; font-size:25px;'>Your Orders!</h4>";
+            echo "<p class=TotalToDate>The total of all your orders is $".number_format($totalToDate,2).".</p>";
             echo "<table border=1 style=\"border: solid;\" class=\"orders\" cellpadding=10>";
 
             echo "<tr bgcolor=\"#8AA29E\">";
