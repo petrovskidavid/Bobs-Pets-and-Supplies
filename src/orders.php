@@ -34,6 +34,19 @@
 
 		// Creates a return button to the employee home page.
 		create_return_btn("./employee_home.php", 2);
+
+		// Checks if an employee clicked the assign order button
+		if(isset($_GET["assign_order"]))
+		{
+			// Prepares query to assign the employee to the order they chose
+			$rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
+
+			// Execute query
+            $rows->execute(array($_GET["EmpID"], $_GET["OrderID"]));
+
+			// Refresh the screen to have the order move to the employees table of their assigned orders
+			header("Location: ./orders.php?EmpID=".$_GET["EmpID"]."&assigned");
+		}
 	?>
 
 	<h2 style="text-align:center">Bob's Pets and Supplies Orders</h2>
@@ -70,24 +83,45 @@
 		{ 
 			if ($row['Status'] == 2)
 			{
-				$stat="Processing";
+				$stat="<b>Processing</b>";
 			}
 			else
 			{
-				$stat="Shipped";
+				$stat = "<p style=\"color:#049a89; font-weight:bold;\">Shipped</p>";
 			} 
 			
-			// Gets the assigned employees name
-			$result1 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
-			$result1->execute(array($row['EmpID']));
-			
-			// Saves the assigned employees name
-			$emp_name = $result1->fetch(PDO::FETCH_ASSOC);
-			$emp_name = $emp_name["Name"];
 ?>
 		<tr bgcolor="#FAFAFA">
 			<td style="text-align:center"> <?php echo "$row[OrderID]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$emp_name"; ?> </td>
+			<td style="text-align:center"> <?php 
+												if($row["EmpID"] == NULL) // Checks if the order doesn't have an employee assigned to it
+												{
+													// Creates a form with a button for the employee to be able to choose the order to complete it
+													echo "<form>";
+													
+													// Sends the EmpID to have for later
+													echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
+													
+													// Sends the OrderID of the Order that the employee clicks on
+													echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
+
+													// Creates the button to assign an order to the employee
+													echo "<input type=\"submit\" name=\"assign_order\" value=\"Assign To Me\" class=\"assign_order_btn\"/>";
+													echo "</form>";
+												}
+												else				      // Order has an assigned employee and it displays their name	
+												{
+													// Gets the assigned employees name
+													$result1 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
+													$result1->execute(array($row['EmpID']));
+													
+													// Fetches the assigned employees name
+													$emp_name = $result1->fetch(PDO::FETCH_ASSOC);
+
+													// Displays the assigned employees name
+													echo $emp_name["Name"];
+												}
+			?> </td>
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>

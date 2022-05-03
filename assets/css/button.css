@@ -96,3 +96,9 @@ input[type=submit].checkout_btn
     font-size: 20px; /* Sets buttons fonts size */
     width: 400px;    /* Sets buttons width */
 }
+
+
+.assign_order_btn
+{
+    width: 120px; /* Sets buttons width */
+}

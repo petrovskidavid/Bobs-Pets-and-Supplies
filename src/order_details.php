@@ -96,11 +96,11 @@
 				//ensure status of order is shown as a word, not a number
 				if ($row['Status'] == 2)
 				{
-					$stat = "Processing";
+					$stat="<b>Processing</b>";
 				}
 				else if ($row['Status'] == 3)
 				{
-					$stat = "Shipped";
+					$stat = "<p style=\"color:#049a89; font-weight:bold;\">Shipped</p>";
 				}
 
 				//ensure something still shows if a tracking number isn't present
@@ -112,16 +112,6 @@
 				{
 					$track = "Order Not Shipped";
 				} 
-
-				//get the ID of the employee assigned to the order
-				$employee = $row['EmpID'];
-				
-				//get the assigned employee's name (display ID if no name set)
-				$sql2 = "SELECT Name FROM Employees WHERE EmpID='$employee'";
-
-				$result2 = $pdo->query($sql2);
-				$result2 = $result2->fetch(PDO::FETCH_ASSOC);
-				
 
 				//get notes info
 				if (isset($row['Notes']))
@@ -142,7 +132,37 @@
 ?>
 		
 		<tr bgcolor="#FAFAFA">
-			<td style="text-align:center"> <?php echo $result2['Name']; ?> </td>
+			<td style="text-align:center"> 
+			<?php 
+				if($row["EmpID"] == NULL) // Checks if the order doesn't have an employee assigned to it
+				{
+					// Creates a form with a button for the employee to be able to choose the order to complete it
+					echo "<form action=\"./orders.php\">";
+													
+					// Sends the EmpID to have for later
+					echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
+													
+					// Sends the OrderID of the Order that the employee clicks on
+					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
+
+					// Creates the button to assign an order to the employee
+					echo "<input type=\"submit\" name=\"assign_order\" value=\"Assign To Me\" class=\"assign_order_btn\"/>";
+					echo "</form>";
+				}
+				else				      // Order has an assigned employee and it displays their name	
+				{
+					// Gets the assigned employees name
+					$result2 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
+					$result2->execute(array($row['EmpID']));
+													
+					// Fetches the assigned employees name
+					$emp_name = $result2->fetch(PDO::FETCH_ASSOC);
+
+					// Displays the assigned employees name
+					echo $emp_name["Name"];
+				}
+			?> 
+			</td>
 			<td style="text-align:center"> <?php echo "$customer_name"; ?> </td>
 			<td style="text-align:center"> <?php echo "$customer_email"; ?> </td>
 			<td style="text-align:center"> <?php echo "$".number_format($row["Total"],2); ?> </td>
@@ -218,8 +238,8 @@
 		
 		}
 
-		//if the employee is assigned to the order...
-		if ($emp == $employee and $order_status == 2)
+		//if there is an employee assigned to the order and if it is this employee and if the order isn't shipped
+		if ($row["EmpID"] != NULL and $emp == $row["EmpID"] and $order_status == 2)
 		{
 ?>
 				<td>
@@ -282,11 +302,11 @@
 				//ensure status of order is shown as a word, not a number
 				if ($row['Status'] == 2)
 				{
-					$stat = "Processing";
+					$stat="<b>Processing</b>";
 				}
 				else if ($row['Status'] == 3)
 				{
-					$stat = "Shipped";
+					$stat = "<p style=\"color:green; font-weight:bold;\">Shipped</p>";
 				}
 
 

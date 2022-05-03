@@ -169,15 +169,6 @@
                 // Set the order status to received 
                 $rows = $pdo->prepare("UPDATE Orders SET Status=2 WHERE OrderID=?");
                 $rows->execute(array($orderID));
-                
-                // Choose a random employee to assign the order to
-                $result = $pdo->query("SELECT EmpID FROM Employees ORDER BY RAND() LIMIT 1");
-                $emp_to_assign = $result->fetch(PDO::FETCH_ASSOC);
-                $emp_to_assign = $emp_to_assign["EmpID"];
-                
-                // Assign the employee to the order
-                $rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
-                $rows->execute(array($emp_to_assign, $orderID));
 
                 // Get the amounts of each product in the order
                 $rows = $pdo->prepare("SELECT ProductID, Amount FROM Carts WHERE OrderID=?");
