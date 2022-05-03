@@ -77,16 +77,17 @@
 			echo "<table border=1 style=\"border: solid; top:100px;\" cellpadding=5>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
-				echo "<th style='text-align:center' colspan=6> Details on Order $ID </th>";
+				echo "<th style='text-align:center' colspan=7> Details on Order $ID </th>";
 			echo "</tr>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
 				echo "<th style='text-align:center'> Assigned Employee </th>";
 				echo "<th style='text-align:center'> Customer Name </th>";
+				echo "<th style='text-align:center'> Customer Email </th>";
 				echo "<th style='text-align:center'> Order Total </th>";
 				echo "<th style='text-align:center'> Status </th>";
 				echo "<th style='text-align:center'> Tracking Number </th>";
-				echo "<th style='text-align:center'> Address </th>";
+				echo "<th style='text-align:center'> Shipping Address </th>";
 			echo "</tr>";
 
 			foreach($result as $row)
@@ -132,16 +133,18 @@
 					$notes = "No notes have been added to this order yet.";
 				}
 
-				$customer_name = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
-				$customer_name->execute(array($row["Username"]));
+				$customer_info = $pdo->prepare("SELECT Name, Email FROM Customers WHERE Username=?");
+				$customer_info->execute(array($row["Username"]));
 
-				$customer_name = $customer_name->fetch(PDO::FETCH_ASSOC);
-				$customer_name = $customer_name["Name"];
+				$customer_info = $customer_info->fetch(PDO::FETCH_ASSOC);
+				$customer_name = $customer_info["Name"];
+				$customer_email = $customer_info["Email"];
 ?>
 		
 		<tr bgcolor="#FAFAFA">
 			<td style="text-align:center"> <?php echo $result2['Name']; ?> </td>
 			<td style="text-align:center"> <?php echo "$customer_name"; ?> </td>
+			<td style="text-align:center"> <?php echo "$customer_email"; ?> </td>
 			<td style="text-align:center"> <?php echo "$".number_format($row["Total"],2); ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
 			<td style="text-align:center"> <?php echo "$track"; ?> </td>
@@ -149,12 +152,12 @@
 		</tr>
 
 		<tr bgcolor="8AA29E">
-			<th style="text-align:center" colspan=6> Items Ordered </th>
+			<th style="text-align:center" colspan=7>Items Ordered</th>
 		</tr>
 
 		<tr bgcolor="8AA29E">
 			<th style="text-align:center" colspan=2> Product </th>
-			<th style="text-align:center" colspan=2> Amount </th>
+			<th style="text-align:center" colspan=3> Amount </th>
 			<th style="text-align:center" colspan=2> Price Per Unit </th>
 
 		</tr>
@@ -190,25 +193,25 @@
 			}
 			echo "<tr bgcolor=#FAFAFA>";
 			echo "<td style=text-align:center colspan=2> $prodName </td>";
-			echo "<td style=text-align:center colspan=2> $row3[Amount] </td>";
+			echo "<td style=text-align:center colspan=3> $row3[Amount] </td>";
 			echo "<td style=text-align:center colspan=2> $".number_format($price, 2)."</td>";
 			echo "</tr>";
 		}
 
 ?>
 		<tr bgcolor="8AA29E">
-			<th style="text-align:center" colspan=6> Notes </th>
+			<th style="text-align:center" colspan=7> Notes </th>
 		</tr>
 
 <?php 
 			//displaying order notes
 			if (isset($row['Notes']))
 			{
-				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=6> $row[Notes] </td> </tr>";
+				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=7> $row[Notes] </td> </tr>";
 			}
 			else
 			{
-				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=6> No notes currently for this order. </td> </tr>";
+				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=7> No notes currently for this order. </td> </tr>";
 			}
 
 		echo "</table></td>"; 
@@ -271,7 +274,7 @@
 				echo "<th style='text-align:center'> Order Total </th>";
 				echo "<th style='text-align:center'> Status </th>";
 				echo "<th style='text-align:center'> Tracking Number </th>";
-				echo "<th style='text-align:center'> Address </th>";
+				echo "<th style='text-align:center'> Shipping Address </th>";
 			echo "</tr>";
 
 			foreach($result as $row)

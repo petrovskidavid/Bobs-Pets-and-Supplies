@@ -61,7 +61,7 @@
 			echo "<th style='text-align:center'> OrderID </th>";
 			echo "<th style='text-align:center'> Assigned Employee </th>";
 			echo "<th style='text-align:center'> TrackingNum </th>";
-			echo "<th style='text-align:center'> Address </th>";
+			echo "<th style='text-align:center'> Shipping Address </th>";
 			echo "<th style='text-align:center'> Status </th>";
 			echo "<th style='text-align:center'></th>";
 		echo "</tr>";
@@ -122,7 +122,7 @@
 		echo "<tr bgcolor=\"#8AA29E\">";
 			echo "<th style='text-align:center'> OrderID </th>";
 			echo "<th style='text-align:center'> TrackingNum </th>";
-			echo "<th style='text-align:center'> Address </th>";
+			echo "<th style='text-align:center'> Shipping Address </th>";
 			echo "<th style='text-align:center'></th>";
 		echo "</tr>";
 
