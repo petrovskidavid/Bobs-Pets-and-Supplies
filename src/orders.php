@@ -25,7 +25,7 @@
          
         include("header.php"); // Creates the header of the page
         include("secrets.php"); // Logs into the db
-	include("functions.php"); // Gives the file with the login window creation function
+		include("functions.php"); // Gives the file with the login window creation function
 
 		$sql="SELECT * FROM Orders WHERE (Status='2' OR Status='3')";
 
@@ -75,10 +75,19 @@
 			else
 			{
 				$stat="Shipped";
-			} ?>
+			} 
+			
+			// Gets the assigned employees name
+			$result1 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
+			$result1->execute(array($row['EmpID']));
+			
+			// Saves the assigned employees name
+			$emp_name = $result1->fetch(PDO::FETCH_ASSOC);
+			$emp_name = $emp_name["Name"];
+?>
 		<tr bgcolor="#FAFAFA">
 			<td style="text-align:center"> <?php echo "$row[OrderID]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$row[EmpID]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$emp_name"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>

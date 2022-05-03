@@ -37,134 +37,112 @@
         if(isset($_GET["EmpID"]))          // Checks if an employee is visiting the page
         {
             // Creates a return button to the orders page for employees
-		create_return_btn("./orders.php", 2);
+			create_return_btn("./orders.php", 2);
 
-		//store EmpID, OrderID for later
-		$emp = $_GET["EmpID"];
-		$ID = $_GET["OrderID"];
+			//store EmpID, OrderID for later
+			$emp = $_GET["EmpID"];
+			$ID = $_GET["OrderID"];
 
-
-		//check if something was just resubmitted for order processing
-		if (isset($_POST['Status']))
-		{
-			//update order if it's been changed
-			if (isset($_POST['Status']))
+			if (isset($_POST['add_notes']))
 			{
-				$newStat = $_POST['Status'];
+				$newNote = $_POST['Notes'];
+				$updateSQL = "UPDATE Orders SET Notes=? WHERE OrderID=?";
+				$result = $pdo->prepare($updateSQL);
+				$result->execute(array($newNote, $ID));
+			}
+			else
+			{
+				$newNote = null;
+			}
+			
+			if(isset($_POST['ship_order']))
+			{
+				$trackNum = rand(10000000,99999999);
+					
+				$updateSQL = "UPDATE Orders SET Status=3, TrackingNum=? WHERE OrderID=?";
+				$result = $pdo->prepare($updateSQL);
+				$result->execute(array($trackNum, $ID));
 
-				if (isset($_POST['Notes']))
+				header("Location: ./orders.php?EmpID=".$emp);
+			}
+			
+			//sql to view details of the order
+			$sql="SELECT * FROM Orders WHERE OrderID='$ID'";
+
+			$result = $pdo->query($sql);
+			$result = $result->fetchAll(PDO::FETCH_ASSOC);
+			
+			echo "<table class=\"orders\" style=\"top:60px;\" cellpadding=35>";
+			echo "<tr><td>";
+			echo "<table border=1 style=\"border: solid; top:100px;\" cellpadding=5>";
+
+			echo "<tr bgcolor=\"#8AA29E\">";
+				echo "<th style='text-align:center' colspan=6> Details on Order $ID </th>";
+			echo "</tr>";
+
+			echo "<tr bgcolor=\"#8AA29E\">";
+				echo "<th style='text-align:center'> Assigned Employee </th>";
+				echo "<th style='text-align:center'> Customer Name </th>";
+				echo "<th style='text-align:center'> Order Total </th>";
+				echo "<th style='text-align:center'> Status </th>";
+				echo "<th style='text-align:center'> Tracking Number </th>";
+				echo "<th style='text-align:center'> Address </th>";
+			echo "</tr>";
+
+			foreach($result as $row)
+			{
+				$order_status = $row["Status"];
+				//ensure status of order is shown as a word, not a number
+				if ($row['Status'] == 2)
 				{
-					$newNote = $_POST['Notes'];
+					$stat = "Processing";
+				}
+				else if ($row['Status'] == 3)
+				{
+					$stat = "Shipped";
+				}
+
+				//ensure something still shows if a tracking number isn't present
+				if (isset($row['TrackingNum']))
+				{
+					$track = $row['TrackingNum'];
 				}
 				else
 				{
-					$newNote = null;
-				}
+					$track = "Order Not Shipped";
+				} 
 
-				if ($newStat == "2")
+				//get the ID of the employee assigned to the order
+				$employee = $row['EmpID'];
+				
+				//get the assigned employee's name (display ID if no name set)
+				$sql2 = "SELECT Name FROM Employees WHERE EmpID='$employee'";
+
+				$result2 = $pdo->query($sql2);
+				$result2 = $result2->fetch(PDO::FETCH_ASSOC);
+				
+
+				//get notes info
+				if (isset($row['Notes']))
 				{
-					$trackNum = null;
+					$notes = $row['Notes'];
 				}
-				else if ($newStat == "3")
+				else
 				{
-					$trackNum = rand(10000000,99999999);
+					$notes = "No notes have been added to this order yet.";
 				}
 
-				$updateSQL = "UPDATE Orders SET Status='$newStat', TrackingNum='$trackNum', Notes='$newNote' WHERE OrderID='$ID'";
-				$pdo->query($updateSQL);
+				$customer_name = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
+				$customer_name->execute(array($row["Username"]));
 
-			}
-			echo "<h3 align=center> Order Updated Successfully </h3>";
- 
-		}
-
-		//create stat variable for later
-		$stat = "empty";
-		
-		//sql to view details of the order
-		$sql="SELECT * FROM Orders WHERE OrderID='$ID'";
-
-		$result = $pdo->query($sql);
-		$result = $result->fetchAll(PDO::FETCH_ASSOC);
-
-		echo "<table border=1 style=\"border: solid;\" cellpadding=5 align=right>";
-
-		echo "<tr bgcolor=\"#8AA29E\">";
-			echo "<th style='text-align:center' colspan=6> Details on Order: $ID </th>";
-		echo "</tr>";
-
-		echo "<tr bgcolor=\"#8AA29E\">";
-			echo "<th style='text-align:center'> Assigned Employee </th>";
-			echo "<th style='text-align:center'> Customer Username </th>";
-			echo "<th style='text-align:center'> Order Total </th>";
-			echo "<th style='text-align:center'> Status </th>";
-			echo "<th style='text-align:center'> Tracking Number </th>";
-			echo "<th style='text-align:center'> Address </th>";
-		echo "</tr>";
-
-		foreach($result as $row)
-		{
-			//ensure status of order is shown as a word, not a number
-			if ($row['Status'] == 2)
-			{
-				$stat = "Processing";
-			}
-			else if ($row['Status'] == 3)
-			{
-				$stat = "Shipped";
-			}
-			else
-			{
-				$stat = "Unknown";
-			}
-
-			//ensure something still shows if a tracking number isn't present
-			if (isset($row['TrackingNum']))
-			{
-				$track = $row['TrackingNum'];
-			}
-			else
-			{
-				$track = "Order not Shipped";
-			} 
-
-			//get the ID of the employee assigned to the order
-			$employee = $row['EmpID'];
-			
-			//get the assigned employee's name (display ID if no name set)
-			$sql2 = "SELECT Name FROM Employees WHERE EmpID='$employee'";
-
-			$result2 = $pdo->query($sql2);
-			$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
-
-			if (isset($result2['Name']))
-			{
-				$Name = $result2['Name'];
-			}
-			else
-			{
-				$Name = $row['EmpID'];
-			}
-
-			//get notes info
-
-			if (isset($row['Notes']))
-			{
-				$notes = $row['Notes'];
-			}
-			else
-			{
-				$notes = "No notes have been added to this order yet.";
-			}
-			
-
-
+				$customer_name = $customer_name->fetch(PDO::FETCH_ASSOC);
+				$customer_name = $customer_name["Name"];
 ?>
 		
 		<tr bgcolor="#FAFAFA">
-			<td style="text-align:center"> <?php echo "$Name"; ?> </td>
-			<td style="text-align:center"> <?php echo "$row[Username]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$$row[Total]"; ?> </td>
+			<td style="text-align:center"> <?php echo $result2['Name']; ?> </td>
+			<td style="text-align:center"> <?php echo "$customer_name"; ?> </td>
+			<td style="text-align:center"> <?php echo "$".number_format($row["Total"],2); ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
 			<td style="text-align:center"> <?php echo "$track"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
@@ -204,34 +182,23 @@
 				{
 					$prodName = $row4['Name'];
 				}
-				else
-				{
-					$prodName = "Unknown";
-				}
 
 				if (isset($row4['Price']))
 				{
 					$price = $row4['Price'];
 				}
-				else
-				{
-					$price = "Unknown";
-				}
 			}
 			echo "<tr bgcolor=#FAFAFA>";
 			echo "<td style=text-align:center colspan=2> $prodName </td>";
 			echo "<td style=text-align:center colspan=2> $row3[Amount] </td>";
-			echo "<td style=text-align:center colspan=2> $$price </td>";
+			echo "<td style=text-align:center colspan=2> $".number_format($price, 2)."</td>";
 			echo "</tr>";
 		}
 
 ?>
-
-
 		<tr bgcolor="8AA29E">
 			<th style="text-align:center" colspan=6> Notes </th>
 		</tr>
-
 
 <?php 
 			//displaying order notes
@@ -244,27 +211,32 @@
 				echo "<tr bgcolor=#FAFAFA> <td style=text-align:center colspan=6> No notes currently for this order. </td> </tr>";
 			}
 
-		echo "</table>"; 
-
-		} 
+		echo "</table></td>"; 
 		
-		echo "<br><br><br><br>";
+		}
 
 		//if the employee is assigned to the order...
-		if ($emp == $employee)
+		if ($emp == $employee and $order_status == 2)
 		{
 ?>
-	
-		<form method="POST">
+				<td>
+				<form method="POST">
 
-			Enter Notes Below: <br>
-			<input type="text" name="Notes" style="height:100px; width:548px; text-align:center" maxlength="255"> <br><br>
-			<select name="Status" id="Status">
-				<option value="2"> Processing </option>
-				<option value="3"> Shipped </option>
-			</select>
-			<input type="submit" name="submit" value="Update Order"/>
-		</form>
+					Enter Notes Below: <br><br>
+					<textarea style="height:100px; width:500px; text-align:left; resize:none;" name="Notes" maxlength="255"></textarea>
+					<br>
+					<input type="submit" name="add_notes" value="Add Notes"/>
+				</form>
+				</td>
+				<tr>
+					<td colspan=2>
+						<form method="POST" style="text-align: center">
+							<input type="hidden" name="EmpID" value="<?php echo $emp; ?>" />
+							<input type="submit" name="ship_order" value="Ship Order" class="shipped_btn" />
+						</form>
+					</td>
+				</tr>
+			</table>
 
 <?php
 		}
@@ -273,81 +245,79 @@
         else if (isset($_GET["Username"])) // Checks if a customer is visiting the page
         {
             // Creates a return button to the order history page for the customer
-		create_return_btn("./order_history.php", 1);
+			create_return_btn("./order_history.php", 1);
 
 
-		//create stat variable for later
-		$stat = "empty";
+			//create stat variable for later
+			$stat = "empty";
 
-		//store OrderID for later
-		$ID = $_GET["OrderID"];
-		
-		//sql to view details of the order
-		$sql="SELECT * FROM Orders WHERE OrderID='$ID'";
-
-		$result = $pdo->query($sql);
-		$result = $result->fetchAll(PDO::FETCH_ASSOC);
-
-		echo "<table border=1 style=\"border: solid;\" cellpadding=5 align=right>";
-
-		echo "<tr bgcolor=\"#8AA29E\">";
-			echo "<th style='text-align:center' colspan=6> Details on Order: $ID </th>";
-		echo "</tr>";
-
-		echo "<tr bgcolor=\"#8AA29E\">";
-			echo "<th style='text-align:center'> Assigned Employee </th>";
-			echo "<th style='text-align:center'> Customer Username </th>";
-			echo "<th style='text-align:center'> Order Total </th>";
-			echo "<th style='text-align:center'> Status </th>";
-			echo "<th style='text-align:center'> Tracking Number </th>";
-			echo "<th style='text-align:center'> Address </th>";
-		echo "</tr>";
-
-		foreach($result as $row)
-		{
-			//ensure status of order is shown as a word, not a number
-			if ($row['Status'] == 2)
-			{
-				$stat = "Processing";
-			}
-			else if ($row['Status'] == 3)
-			{
-				$stat = "Shipped";
-			}
-			else
-			{
-				$stat = "Unknown";
-			}
-
-			//ensure something still shows if a tracking number isn't present
-			if (isset($row['TrackingNum']))
-			{
-				$track = $row['TrackingNum'];
-			}
-			else
-			{
-				$track = "Order not Shipped";
-			} 
+			//store OrderID for later
+			$ID = $_GET["OrderID"];
 			
-			//get notes info
+			//sql to view details of the order
+			$sql="SELECT * FROM Orders WHERE OrderID='$ID'";
 
-			if (isset($row['Notes']))
+			$result = $pdo->query($sql);
+			$result = $result->fetchAll(PDO::FETCH_ASSOC);
+
+			echo "<table border=1 style=\"border: solid; top:100px;\" class=\"orders\" cellpadding=5>";
+
+			echo "<tr bgcolor=\"#8AA29E\">";
+				echo "<th style='text-align:center' colspan=6> Details on Order $ID </th>";
+			echo "</tr>";
+
+			echo "<tr bgcolor=\"#8AA29E\">";
+				echo "<th style='text-align:center'> Customer Name </th>";
+				echo "<th style='text-align:center'> Order Total </th>";
+				echo "<th style='text-align:center'> Status </th>";
+				echo "<th style='text-align:center'> Tracking Number </th>";
+				echo "<th style='text-align:center'> Address </th>";
+			echo "</tr>";
+
+			foreach($result as $row)
 			{
-				$notes = $row['Notes'];
-			}
-			else
-			{
-				$notes = "No notes have been added to this order yet.";
-			}
-			
+				//ensure status of order is shown as a word, not a number
+				if ($row['Status'] == 2)
+				{
+					$stat = "Processing";
+				}
+				else if ($row['Status'] == 3)
+				{
+					$stat = "Shipped";
+				}
 
 
+				//ensure something still shows if a tracking number isn't present
+				if (isset($row['TrackingNum']))
+				{
+					$track = $row['TrackingNum'];
+				}
+				else
+				{
+					$track = "Order Not Shipped";
+				} 
+				
+				//get notes info
+
+				if (isset($row['Notes']))
+				{
+					$notes = $row['Notes'];
+				}
+				else
+				{
+					$notes = "No notes have been added to this order yet.";
+				}
+
+				$customer_name = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
+				$customer_name->execute(array($row["Username"]));
+
+				$customer_name = $customer_name->fetch(PDO::FETCH_ASSOC);
+				$customer_name = $customer_name["Name"];
 ?>
 		
 		<tr bgcolor="#FAFAFA">
-			<td style="text-align:center"> <?php echo "$row[EmpID]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$row[Username]"; ?> </td>
-			<td style="text-align:center"> <?php echo "$$row[Total]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$customer_name"; ?> </td>
+			<td style="text-align:center"> <?php echo "$".number_format($row["Total"],2); ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
 			<td style="text-align:center"> <?php echo "$track"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
@@ -403,7 +373,7 @@
 			echo "<tr bgcolor=#FAFAFA>";
 			echo "<td style=text-align:center colspan=2> $prodName </td>";
 			echo "<td style=text-align:center colspan=2> $row3[Amount] </td>";
-			echo "<td style=text-align:Center colspan=2> $$price </td>";
+			echo "<td style=text-align:Center colspan=2> $".number_format($price, 2)." </td>";
 			echo "</tr>";
 		}
 

@@ -67,7 +67,7 @@
 
             foreach($rows as $row)
             { 
-                if ($row['Status'] == 2)
+                if($row['Status'] == 2)
                 {
                     $stat="Processing";
                 }
@@ -76,10 +76,19 @@
                     $stat="Shipped";
                 }
 
+                if($row["TrackingNum"] == NULL)
+                {
+                    $tracking_num = "Order Not Shipped";
+                }
+                else 
+                {
+                    $tracking_num = $row["TrackingNum"];
+                }
+
             echo "<tr bgcolor=\"#FAFAFA\">";
             echo "<td style=\"text-align:center\">".$row["OrderID"]."</td>";
             echo "<td style=\"text-align:center\">$".number_format($row["Total"], 2)."</td>";
-            echo "<td style=\"text-align:center\">".$row["TrackingNum"]."</td>";
+            echo "<td style=\"text-align:center\">".$tracking_num."</td>";
             echo "<td style=\"text-align:center\">".$row["Address"]."</td>";
             echo "<td style=\"text-align:center\">".$stat."</td>";
             echo "<td style=\"text-align:center\">";
