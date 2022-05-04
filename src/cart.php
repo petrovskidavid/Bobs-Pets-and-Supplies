@@ -17,7 +17,7 @@
         /**
          * @file cart.php
          * 
-         * @brief This is the page where the customer can view their cart and start checkout process.
+         * @brief This is the page where the customer can view their cart and start the checkout process.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
@@ -284,7 +284,7 @@
             echo "<input type=\"submit\" name=\"checkout\" value=\"Checkout\" class=\"checkout_btn\" >";
             echo "</form>";
 
-            // Add btn to checkout at bottom whole row, then also add delete btn under every quantity
+            // Add button to checkout at bottom whole row, then also add delete button under every quantity
             echo "</table>";
         }
         else 

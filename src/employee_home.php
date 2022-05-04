@@ -27,11 +27,11 @@
         include("secrets.php"); // Logs into the db
         include("functions.php"); // Gives the file with the login window creation function
         
-        // Prepares query to get employees name
+        // Prepares query to get employee's name
         $result = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
         $result->execute(array($_GET["EmpID"]));
 
-        // Saves employees name
+        // Saves employee's name
         $row = $result->fetch(PDO::FETCH_ASSOC);
         $emp_name = $row["Name"];
         
@@ -44,7 +44,7 @@
         // Creates button that redirects employee to the Orders page
         echo "<form action=\"./orders.php\" >";
 
-        // Sends the employees EmpID so that it is saved for later use
+        // Sends the employee's EmpID so that it is saved for later use
         echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
         echo "<input type=\"submit\" name=\"submit\" value=\"View Orders\" class=\"view_order_btn\" />";
         echo "</form>";
@@ -55,7 +55,7 @@
         // Creates button that redirects employee to the Inventory page
         echo "<form action=\"./inventory.php\" >";
 
-        // Sends the employees EmpID so that it is saved for later use
+        // Sends the employee's EmpID so that it is saved for later use
         echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
         echo "<input type=\"submit\" name=\"submit\" value=\"View Inventory\" class=\"view_inventory_btn\" />";
         echo "</form>";

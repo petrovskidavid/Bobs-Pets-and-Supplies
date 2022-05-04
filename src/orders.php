@@ -27,9 +27,10 @@
         include("secrets.php"); // Logs into the db
 		include("functions.php"); // Gives the file with the login window creation function
 
+		// Get all information for all orders that are processing or shipped
 		$sql="SELECT * FROM Orders WHERE (Status='2' OR Status='3')";
-
 		$result = $pdo->query($sql);
+
 		$result = $result->fetchAll(PDO::FETCH_ASSOC); 
 
 		// Creates a return button to the employee home page.
@@ -62,10 +63,10 @@
 	}
 	else
 	{
-
-		// All Orders table
+		// All orders table
 		echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
 
+		// Display labels for order table
 		echo "<tr bgcolor=\"#8AA29E\">";
 			echo "<th style='text-align:center' colspan=6> All Orders </th>";
 		echo "</tr>";
@@ -79,8 +80,10 @@
 			echo "<th style='text-align:center'></th>";
 		echo "</tr>";
 
+		// Loop through every order
 		foreach($result as $row)
 		{ 
+			// Check the status of the order
 			if ($row['Status'] == 2)
 			{
 				$stat="<b>Processing</b>";
@@ -92,50 +95,55 @@
 			
 ?>
 		<tr bgcolor="#FAFAFA">
+			<!-- Print order information -->
 			<td style="text-align:center"> <?php echo "$row[OrderID]"; ?> </td>
-			<td style="text-align:center"> <?php 
-												if($row["EmpID"] == NULL) // Checks if the order doesn't have an employee assigned to it
-												{
-													// Creates a form with a button for the employee to be able to choose the order to complete it
-													echo "<form>";
-													
-													// Sends the EmpID to have for later
-													echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
-													
-													// Sends the OrderID of the Order that the employee clicks on
-													echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
+			<td style="text-align:center"> 
+			<?php 
+				if($row["EmpID"] == NULL) // Checks if the order doesn't have an employee assigned to it
+				{
+					// Creates a form with a button for the employee to be able to choose the order to complete it
+					echo "<form>";
 
-													// Creates the button to assign an order to the employee
-													echo "<input type=\"submit\" name=\"assign_order\" value=\"Assign To Me\" class=\"assign_order_btn\"/>";
-													echo "</form>";
-												}
-												else				      // Order has an assigned employee and it displays their name	
-												{
-													// Gets the assigned employees name
-													$result1 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
-													$result1->execute(array($row['EmpID']));
-													
-													// Fetches the assigned employees name
-													$emp_name = $result1->fetch(PDO::FETCH_ASSOC);
+					// Sends the EmpID to have for later
+					echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
 
-													// Displays the assigned employees name
-													echo $emp_name["Name"];
-												}
+					// Sends the OrderID of the Order that the employee clicks on
+					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
+
+					// Creates the button to assign an order to the employee
+					echo "<input type=\"submit\" name=\"assign_order\" value=\"Assign To Me\" class=\"assign_order_btn\"/>";
+					echo "</form>";
+				}
+				else				      // Order has an assigned employee and it displays their name	
+				{
+					// Gets the assigned employee's name
+					$result1 = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
+					$result1->execute(array($row['EmpID']));
+													
+					// Fetches the assigned employee's name
+					$emp_name = $result1->fetch(PDO::FETCH_ASSOC);
+
+					// Displays the assigned employee's name
+					echo $emp_name["Name"];
+				}
 			?> </td>
+			<!-- Print the rest of the order information -->
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
 			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"]; ?> /> <input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> ></form> </td>
 		</tr>
 <?php   }
+		// End the table
 	    echo "</table>";
 	}
 	echo "</td>";
 
+	// Get the order ID, tracking number, and address for all processing orders for the current employee logged in
 	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
-
 	$result2 = $pdo->prepare($sql2);
 	$result2->execute(array($_GET['EmpID']));
+
 	$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
 
 	echo "<td>";
@@ -146,9 +154,10 @@
 	}
 	else
 	{
-		// Employees Orders table
+		// Make employee's assigned orders table
 		echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
 
+		// Display labels for employee's orders table
 		echo "<tr bgcolor=\"#8AA29E\">";
 			echo "<th style='text-align:center' colspan=5> Your Unprocessed Orders </th>";
 		echo "</tr>";
@@ -160,18 +169,23 @@
 			echo "<th style='text-align:center'></th>";
 		echo "</tr>";
 
+		// Loop through every order assigned to the current employee logged in
 		foreach($result2 as $row2)
 		{ ?> 
+			<!-- Display order information -->
 			<tr bgcolor="#FAFAFA">
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
 				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"]; ?> /> <input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /> </form> </td>
 			</tr>
-	<?php   }
+	<?php   
+		}
+		// End the employee's assgined orders table
 		echo "</table>";
 	}
-		
+	
+	// End the formatting table
 	echo "</td></table>";
 
 ?>
