@@ -46,7 +46,19 @@
             $rows->execute(array($_GET["EmpID"], $_GET["OrderID"]));
 
 			// Refresh the screen to have the order move to the employees table of their assigned orders
-			header("Location: ./orders.php?EmpID=".$_GET["EmpID"]."&assigned");
+			header("Location: ./orders.php?EmpID=".$_GET["EmpID"]."&OrderID=".$_GET["OrderID"]."&assigned");
+		}
+
+		// Checks if employee assigned an order to themselves to display success message
+		if(isset($_GET["assigned"]))
+		{
+			echo "<h4 style='position: absolute; left: 50%; top: 140px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>You successfully assigned Order Number <u>".$_GET["OrderID"]."</u> to yourself.</h4>";
+		}
+
+		// Checks if an order has been just shipped and displays success message
+		if(isset($_GET["shipped"]))
+		{
+			echo "<h4 style='position: absolute; left: 50%; top: 140px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>You successfully shipped Order Number <u>".$_GET["OrderID"]."</u>.</h4>";
 		}
 	?>
 
@@ -56,7 +68,7 @@
 
 	// Additional table that is used to display both tables in center of page
 	echo "<table class=\"orders\" cellpadding=35>";
-	echo "<td>";
+	echo "<tr><td>";
 	if(empty($result))
 	{
 		echo "<h4>There are no orders to process at this time.</h4>";
@@ -90,7 +102,7 @@
 			}
 			else
 			{
-				$stat = "<p style=\"color:#049a89; font-weight:bold;\">Shipped</p>";
+				$stat = "<b style=\"color:#049a89;\">Shipped</b>";
 			} 
 			
 ?>
@@ -137,7 +149,7 @@
 		// End the table
 	    echo "</table>";
 	}
-	echo "</td>";
+	echo "</td></tr>";
 
 	// Get the order ID, tracking number, and address for all processing orders for the current employee logged in
 	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
@@ -146,7 +158,7 @@
 
 	$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
 
-	echo "<td>";
+	echo "<tr><td align=center>";
 	// Checks if the employee has any orders to process, if not it prints a message
 	if(empty($result2))
 	{
@@ -186,7 +198,7 @@
 	}
 	
 	// End the formatting table
-	echo "</td></table>";
+	echo "</td></tr></table>";
 
 ?>
 </body>

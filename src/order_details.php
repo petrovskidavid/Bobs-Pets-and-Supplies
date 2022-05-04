@@ -70,7 +70,7 @@
 				$result->execute(array($trackNum, $ID));
 
 				// Redirect to the orders page
-				header("Location: ./orders.php?EmpID=".$emp);
+				header("Location: ./orders.php?EmpID=".$emp."&OrderID=".$_GET["OrderID"]."&shipped");
 			}
 			
 			// Sql to view details of the order
@@ -82,7 +82,7 @@
 			
 			// Create a table to show the order information
 			echo "<table class=\"orders\" style=\"top:60px;\" cellpadding=35>";
-			echo "<tr><td>";
+			echo "<tr><td align=center colspan=2>";
 			echo "<table border=1 style=\"border: solid; top:100px;\" cellpadding=5>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
@@ -111,7 +111,7 @@
 				}
 				else if ($row['Status'] == 3)
 				{
-					$stat = "<p style=\"color:#049a89; font-weight:bold;\">Shipped</p>";
+					$stat = "<b style=\"color:#049a89;\">Shipped</b>";
 				}
 
 				// Ensure something still shows if a tracking number isn't present
@@ -261,7 +261,7 @@
 		echo "</table></td>"; 
 		
 		}
-
+		echo "<tr>";
 		// If there is an employee assigned to the order and if it is this employee and if the order isn't shipped
 		if ($row["EmpID"] != NULL and $emp == $row["EmpID"] and $order_status == 2)
 		{
@@ -271,20 +271,22 @@
 
 				<!-- Display an input box for notes to be added -->
 					Enter Notes Below: <br><br>
-					<textarea style="height:100px; width:500px; text-align:left; resize:none;" name="Notes" maxlength="255"></textarea>
-					<br>
-					<input type="submit" name="add_notes" value="Add Notes"/>
+					<textarea style="height:100px; width:600px; text-align:left; resize:none;" name="Notes" maxlength="255"></textarea>
+					<br><br>
+					<input align=left type="submit" name="add_notes" value="Add Notes"/>
 				</form>
 				</td>
-				<tr>
-					<td colspan=2>
+				
+					<td>
 						<!-- Display a button for the employee to click to ship the order -->
 						<form method="POST" style="text-align: center">
 							<input type="hidden" name="EmpID" value="<?php echo $emp; ?>" />
+							<input type="hidden" name="OrderID" value="<?php echo $_GET['OrderID']; ?>" />
+							<input type="hidden" name="shipped" value="true" />
 							<input type="submit" name="ship_order" value="Ship Order" class="shipped_btn" />
 						</form>
 					</td>
-				</tr>
+				
 			</table>
 
 <?php
@@ -335,7 +337,7 @@
 				}
 				else if ($row['Status'] == 3)
 				{
-					$stat = "<p style=\"color:green; font-weight:bold;\">Shipped</p>";
+					$stat = "<b style=\"color:#049a89;\">Shipped</b>";
 				}
 
 

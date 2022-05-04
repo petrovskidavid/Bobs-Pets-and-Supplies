@@ -94,7 +94,7 @@ input[type=submit].checkout_btn
 .shipped_btn
 {
     font-size: 20px; /* Sets buttons fonts size */
-    width: 400px;    /* Sets buttons width */
+    width: 500px;    /* Sets buttons width */
 }
 
 

@@ -38,7 +38,7 @@
         if(isset($_GET["new_order"]))
         {
             // If so, print a message for the order to confirm placement
-            echo "<br><br><h4 style='text-align: center; font-size: 18px; color: green;'>Thank you for shopping with us! Your Order Number is <u>".$_GET["new_order"]."</u>.</h4>";
+            echo "<h4 style='position: absolute; left: 50%; top: 165px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>Thank you for shopping with us! Your Order Number is <u>".$_GET["new_order"]."</u>.</h4>";
         }
         
         // Get the order information for all the customer's orders
@@ -62,10 +62,9 @@
         else        // Otherwise, there are orders
         {
             echo "<h4 style='text-align: center; font-size:25px;'>Your Orders!</h4>";
-            // Print sum of all totals
-            echo "<p class=TotalToDate>The total of all your orders is $".number_format($totalToDate,2).".</p>";
+
             // Make a table to display all orders
-            echo "<table border=1 style=\"border: solid;\" class=\"orders\" cellpadding=10>";
+            echo "<br><br><table border=1 style=\"border: solid;\" class=\"orders\" cellpadding=10>";
 
             // Display labels for table
             echo "<tr bgcolor=\"#8AA29E\">";
@@ -87,7 +86,7 @@
                 }
                 else
                 {
-                    $stat = "<p style=\"color:#049a89; font-weight:bold;\">Shipped</p>";
+                    $stat = "<b style=\"color:#049a89;\">Shipped</b>";
                 }
 
                 // Check if there is a tracking number
@@ -120,6 +119,9 @@
             }
             // End the table
             echo "</table>";
+
+            // Print sum of all totals
+            echo "<br><p class=TotalToDate>The total of all your orders is <b>$".number_format($totalToDate,2)."</b>.</p>";
         }
 
     ?>
