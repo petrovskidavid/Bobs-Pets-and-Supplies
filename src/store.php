@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +29,13 @@
          * CSCI 466 - 1
          */
 
-
-        include("functions.php"); // Gives the file with the login window creation function
         include("secrets.php"); // Logs into the db
+        include("functions.php"); // Gives the file with the login window creation function
         include("header.php"); // Creates the header of the page
 
         // Prepares query to get customers name
         $result = $pdo->prepare("SELECT Name FROM Customers WHERE Username=?");
-        $result->execute(array($_GET["Username"]));
+        $result->execute(array($_SESSION["Username"]));
 
         // Saves customers name
         $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -84,7 +84,7 @@
                 // Begin a new data cell
                 echo "<td class=\"product_view_link\">";
                 // Create link for every product to redirect to its product_view page
-                echo "<a href=\"product_view.php?Username=".$_GET["Username"]."&ProductID=".$ID."\">";
+                echo "<a href=\"product_view.php?ProductID=".$ID."\">";
                 // Display the product image and a new line
                 echo "<img src='$addr' alt='$name Product Image' height=250 width=250/><br>";
                 // Display the product name

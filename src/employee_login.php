@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,9 +52,11 @@
                 
                 if($result) // If found redirects to the employee home page
                 {
-                    // Redirects to employee home page, and puts EmpID in GET method to use
-                    // on employee home page
-                    header("Location: employee_home.php?EmpID=".$_POST["EmpID"]); 
+                    // Saves EmpID into session varaible
+                    $_SESSION["EmpID"] = $_POST["EmpID"];
+
+                    // Redirects to employee home page
+                    header("Location: employee_home.php"); 
                 }
                 else        // Otherwise prints an error message
                 {

@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,12 +44,12 @@
         
         // Get the order information for all the customer's orders
         $result = $pdo->prepare("SELECT * FROM Orders WHERE Username=? AND (Status=2 or Status=3) ORDER BY OrderID DESC");
-        $result->execute(array($_GET["Username"]));
+        $result->execute(array($_SESSION["Username"]));
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
 
         // Get the sum of the totals of all the customer's orders
         $result2 = $pdo->prepare("SELECT SUM(Total) FROM Orders WHERE Username=?");
-        $result2->execute(array($_GET["Username"]));
+        $result2->execute(array($_SESSION["Username"]));
         $rows2 = $result2->fetch(PDO::FETCH_ASSOC);
         // Save the sum of all the totals
         $totalToDate = $rows2["SUM(Total)"];
@@ -111,8 +112,8 @@
 
             // Creat form to display a button to view individual order details
             echo "<form action=\"./order_details.php\">";
-            echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." />";
             echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
+            echo "<input type=\"hidden\" name=\"customer_view\" />";
             // Button to view individual order details
             echo "<input type=\"submit\" name=\"submit\" value=\"View Order Details\"/> </form> </td>";
             echo "</tr>";

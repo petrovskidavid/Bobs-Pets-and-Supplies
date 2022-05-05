@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 		create_return_btn("./cart.php", 1);
 
         // Saves the customer's username
-        $username = $_GET["Username"];
+        $username = $_SESSION["Username"];
 
         // Saves the current order total
         $order_total = $_GET["Total"];
@@ -93,7 +94,7 @@
         echo "<br/><br/><br/>";
 
         // Create a form for the shipping and billing information that redirects to the same checkout page
-        echo "<form method='POST' action='checkout.php?Username=".$_GET["Username"]."&Total=".$_GET["Total"]."' class='checkout_details'>";
+        echo "<form method='POST' action='checkout.php?Total=".$_GET["Total"]."' class='checkout_details'>";
         echo "<p style='font-size: 18px;'>Please enter your information below to complete your purchase.</p>";
         echo "<br/>";
         echo "<p class='billing_information'>Shipping Address:</p>";
@@ -197,7 +198,7 @@
                 }
 
                 // If everything above was successful, redirect to the order history page
-                header("Location: order_history.php?Username=".$_GET["Username"]."&new_order=".$orderID);
+                header("Location: order_history.php?new_order=".$orderID);
             } 
             else    // If not all 4 fields were filled,
             {

@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
         
         // Prepares query to get employee's name
         $result = $pdo->prepare("SELECT Name FROM Employees WHERE EmpID=?");
-        $result->execute(array($_GET["EmpID"]));
+        $result->execute(array($_SESSION["EmpID"]));
 
         // Saves employee's name
         $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -43,9 +44,6 @@
         echo "<td>";
         // Creates button that redirects employee to the Orders page
         echo "<form action=\"./orders.php\" >";
-
-        // Sends the employee's EmpID so that it is saved for later use
-        echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
         echo "<input type=\"submit\" name=\"submit\" value=\"View Orders\" class=\"view_order_btn\" />";
         echo "</form>";
         echo "</td>";
@@ -54,9 +52,6 @@
         echo "<td>";
         // Creates button that redirects employee to the Inventory page
         echo "<form action=\"./inventory.php\" >";
-
-        // Sends the employee's EmpID so that it is saved for later use
-        echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
         echo "<input type=\"submit\" name=\"submit\" value=\"View Inventory\" class=\"view_inventory_btn\" />";
         echo "</form>";
 

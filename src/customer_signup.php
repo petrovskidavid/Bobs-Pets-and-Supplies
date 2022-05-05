@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,8 +62,11 @@
                         // Executes the query and checks if it the query was successful 
                         if($result->execute(array($_POST["Username"], $_POST["Password"], $_POST["Name"], $_POST["Email"]))){
 
+                            // Saves username into session varaible
+                            $_SESSION["Username"] = $_POST["Username"];
+
                             // Redirects to store page, and puts Username in GET method to use on the store page
-                            header("Location: store.php?Username=".$_POST["Username"]); 
+                            header("Location: store.php"); 
                     
                         } else {
                             echo "<p class=\"login_error\"'>Something went wrong! Make sure your information is correct, and try again.</p>";

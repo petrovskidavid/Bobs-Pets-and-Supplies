@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,10 +44,10 @@
 			$rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
 
 			// Execute query
-            $rows->execute(array($_GET["EmpID"], $_GET["OrderID"]));
+            $rows->execute(array($_SESSION["EmpID"], $_GET["OrderID"]));
 
 			// Refresh the screen to have the order move to the employees table of their assigned orders
-			header("Location: ./orders.php?EmpID=".$_GET["EmpID"]."&OrderID=".$_GET["OrderID"]."&assigned");
+			header("Location: ./orders.php?OrderID=".$_GET["OrderID"]."&assigned");
 		}
 
 		// Checks if employee assigned an order to themselves to display success message
@@ -116,9 +117,6 @@
 					// Creates a form with a button for the employee to be able to choose the order to complete it
 					echo "<form>";
 
-					// Sends the EmpID to have for later
-					echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
-
 					// Sends the OrderID of the Order that the employee clicks on
 					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
 
@@ -143,7 +141,7 @@
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
-			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"]; ?> /> <input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> ></form> </td>
+			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 		</tr>
 <?php   }
 		// End the table
@@ -154,7 +152,7 @@
 	// Get the order ID, tracking number, and address for all processing orders for the current employee logged in
 	$sql2="SELECT OrderID, TrackingNum, Address FROM Orders WHERE Status='2' AND EmpID=?";
 	$result2 = $pdo->prepare($sql2);
-	$result2->execute(array($_GET['EmpID']));
+	$result2->execute(array($_SESSION['EmpID']));
 
 	$result2 = $result2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -189,7 +187,7 @@
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/> <input type="hidden" name="EmpID" value=<?php echo $_GET["EmpID"]; ?> /> <input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /> </form> </td>
+				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 			</tr>
 	<?php   
 		}
@@ -203,7 +201,3 @@
 ?>
 </body>
 </html>
-
-
-
-

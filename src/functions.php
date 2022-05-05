@@ -181,9 +181,6 @@
         // Creates a form for the button with the given destination
 		echo "<form action=".$dest." >";
 
-        // Sends in the Username/EmpID through the form
-		echo "<input type=\"hidden\" name=".$ID." value=".$_GET[$ID]." />";
-
         // Creates the button
         echo "<input type=\"submit\" name=\"submit\" value=\"".$btn_value."\" class=\"return_btn\" />";
         echo "</form>";

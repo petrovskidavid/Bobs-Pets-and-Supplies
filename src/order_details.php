@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,16 +33,18 @@
         include("secrets.php"); // Logs into the db
         include("header.php"); // Creates the header of the page
 
-
         
-        if(isset($_GET["EmpID"]))          // Checks if an employee is visiting the page
+        if(isset($_GET["employee_view"]))          // Checks if an employee is visiting the page
         {
             // Creates a return button to the orders page for employees
 			create_return_btn("./orders.php", 2);
 
 			// Store EmpID, OrderID for later
-			$emp = $_GET["EmpID"];
+			$emp = $_SESSION["EmpID"];
 			$ID = $_GET["OrderID"];
+
+			// Displays page heading with order number
+			echo "<h4 style='text-align: center; font-size:25px;'>Order Detials for Order #".$ID."</h4>";
 
 			// Check if notes were added
 			if (isset($_POST['add_notes']))
@@ -81,9 +84,9 @@
 			$result = $result->fetchAll(PDO::FETCH_ASSOC);
 			
 			// Create a table to show the order information
-			echo "<table class=\"orders\" style=\"top:60px;\" cellpadding=35>";
+			echo "<table class=\"orders\" cellpadding=35>";
 			echo "<tr><td align=center colspan=2>";
-			echo "<table border=1 style=\"border: solid; top:100px;\" cellpadding=5>";
+			echo "<table border=1 style=\"border: solid;\" cellpadding=5>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
 				echo "<th style='text-align:center' colspan=7> Details on Order $ID </th>";
@@ -152,9 +155,6 @@
 				{
 					// Creates a form with a button for the employee to be able to choose the order to complete it
 					echo "<form action=\"./orders.php\">";
-													
-					// Sends the EmpID to have for later
-					echo "<input type=\"hidden\" name=\"EmpID\" value=".$_GET["EmpID"]." />";
 													
 					// Sends the OrderID of the order that the employee clicks on
 					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
@@ -293,11 +293,10 @@
 		}
 	}
 	
-        else if (isset($_GET["Username"])) // Checks if a customer is visiting the page
+        else if (isset($_GET["customer_view"])) // Checks if a customer is visiting the page
         {
             // Creates a return button to the order history page for the customer
 			create_return_btn("./order_history.php", 1);
-
 
 			// Create stat variable for later
 			$stat = "empty";
@@ -305,6 +304,9 @@
 			// Store OrderID for later
 			$ID = $_GET["OrderID"];
 			
+			// Displays page heading with order number
+			echo "<h4 style='text-align: center; font-size:25px;'>Order Detials for Order #".$ID."</h4>";
+
 			// Sql to view details of the order
 			$sql="SELECT * FROM Orders WHERE OrderID=?";
 			$result = $pdo->prepare($sql);
@@ -313,7 +315,7 @@
 			$result = $result->fetchAll(PDO::FETCH_ASSOC);
 
 			// Create a table to display the order information
-			echo "<table border=1 style=\"border: solid; top:100px;\" class=\"orders\" cellpadding=5>";
+			echo "<table border=1 style=\"border: solid; top:35px;\" class=\"orders\" cellpadding=5>";
 
 			echo "<tr bgcolor=\"#8AA29E\">";
 				echo "<th style='text-align:center' colspan=6> Details on Order $ID </th>";
