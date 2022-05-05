@@ -39,7 +39,7 @@
         if(isset($_GET["new_order"]))
         {
             // If so, print a message for the order to confirm placement
-            echo "<h4 style='position: absolute; left: 50%; top: 165px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>Thank you for shopping with us! Your Order Number is <u>".$_GET["new_order"]."</u>.</h4>";
+            echo "<h4 style='position: absolute; left: 50%; top: 165px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>Thank you for shopping with us! Your Order Number is <u>".$_SESSION["new_order"]."</u>.</h4>";
         }
         
         // Get the order information for all the customer's orders
@@ -111,7 +111,7 @@
             echo "<td style=\"text-align:center\">";
 
             // Creat form to display a button to view individual order details
-            echo "<form action=\"./order_details.php\">";
+            echo "<form action=\"./order_details.php\" method=POST>";
             echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
             echo "<input type=\"hidden\" name=\"customer_view\" />";
             // Button to view individual order details

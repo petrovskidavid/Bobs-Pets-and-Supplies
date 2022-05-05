@@ -156,8 +156,6 @@
 
                     // Fetches the password
                     $hashed_pw = $hashed_pw->fetch(PDO::FETCH_ASSOC);
-                    
-                    print_r($hashed_pw);
 
                     // Checks if the hashed password matches the one from the db for the current user
                     if($row["Password"] == $hashed_pw["Password('".$POST["Password"]."')"])

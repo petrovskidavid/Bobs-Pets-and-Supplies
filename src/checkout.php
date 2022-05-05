@@ -196,9 +196,10 @@
                     $prepare_product = $pdo->prepare("UPDATE Products SET Quantity=? WHERE ProductID=?");
                     $prepare_product->execute(array($updated_amount, $product_ID));
                 }
-
+                
+                $_SESSION["new_order"] = $orderID;
                 // If everything above was successful, redirect to the order history page
-                header("Location: order_history.php?new_order=".$orderID);
+                header("Location: order_history.php?new_order");
             } 
             else    // If not all 4 fields were filled,
             {

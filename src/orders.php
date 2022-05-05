@@ -6,6 +6,11 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/body.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/header.css" />
     <link rel="stylesheet" type="text/css" href="../assets/css/button.css" />
+	<script>
+    if(window.history.replaceState){
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
 </head>
 
 <body>
@@ -28,39 +33,39 @@
         include("secrets.php"); // Logs into the db
 		include("functions.php"); // Gives the file with the login window creation function
 
-		// Get all information for all orders that are processing or shipped
-		$sql="SELECT * FROM Orders WHERE (Status='2' OR Status='3')";
-		$result = $pdo->query($sql);
-
-		$result = $result->fetchAll(PDO::FETCH_ASSOC); 
-
 		// Creates a return button to the employee home page.
 		create_return_btn("./employee_home.php", 2);
 
 		// Checks if an employee clicked the assign order button
-		if(isset($_GET["assign_order"]))
+		if(isset($_POST["assign_order"]))
 		{
 			// Prepares query to assign the employee to the order they chose
 			$rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
 
 			// Execute query
-            $rows->execute(array($_SESSION["EmpID"], $_GET["OrderID"]));
+            $rows->execute(array($_SESSION["EmpID"], $_POST["OrderID"]));
 
-			// Refresh the screen to have the order move to the employees table of their assigned orders
-			header("Location: ./orders.php?OrderID=".$_GET["OrderID"]."&assigned");
+			echo "<h4 style='position: absolute; left: 50%; top: 140px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>You successfully assigned Order Number <u>".$_POST["OrderID"]."</u> to yourself.</h4>";
 		}
 
-		// Checks if employee assigned an order to themselves to display success message
-		if(isset($_GET["assigned"]))
+		// Check if the "Ship Order" button was clicked
+		if(isset($_POST['ship_order']))
 		{
-			echo "<h4 style='position: absolute; left: 50%; top: 140px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>You successfully assigned Order Number <u>".$_GET["OrderID"]."</u> to yourself.</h4>";
+			// Generate a random tracking number
+			$trackNum = rand(10000000,99999999);
+							
+			// Updated the Orders table to change the status to shipped and put in the tracking number
+			$updateSQL = "UPDATE Orders SET Status=3, TrackingNum=? WHERE OrderID=?";
+			$result = $pdo->prepare($updateSQL);
+			$result->execute(array($trackNum, $_POST["OrderID"]));
+			echo "<h4 style='position: absolute; left: 50%; top: 140px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>You successfully shipped Order Number <u>".$_POST["OrderID"]."</u>.</h4>";
 		}
 
-		// Checks if an order has been just shipped and displays success message
-		if(isset($_GET["shipped"]))
-		{
-			echo "<h4 style='position: absolute; left: 50%; top: 140px; transform: translate(-50%, 0); font-size: 18px; color: #049a89;'>You successfully shipped Order Number <u>".$_GET["OrderID"]."</u>.</h4>";
-		}
+		// Get all information for all orders that are processing or shipped
+		$sql="SELECT * FROM Orders WHERE (Status='2' OR Status='3')";
+		$result = $pdo->query($sql);
+
+		$result = $result->fetchAll(PDO::FETCH_ASSOC); 
 	?>
 
 	<h2 style="text-align:center">Bob's Pets and Supplies Orders</h2>
@@ -115,7 +120,7 @@
 				if($row["EmpID"] == NULL) // Checks if the order doesn't have an employee assigned to it
 				{
 					// Creates a form with a button for the employee to be able to choose the order to complete it
-					echo "<form>";
+					echo "<form method=POST>";
 
 					// Sends the OrderID of the Order that the employee clicks on
 					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
@@ -141,7 +146,7 @@
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
-			<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
+			<td style="text-align:center"> <form action="./order_details.php" method="POST"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 		</tr>
 <?php   }
 		// End the table
@@ -187,7 +192,7 @@
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-				<td style="text-align:center"> <form action="./order_details.php"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
+				<td style="text-align:center"> <form action="./order_details.php" method="POST"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 			</tr>
 	<?php   
 		}

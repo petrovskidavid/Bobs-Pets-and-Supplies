@@ -34,17 +34,17 @@
         include("header.php"); // Creates the header of the page
 
         
-        if(isset($_GET["employee_view"]))          // Checks if an employee is visiting the page
+        if(isset($_POST["employee_view"]))          // Checks if an employee is visiting the page
         {
             // Creates a return button to the orders page for employees
 			create_return_btn("./orders.php", 2);
 
 			// Store EmpID, OrderID for later
 			$emp = $_SESSION["EmpID"];
-			$ID = $_GET["OrderID"];
+			$ID = $_POST["OrderID"];
 
 			// Displays page heading with order number
-			echo "<h4 style='text-align: center; font-size:25px;'>Order Detials for Order #".$ID."</h4>";
+			echo "<h4 style='text-align: center; font-size:25px;'>Order Details for Order #".$ID."</h4>";
 
 			// Check if notes were added
 			if (isset($_POST['add_notes']))
@@ -59,21 +59,6 @@
 			else	// Otherwise, no notes were added
 			{
 				$newNote = null;
-			}
-			
-			// Check if the "Ship Order" button was clicked
-			if(isset($_POST['ship_order']))
-			{
-				// Generate a random tracking number
-				$trackNum = rand(10000000,99999999);
-					
-				// Updated the Orders table to change the status to shipped and put in the tracking number
-				$updateSQL = "UPDATE Orders SET Status=3, TrackingNum=? WHERE OrderID=?";
-				$result = $pdo->prepare($updateSQL);
-				$result->execute(array($trackNum, $ID));
-
-				// Redirect to the orders page
-				header("Location: ./orders.php?EmpID=".$emp."&OrderID=".$_GET["OrderID"]."&shipped");
 			}
 			
 			// Sql to view details of the order
@@ -154,7 +139,7 @@
 				if($row["EmpID"] == NULL) // Checks if the order doesn't have an employee assigned to it
 				{
 					// Creates a form with a button for the employee to be able to choose the order to complete it
-					echo "<form action=\"./orders.php\">";
+					echo "<form action=\"./orders.php\" method=POST>";
 													
 					// Sends the OrderID of the order that the employee clicks on
 					echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
@@ -279,10 +264,8 @@
 				
 					<td>
 						<!-- Display a button for the employee to click to ship the order -->
-						<form method="POST" style="text-align: center">
-							<input type="hidden" name="EmpID" value="<?php echo $emp; ?>" />
-							<input type="hidden" name="OrderID" value="<?php echo $_GET['OrderID']; ?>" />
-							<input type="hidden" name="shipped" value="true" />
+						<form method="POST" action="orders.php" style="text-align: center">
+							<input type="hidden" name="OrderID" value="<?php echo $_POST['OrderID']; ?>" />
 							<input type="submit" name="ship_order" value="Ship Order" class="shipped_btn" />
 						</form>
 					</td>
@@ -293,7 +276,7 @@
 		}
 	}
 	
-        else if (isset($_GET["customer_view"])) // Checks if a customer is visiting the page
+        else if (isset($_POST["customer_view"])) // Checks if a customer is visiting the page
         {
             // Creates a return button to the order history page for the customer
 			create_return_btn("./order_history.php", 1);
@@ -302,10 +285,10 @@
 			$stat = "empty";
 
 			// Store OrderID for later
-			$ID = $_GET["OrderID"];
+			$ID = $_POST["OrderID"];
 			
 			// Displays page heading with order number
-			echo "<h4 style='text-align: center; font-size:25px;'>Order Detials for Order #".$ID."</h4>";
+			echo "<h4 style='text-align: center; font-size:25px;'>Order Details for Order #".$ID."</h4>";
 
 			// Sql to view details of the order
 			$sql="SELECT * FROM Orders WHERE OrderID=?";
