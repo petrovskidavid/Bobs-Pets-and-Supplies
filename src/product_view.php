@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,7 @@
         echo "</td>";
 
         echo "<td class='product_info_view'>";
-        echo "<form method='POST' action=\"cart.php?Username=".$_GET["Username"]."\" >";
+        echo "<form method='POST' action=\"cart.php\" >";
         // Display the product name
         echo "<p class='product_name_view'>$name</p>";
         // Display the product description

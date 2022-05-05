@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 		create_return_btn("./cart.php", 1);
 
         // Saves the customer's username
-        $username = $_GET["Username"];
+        $username = $_SESSION["Username"];
 
         // Saves the current order total
         $order_total = $_GET["Total"];
@@ -93,7 +94,7 @@
         echo "<br/><br/><br/>";
 
         // Create a form for the shipping and billing information that redirects to the same checkout page
-        echo "<form method='POST' action='checkout.php?Username=".$_GET["Username"]."&Total=".$_GET["Total"]."' class='checkout_details'>";
+        echo "<form method='POST' action='checkout.php?Total=".$_GET["Total"]."' class='checkout_details'>";
         echo "<p style='font-size: 18px;'>Please enter your information below to complete your purchase.</p>";
         echo "<br/>";
         echo "<p class='billing_information'>Shipping Address:</p>";
@@ -169,15 +170,6 @@
                 // Set the order status to received 
                 $rows = $pdo->prepare("UPDATE Orders SET Status=2 WHERE OrderID=?");
                 $rows->execute(array($orderID));
-                
-                // Choose a random employee to assign the order to
-                $result = $pdo->query("SELECT EmpID FROM Employees ORDER BY RAND() LIMIT 1");
-                $emp_to_assign = $result->fetch(PDO::FETCH_ASSOC);
-                $emp_to_assign = $emp_to_assign["EmpID"];
-                
-                // Assign the employee to the order
-                $rows = $pdo->prepare("UPDATE Orders SET EmpID=? WHERE OrderID=?");
-                $rows->execute(array($emp_to_assign, $orderID));
 
                 // Get the amounts of each product in the order
                 $rows = $pdo->prepare("SELECT ProductID, Amount FROM Carts WHERE OrderID=?");
@@ -204,9 +196,10 @@
                     $prepare_product = $pdo->prepare("UPDATE Products SET Quantity=? WHERE ProductID=?");
                     $prepare_product->execute(array($updated_amount, $product_ID));
                 }
-
+                
+                $_SESSION["new_order"] = $orderID;
                 // If everything above was successful, redirect to the order history page
-                header("Location: order_history.php?Username=".$_GET["Username"]."&new_order=".$orderID);
+                header("Location: order_history.php?new_order");
             } 
             else    // If not all 4 fields were filled,
             {

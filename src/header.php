@@ -19,7 +19,7 @@
         
         $home_link = "./";
         // Adds return link to the home of the website relative to the current location
-        echo "<a href=$home_link>"; 
+        echo "<a>"; 
 
         // Updates src link to accomodate index.phps location in the repo
         echo "<img src=\"./assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" /></a>";
@@ -36,7 +36,7 @@
         $home_link = "../";
 
         // Adds return link to the home of the website relative to the current location
-        echo "<a href=$home_link>";
+        echo "<a>";
 
         // Updates src link to accomodate the files location in the repo
         echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" /></a>"; 
@@ -49,7 +49,7 @@
             
             // Prepares query to search for an existing cart
             $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
-            $result->execute(array($_GET["Username"]));
+            $result->execute(array($_SESSION["Username"]));
 
             // Fetch an order ID if avaliable
             $orderID = $result->fetch(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@
 
                 // Prepares query to get the total number of items that the customer has in their cart
                 $result = $pdo->prepare("SELECT SUM(Amount) FROM Carts WHERE Username=? AND OrderID=?");
-                $result->execute(array($_GET["Username"], $orderID["OrderID"]));
+                $result->execute(array($_SESSION["Username"], $orderID["OrderID"]));
 
                 // Fetches the row
                 $num_items = $result->fetch(PDO::FETCH_ASSOC);
@@ -73,7 +73,7 @@
             }
     
             // Displays cart icon and sends user to the carts page and saves their username for later use
-            echo "<a href=\"cart.php?Username=".$_GET["Username"]."\" class=\"num_items\" ><img src=\"../assets/img/cart.png\" alt=\"Cart icon\" class=\"cart_icon\" height=50 width=50 />".$num_items."</a>";
+            echo "<a href=\"cart.php\" class=\"num_items\" ><img src=\"../assets/img/cart.png\" alt=\"Cart icon\" class=\"cart_icon\" height=50 width=50 />".$num_items."</a>";
             
         }
 
@@ -105,7 +105,6 @@
                 // Creates a form that sends user to their order history page
                 echo "<form action=\"order_history.php\">";
                 echo "<input type=\"submit\" value=\"Order History\" class=\"order_history\" />";
-                echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." />";
                 echo "</form></td>";
 
                 echo "<td>";
@@ -115,7 +114,7 @@
             echo "<form action=$home_link method=\"POST\">";
             
             // Puts the text and creates a submit button to logout
-            echo "<input type=\"submit\" value=\"Logout\" class=\"logout\" />";
+            echo "<input type=\"submit\" name=\"Logout\" value=\"Logout\" class=\"logout\" />";
             echo "</form>";
 
             // Check to see if we are in the store, product or cart page to add the order history button AGAIN to close the table and cell for layout purposes
@@ -127,7 +126,7 @@
     }
 
     // Prints the name of the store
-    echo "<h2><a href=$home_link>Bob's Pets and Supplies</a></h2>";
+    echo "<h2><a>Bob's Pets and Supplies</a></h2>";
     
     echo "</header>";
 ?>

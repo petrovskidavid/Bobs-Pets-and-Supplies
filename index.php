@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,12 +29,10 @@
          * 
          * CSCI 466 - 1
          */
-
          
         include("./src/header.php"); // Creates the header of the page
         include("./src/secrets.php"); // Logs into the db
         include("./src/functions.php"); // Gives the file with the login window creation function
-
 
         // Creates customer login form
         create_login_window(1);
@@ -51,8 +50,11 @@
                 
                 if($result) // If found redirects to the store page
                 {
-                    // Redirects to store page, and puts Username in GET method to use on the store page
-                    header("Location: ./src/store.php?Username=".$_POST["Username"]); 
+                    // Saves username into session varaible
+                    $_SESSION["Username"] = $_POST["Username"];
+
+                    // Redirects to store page
+                    header("Location: ./src/store.php"); 
                 }
                 else        // Otherwise prints an error message
                 {
@@ -64,5 +66,19 @@
                 echo "<p class=\"login_error\">Enter both Username and Password.</p>";
             }
         } 
+
+        // Checks if the logout button was clicked
+        if (isset($_POST["Logout"])) 
+        {
+            // Checks if a username exists and removes it 
+            if(isset($_SESSION["Username"])){
+                unset($_SESSION["Username"]);
+            }
+
+            // Checks if an employee ID exists and removes it
+            if(isset($_SESSION["EmpID"])){
+                unset($_SESSION["EmpID"]);
+            }
+        }
     ?>
 </body></html>

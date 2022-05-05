@@ -16,11 +16,11 @@ DROP TABLE IF EXISTS Carts, Orders, Customers, Products, Employees;
 
 -- Employees table
 CREATE TABLE Employees(
-    EmpID    CHAR(8)   NOT NULL,  -- Employees ID for each employee
-    Name     CHAR(255) NOT NULL,  -- Employees Name
-    Password CHAR(8)   NOT NULL,  -- Password for Employee login (8 char long)
+    EmpID    CHAR(8)   NOT NULL, -- Employees ID for each employee (8 char max)
+    Name     CHAR(255) NOT NULL, -- Employees Name
+    Password CHAR(255) NOT NULL, -- Password for Employee login (8 char min)
 
-    PRIMARY KEY(EmpID)            -- Sets the primary key (EmpID)
+    PRIMARY KEY(EmpID)           -- Sets the primary key (EmpID)
 );          
 
 
@@ -40,7 +40,7 @@ CREATE TABLE Products(
 -- Customers table
 CREATE TABLE Customers(
     Username CHAR(15)  NOT NULL,  -- Customers username (15 char max)
-    Password CHAR(8)   NOT NULL,  -- Password for customers login (8 char max)
+    Password CHAR(255) NOT NULL,  -- Password for customers login (8 char min)
     Name     CHAR(255) NOT NULL,  -- Customers name
     Email    CHAR(255) NOT NULL,  -- Customers email
 

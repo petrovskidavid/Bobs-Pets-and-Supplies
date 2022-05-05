@@ -1,3 +1,4 @@
+<?php session_start(); /* Start session to save username/EmpID */ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
         /**
          * @file cart.php
          * 
-         * @brief This is the page where the customer can view their cart and start checkout process.
+         * @brief This is the page where the customer can view their cart and start the checkout process.
          * 
          * @author David Petrovski
          * @author Isabelle Coletti
@@ -42,7 +43,7 @@
             // Save the amount to add to cart
             $amount = $_POST["amount"];
             // Save the username
-            $username = $_GET['Username'];
+            $username = $_SESSION['Username'];
              
             // Checks if the customer has any current or past orders in the Carts table
             $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
@@ -155,7 +156,7 @@
 
         // Prepares query to search for an existing cart
         $result = $pdo->prepare("SELECT OrderID FROM Orders WHERE Username=? AND Status=1");
-        $result->execute(array($_GET["Username"]));
+        $result->execute(array($_SESSION["Username"]));
 
         // Fetch an order ID if avaliable
         $orderID = $result->fetch(PDO::FETCH_ASSOC);
@@ -168,7 +169,7 @@
 
             // Prepares query to search for all the items in the customers cart
             $result = $pdo->prepare("SELECT * FROM Carts WHERE Username=? AND OrderID=?");
-            $result->execute(array($_GET["Username"], $orderID));
+            $result->execute(array($_SESSION["Username"], $orderID));
 
             // Saves the list of items in the customers cart
             $items_in_cart = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -195,7 +196,7 @@
                 {
                     // Remove the row in the table with the selected item
                     $result = $pdo->prepare("DELETE FROM Carts WHERE ProductID=? AND Username=? AND OrderID=?");
-                    $result->execute(array($_GET["ProductID"], $_GET["Username"], $_GET["OrderID"])); 
+                    $result->execute(array($_GET["ProductID"], $_SESSION["Username"], $_GET["OrderID"])); 
 
                     // Check if there are any other products in the Cart with the same OrderID
                     $result = $pdo->prepare("SELECT OrderID FROM Carts WHERE OrderID=?");
@@ -211,16 +212,16 @@
                     }
 
                     // Refresh page
-                    header("Location: cart.php?Username=".$_GET["Username"]."&ProductID=".$_GET["ProductID"]."&OrderID=".$_GET["OrderID"]);
+                    header("Location: cart.php?ProductID=".$_GET["ProductID"]."&OrderID=".$_GET["OrderID"]);
                 }
                 else if(isset($_GET["update_qty"])){ // Checks if the update quantity button was clicked
 
                     // Update the row in the table with the new amount
                     $result = $pdo->prepare("UPDATE Carts SET Amount=? WHERE ProductID=? AND Username=?");
-                    $result->execute(array($_GET["amount"], $_GET["ProductID"], $_GET["Username"])); 
+                    $result->execute(array($_GET["amount"], $_GET["ProductID"], $_SESSION["Username"])); 
 
                     // Refresh page
-                    header("Location: cart.php?Username=".$_GET["Username"]);
+                    header("Location: cart.php");
                 }
 
                 // Display the product image
@@ -240,9 +241,6 @@
 
                 // Creates form to update number of items of the selected product
                 echo "<form>";
-
-                // Sends the username so that it is saved
-                echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." />";
 
                 // Sends the productID of the item
                 echo "<input type=\"hidden\" name=\"ProductID\" value=".$product_info["ProductID"]." />";
@@ -276,15 +274,14 @@
 
             // Creates form for checkout button
             echo "<form action=\"checkout.php\" >";
-            // Sends the username to the checkout page
-            echo "<input type=\"hidden\" name=\"Username\" value=".$_GET["Username"]." /><br>";
+            echo "<br>";
             // Sends the order total to the checkout page
             echo "<input type=\"hidden\" name=\"Total\" value=".$order_total." />";
             // Creates the checkout button
             echo "<input type=\"submit\" name=\"checkout\" value=\"Checkout\" class=\"checkout_btn\" >";
             echo "</form>";
 
-            // Add btn to checkout at bottom whole row, then also add delete btn under every quantity
+            // Add button to checkout at bottom whole row, then also add delete button under every quantity
             echo "</table>";
         }
         else 
