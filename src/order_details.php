@@ -34,7 +34,7 @@
         include("header.php"); // Creates the header of the page
 
         
-        if($_SESSION["type_of_view"] = "employee_view")          // Checks if an employee is visiting the page
+        if($_SESSION["type_of_view"] == "employee_view")          // Checks if an employee is visiting the page
         {
             // Creates a return button to the orders page for employees
 			create_return_btn("./orders.php", 2);
@@ -276,7 +276,7 @@
 		}
 	}
 	
-    else if ($_SESSION["type_of_view"] = "customer_view") // Checks if a customer is visiting the page
+    else if ($_SESSION["type_of_view"] == "customer_view") // Checks if a customer is visiting the page
     {
             // Creates a return button to the order history page for the customer
 			create_return_btn("./order_history.php", 1);

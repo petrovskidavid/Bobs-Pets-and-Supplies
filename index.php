@@ -66,5 +66,19 @@
                 echo "<p class=\"login_error\">Enter both Username and Password.</p>";
             }
         } 
+
+        // Checks if the logout button was clicked
+        if (isset($_POST["Logout"])) 
+        {
+            // Checks if a username exists and removes it 
+            if(isset($_SESSION["Username"])){
+                unset($_SESSION["Username"]);
+            }
+
+            // Checks if an employee ID exists and removes it
+            if(isset($_SESSION["EmpID"])){
+                unset($_SESSION["EmpID"]);
+            }
+        }
     ?>
 </body></html>

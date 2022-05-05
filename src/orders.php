@@ -41,7 +41,7 @@
         {
 			// Saves order ID for the order details page and the type of view
             $_SESSION["view_orderID"] = $_POST["OrderID"];
-            $_SESSION["type_of_view"] = "customer_view";
+            $_SESSION["type_of_view"] = "employee_view";
 
 			// Redirects to the order details page
 			header("Location: order_details.php");

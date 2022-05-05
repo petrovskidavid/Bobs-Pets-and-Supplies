@@ -260,33 +260,6 @@ VALUES
 );
 
 
-INSERT INTO Employees
-VALUES
-(
-	'1900409',
-	'Isabelle Coletti',
-	PASSWORD('pink')
-);
-
-
-INSERT INTO Employees
-VALUES
-(
-	'1894079',
-	'David Petrovski',
-	PASSWORD('SlowR6')
-);
-
-
-INSERT INTO Employees
-VALUES
-(
-	'1866286',
-	'Amanda Zedwick',
-	PASSWORD('fox')
-);
-
-
 INSERT INTO Customers
 VALUES
 (
@@ -294,14 +267,4 @@ VALUES
 	PASSWORD('admin'),
 	'admin',
 	'admin@niu.cs.edu'
-);
-
-
-INSERT INTO Customers
-VALUES
-(
-	'petrovskidavid',
-	PASSWORD('SlowR6'),
-	'David Petrovski',
-	'petrovskidavid1@gmail.com'
 );

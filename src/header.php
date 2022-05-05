@@ -19,7 +19,7 @@
         
         $home_link = "./";
         // Adds return link to the home of the website relative to the current location
-        echo "<a href=$home_link>"; 
+        echo "<a>"; 
 
         // Updates src link to accomodate index.phps location in the repo
         echo "<img src=\"./assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" /></a>";
@@ -36,7 +36,7 @@
         $home_link = "../";
 
         // Adds return link to the home of the website relative to the current location
-        echo "<a href=$home_link>";
+        echo "<a>";
 
         // Updates src link to accomodate the files location in the repo
         echo "<img src=\"../assets/img/logo.png\" alt=\"Bob's Pets and Supplies Logo\" class=\"logo\" /></a>"; 
@@ -114,7 +114,7 @@
             echo "<form action=$home_link method=\"POST\">";
             
             // Puts the text and creates a submit button to logout
-            echo "<input type=\"submit\" value=\"Logout\" class=\"logout\" />";
+            echo "<input type=\"submit\" name=\"Logout\" value=\"Logout\" class=\"logout\" />";
             echo "</form>";
 
             // Check to see if we are in the store, product or cart page to add the order history button AGAIN to close the table and cell for layout purposes
@@ -126,7 +126,7 @@
     }
 
     // Prints the name of the store
-    echo "<h2><a href=$home_link>Bob's Pets and Supplies</a></h2>";
+    echo "<h2><a>Bob's Pets and Supplies</a></h2>";
     
     echo "</header>";
 ?>
