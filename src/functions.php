@@ -84,7 +84,7 @@
 
             // Creates a field for verifying the password
             echo "<label for=\"Password\">Confirm Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Confirmed_Password\" maxlength=\"8\" /><br><br><br>";
+            echo "<input type=\"Password\" name=\"Confirmed_Password\" minlength=\"8\" /><br><br><br>";
 
             // Creates sign up button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Sign Up\" /><br>";

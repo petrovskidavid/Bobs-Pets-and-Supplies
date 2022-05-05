@@ -57,7 +57,7 @@
                     {
 
                         // Prepares the query to add a new customer to the Customers table
-                        $result = $pdo->prepare("INSERT INTO Customers VALUES (?, ?, ?, ?)");
+                        $result = $pdo->prepare("INSERT INTO Customers VALUES (?, Password(?), ?, ?)");
 
                         // Executes the query and checks if it the query was successful 
                         if($result->execute(array($_POST["Username"], $_POST["Password"], $_POST["Name"], $_POST["Email"]))){

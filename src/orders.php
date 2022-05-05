@@ -36,6 +36,17 @@
 		// Creates a return button to the employee home page.
 		create_return_btn("./employee_home.php", 2);
 
+		// Checks if an employee wants to view order details
+		if(isset($_POST["view_order"]))
+        {
+			// Saves order ID for the order details page and the type of view
+            $_SESSION["view_orderID"] = $_POST["OrderID"];
+            $_SESSION["type_of_view"] = "customer_view";
+
+			// Redirects to the order details page
+			header("Location: order_details.php");
+        }
+
 		// Checks if an employee clicked the assign order button
 		if(isset($_POST["assign_order"]))
 		{
@@ -146,7 +157,7 @@
 			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
-			<td style="text-align:center"> <form action="./order_details.php" method="POST"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
+			<td style="text-align:center"> <form method="POST"> <input type="submit" name="view_order" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 		</tr>
 <?php   }
 		// End the table
@@ -192,7 +203,7 @@
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
-				<td style="text-align:center"> <form action="./order_details.php" method="POST"> <input type="submit" name="submit" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
+				<td style="text-align:center"> <form method="POST"> <input type="submit" name="view_order" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 			</tr>
 	<?php   
 		}

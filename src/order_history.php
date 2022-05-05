@@ -35,6 +35,17 @@
         // Creates a return button to the store page.
 		create_return_btn("./store.php", 1, "Continue Shopping");
 
+        // Checks if the customer wants to view order details
+        if(isset($_POST["view_order"]))
+        {
+            // Saves order ID for the order details page and the type of view
+            $_SESSION["view_orderID"] = $_POST["OrderID"];
+            $_SESSION["type_of_view"] = "customer_view";
+
+            // Redirects to the order details page
+            header("Location: order_details.php");
+        }
+
         // Check if an order was just placed
         if(isset($_GET["new_order"]))
         {
@@ -111,11 +122,10 @@
             echo "<td style=\"text-align:center\">";
 
             // Creat form to display a button to view individual order details
-            echo "<form action=\"./order_details.php\" method=POST>";
+            echo "<form method=POST>";
             echo "<input type=\"hidden\" name=\"OrderID\" value=".$row["OrderID"]." />";
-            echo "<input type=\"hidden\" name=\"customer_view\" />";
             // Button to view individual order details
-            echo "<input type=\"submit\" name=\"submit\" value=\"View Order Details\"/> </form> </td>";
+            echo "<input type=\"submit\" name=\"view_order\" value=\"View Order Details\"/> </form> </td>";
             echo "</tr>";
             }
             // End the table

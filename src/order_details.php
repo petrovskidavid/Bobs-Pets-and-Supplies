@@ -34,14 +34,14 @@
         include("header.php"); // Creates the header of the page
 
         
-        if(isset($_POST["employee_view"]))          // Checks if an employee is visiting the page
+        if($_SESSION["type_of_view"] = "employee_view")          // Checks if an employee is visiting the page
         {
             // Creates a return button to the orders page for employees
 			create_return_btn("./orders.php", 2);
 
 			// Store EmpID, OrderID for later
 			$emp = $_SESSION["EmpID"];
-			$ID = $_POST["OrderID"];
+			$ID = $_SESSION["view_orderID"];
 
 			// Displays page heading with order number
 			echo "<h4 style='text-align: center; font-size:25px;'>Order Details for Order #".$ID."</h4>";
@@ -256,16 +256,16 @@
 
 				<!-- Display an input box for notes to be added -->
 					Enter Notes Below: <br><br>
-					<textarea style="height:100px; width:600px; text-align:left; resize:none;" name="Notes" maxlength="255"></textarea>
+					<textarea style="height:100px; width:600px; text-align:left; resize:none; font-family: 'Gill Sans', sans-serif;" name="Notes" maxlength="255"></textarea>
 					<br><br>
-					<input align=left type="submit" name="add_notes" value="Add Notes"/>
+					<input align=left style="width: 200px; font-size: 15px;" type="submit" name="add_notes" value="Add Notes"/>
 				</form>
 				</td>
 				
 					<td>
 						<!-- Display a button for the employee to click to ship the order -->
 						<form method="POST" action="orders.php" style="text-align: center">
-							<input type="hidden" name="OrderID" value="<?php echo $_POST['OrderID']; ?>" />
+							<input type="hidden" name="OrderID" value="<?php echo $_SESSION['view_orderID']; ?>" />
 							<input type="submit" name="ship_order" value="Ship Order" class="shipped_btn" />
 						</form>
 					</td>
@@ -276,8 +276,8 @@
 		}
 	}
 	
-        else if (isset($_POST["customer_view"])) // Checks if a customer is visiting the page
-        {
+    else if ($_SESSION["type_of_view"] = "customer_view") // Checks if a customer is visiting the page
+    {
             // Creates a return button to the order history page for the customer
 			create_return_btn("./order_history.php", 1);
 
@@ -285,7 +285,7 @@
 			$stat = "empty";
 
 			// Store OrderID for later
-			$ID = $_POST["OrderID"];
+			$ID = $_SESSION["view_orderID"];
 			
 			// Displays page heading with order number
 			echo "<h4 style='text-align: center; font-size:25px;'>Order Details for Order #".$ID."</h4>";
@@ -449,5 +449,5 @@
 
 		} 
 
-        } ?>
+    } ?>
 </body></html>
