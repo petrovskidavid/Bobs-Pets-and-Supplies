@@ -33,11 +33,11 @@
 
             // Creates field for username input
             echo "<label for=\"Username\">Username: </label><br>";
-            echo "<input type=\"text\" name=\"Username\" maxlength=\"15\" /><br><br>";
+            echo "<input type=\"text\" name=\"Username\" maxlength=\"15\"/><br><br>";
 
             // Creates a field for password input
             echo "<label for=\"Password\">Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Password\" maxlength=\"8\" /><br><br><br>";
+            echo "<input type=\"Password\" name=\"Password\" /><br><br><br>";
 
             // Creates login button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
@@ -52,11 +52,11 @@
 
             // Creates field for employee ID input
             echo "<label for=\"EmpID\">Employee ID: </label><br>";
-            echo "<input type=\"text\" name=\"EmpID\" maxlength=\"8\" /><br><br>";
+            echo "<input type=\"text\" name=\"EmpID\" /><br><br>";
 
             // Creates a field for password input
             echo "<label for=\"Password\">Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Password\" maxlength=\"8\" /><br><br><br>";
+            echo "<input type=\"Password\" name=\"Password\" /><br><br><br>";
 
             // Creates login button
             echo "<input class=\"login_btn\" type=\"submit\" name=\"login\" value=\"Log In\" /><br>";
@@ -76,11 +76,11 @@
 
             // Creates field for username input
             echo "<label for=\"Username\">Username: </label><br>";
-            echo "<input type=\"text\" name=\"Username\" maxlength=\"15\" /><br><br>";
+            echo "<input type=\"text\" name=\"Username\" maxlength=\"15\" pattern=\"\\S*$\" title=\"Avoid using spaces in your username.\" /><br><br>";
 
             // Creates a field for creating a password
             echo "<label for=\"Password\">Password: </label><br>";
-            echo "<input type=\"Password\" name=\"Password\" maxlength=\"8\" /><br><br>";
+            echo "<input type=\"Password\" name=\"Password\" minlength=\"8\" /><br><br>";
 
             // Creates a field for verifying the password
             echo "<label for=\"Password\">Confirm Password: </label><br>";
@@ -144,10 +144,26 @@
             else           // Otherwise it searches for a matching Username/EmpID and Password
             {
 
+                // add code that convers password to the sql hashed password, also add code that makes a password hashed when a user creates an account
+
                 // Checks for a Username/EmpID and Password that matches
-                if($row[$first_field] == $POST[$first_field] and $row["Password"] == $POST["Password"])
+                if($row[$first_field] == $POST[$first_field] and $row["Password"])
                 {
-                    return true;
+
+                    // Prepares query to get hashed version of password from POST
+                    $hashed_pw = $pdo->prepare("SELECT Password(?)");
+                    $hashed_pw->execute(array($POST["Password"]));
+
+                    // Fetches the password
+                    $hashed_pw = $hashed_pw->fetch(PDO::FETCH_ASSOC);
+                    
+                    print_r($hashed_pw);
+
+                    // Checks if the hashed password matches the one from the db for the current user
+                    if($row["Password"] == $hashed_pw["Password('".$POST["Password"]."')"])
+                    {
+                      return true;  
+                    }
                 }
             }
         }

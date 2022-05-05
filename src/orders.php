@@ -72,7 +72,7 @@
 	echo "<tr><td>";
 	if(empty($result))
 	{
-		echo "<h4>There are no orders to process at this time.</h4>";
+		echo "<h4 align=center>There are no orders to process at this time.</h4>";
 	}
 	else
 	{
