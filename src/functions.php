@@ -147,7 +147,7 @@
                 // add code that convers password to the sql hashed password, also add code that makes a password hashed when a user creates an account
 
                 // Checks for a Username/EmpID and Password that matches
-                if($row[$first_field] == $POST[$first_field] and $row["Password"])
+                if($row[$first_field] == $POST[$first_field])
                 {
 
                     // Prepares query to get hashed version of password from POST

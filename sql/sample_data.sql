@@ -256,7 +256,7 @@ VALUES
 (
 	'admin',
 	'admin',
-	PASSWORD('admin')
+	PASSWORD('12345678')
 );
 
 
@@ -264,7 +264,151 @@ INSERT INTO Customers
 VALUES
 (
 	'admin',
-	PASSWORD('admin'),
+	PASSWORD('12345678'),
 	'admin',
 	'admin@niu.cs.edu'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
+	'DavidP',
+	PASSWORD('password'),
+	'David',
+	'petrovskidavid1@gmail.com'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
+	'AmandaZ',
+	PASSWORD('password'),
+	'Amanda',
+	'amanda@amandamail.com'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
+	'IzzyC',
+	PASSWORD('password'),
+	'Isabelle',
+	'izzy@izzymail.com'
+);
+
+
+INSERT INTO Customers
+VALUES
+(
+	'BobO',
+	PASSWORD('password'),
+	'Bob',
+	'bob@bobmail.com'
+);
+
+
+INSERT INTO Orders
+(OrderID, Username, Total, Status, Address)
+VALUES
+(
+	'1247',
+	'admin',
+	'42.55',
+	'2',
+	"1425 W Lincoln Hwy, DeKalb, IL 60115"
+);
+
+INSERT INTO Carts
+VALUES
+(
+	'1247',
+	'1',
+	'admin',
+	'1'
+);
+
+
+INSERT INTO Orders
+(OrderID, Username, Total, Status, Address)
+VALUES
+(
+	'1248',
+	'IzzyC',
+	'89.31',
+	'2',
+	"1425 W Lincoln Hwy, DeKalb, IL 60115"
+);
+
+INSERT INTO Carts
+VALUES
+(
+	'1248',
+	'15',
+	'IzzyC',
+	'1'
+);
+
+
+INSERT INTO Orders
+(OrderID, Username, Total, Status, Address)
+VALUES
+(
+	'1249',
+	'BobO',
+	'315.27',
+	'2',
+	"1425 W Lincoln Hwy, DeKalb, IL 60115"
+);
+
+INSERT INTO Carts
+VALUES
+(
+	'1249',
+	'16',
+	'BobO',
+	'2'
+);
+
+
+INSERT INTO Orders
+(OrderID, Username, Total, Status, Address)
+VALUES
+(
+	'1250',
+	'DavidP',
+	'525.44',
+	'2',
+	'1425 W Lincoln Hwy, DeKalb, IL 60115'
+);
+
+INSERT INTO Carts
+VALUES
+(
+	'1250',
+	'18',
+	'DavidP',
+	'1'
+);
+
+INSERT INTO Orders
+(OrderID, Username, Total, Status, Address)
+VALUES
+(
+	'1251',
+	'AmandaZ',
+	'47.81',
+	'2',
+	'1425 W Lincoln Hwy, DeKalb, IL 60115'
+);
+
+INSERT INTO Carts
+VALUES
+(
+	'1251',
+	'13',
+	'AmandaZ',
+	'1'
 );

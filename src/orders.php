@@ -121,6 +121,16 @@
 			{
 				$stat = "<b style=\"color:#049a89;\">Shipped</b>";
 			} 
+
+			// Check if there is a tracking number
+			if($row["TrackingNum"] == NULL)
+			{
+				$tracking_num = "Order Not Shipped";
+			}
+			else 
+			{
+				$tracking_num = $row["TrackingNum"];
+			}
 			
 ?>
 		<tr bgcolor="#FAFAFA">
@@ -154,7 +164,7 @@
 				}
 			?> </td>
 			<!-- Print the rest of the order information -->
-			<td style="text-align:center"> <?php echo "$row[TrackingNum]"; ?> </td>
+			<td style="text-align:center"> <?php echo "$tracking_num"; ?> </td>
 			<td style="text-align:center"> <?php echo "$row[Address]"; ?> </td>
 			<td style="text-align:center"> <?php echo "$stat"; ?> </td>
 			<td style="text-align:center"> <form method="POST"> <input type="submit" name="view_order" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
@@ -197,11 +207,21 @@
 
 		// Loop through every order assigned to the current employee logged in
 		foreach($result2 as $row2)
-		{ ?> 
+		{ 
+			// Check if there is a tracking number
+			if($row2["TrackingNum"] == NULL)
+			{
+				$tracking_num = "Order Not Shipped";
+			}
+			else 
+			{
+				$tracking_num = $row2["TrackingNum"];
+			}
+			?> 
 			<!-- Display order information -->
 			<tr bgcolor="#FAFAFA">
 				<td style="text-align:center"> <?php echo "$row2[OrderID]"; ?> </td>
-				<td style="text-align:center"> <?php echo "$row2[TrackingNum]"; ?> </td>
+				<td style="text-align:center"> <?php echo "$tracking_num"; ?> </td>
 				<td style="text-align:center"> <?php echo "$row2[Address]"; ?> </td>
 				<td style="text-align:center"> <form method="POST"> <input type="submit" name="view_order" value="View Order Details"/><input type="hidden" name="OrderID" value=<?php echo $row2["OrderID"]; ?> /><input type="hidden" name="employee_view" /></form> </td>
 			</tr>
