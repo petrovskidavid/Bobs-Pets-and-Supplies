@@ -1,30 +1,18 @@
-# CSCI 466 Project
+# Bob's Pets and Supplies - CSCI 466 E-Commerce Project
 by David Petrovski, Isabelle Coletti, Amanda Zedwick
 
 ## Bobs Pets and Supplies
+This is the repo for our E-Commerce project. This website is an online pet supplies store, where you have the ability to create an account, put items in your cart and make fake purchases. Furthermore, there is an employee protal where the employees can pick which order they wish to "fullfil" and then "ship out" which will then give the customer a "tracking number" for their order and the status will be updated.
 
-This is the repo for our project, and this README.md will be updated as we build the website.
+**IMPORTANT: Do NOT put real credit card infromation when making the fake purchases.**
 
-### Instructions
-1. Clone this repo to your local machine, turing or hopper.
-2. Change the branch to your development branch.
-3. Put your login info in the `secrets.php` file and push it your branch of the repo.
+### Login Credentials
+To login as a customer or employee use the following credentials
+- Username: **admin**
+- Password: **12345678**
 
+Note: The passwords are encrypted in the database for a basic form of protection for the users accounts.
 
-### To do list:
-1.  ~~Create ER diagram.~~
-2. ~~Write explanations for ER diagram.~~
-3. ~~Create Relational Schema.~~
-4. ~~Create database and sample data sql.~~
-5. ~~Create 'secrets.php' file~~
-6. ~~Create php file that connects to database~~
-7. ~~Create login screen and welcome screen for customers~~
-8. ~~Create button to go to employees screen for login~~
-9. ~~Create login screen for employee~~
-10. Create store page with products
-11. Create employee home page
-12. Create cart logo and show it in store page for user to be able to click on it
-13. Create cart page
-14. Enable user to add to cart
-15. Enable user to purchase products
-16. ...
+Give the website a look at: http://students.cs.niu.edu/~z1894079/csci466/Bobs-Pets-and-Supplies
+
+Thank you!
